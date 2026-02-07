@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generando Auditoría - RON3IA</title>
+    <style>
+        body { background: #050505; color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .container { max-width: 600px; text-align: center; padding: 20px; }
+        .loader { width: 50px; height: 50px; border: 5px solid #222; border-top: 5px solid #00ff88; border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #resultado { display: none; background: #111; padding: 30px; border-radius: 15px; border: 1px solid #00ff88; margin-top: 20px; text-align: left; }
+        .score { font-size: 4em; color: #00ff88; font-weight: bold; text-align: center; }
+        .badge { display: inline-block; padding: 5px 12px; border-radius: 20px; background: #00ff88; color: black; font-weight: bold; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="loading-screen">
+        <div class="badge">PAGO CONFIRMADO ✅</div>
+        <h1>Iniciando Motores de IA...</h1>
+        <p>Estamos consultando a los agentes de ChatGPT y Gemini para auditar tu visibilidad GEO.</p>
+        <div class="loader"></div>
+        <p style="color: #666;">No cierres esta pestaña. Tardará unos 15-20 segundos.</p>
+    </div>
+
+    <div class="container" id="resultado">
+        <div class="badge">REPORTE FINAL</div>
+        <div id="final-brand" style="font-size: 1.2em; margin-bottom: 10px;"></div>
+        <div class="score" id="final-score">0%</div>
+        <h3 id="final-grade" style="text-align: center; margin-top: 0;"></h3>
+        <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+        <h4>📋 Hoja de Ruta Estratégica:</h4>
+        <ul id="roadmap-list" style="line-height: 1.6;"></ul>
+        <button onclick="window.print()" style="width: 100%; padding: 15px; background: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 20px;">Descargar Reporte PDF</button>
+    </div>
+
+    <script>
+        window.onload = async () => {
+            // Datos por defecto (Puedes enviarlos desde el formulario anterior o dejar fijos para pruebas)
+            const brand = "Tu Marca"; 
+            const domain = "tudominio.com";
+
+            try {
+                // Llamada a la función de Netlify que configuramos
+                const response = await fetch('/.netlify/functions/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ brand, domain, email: "cliente@pago.com" })
+                });
+
+                const data = await response.json();
+
+                // Ocultar carga y mostrar resultado
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('resultado').style.display = 'block';
+
+                // Rellenar datos
+                document.getElementById('final-brand').innerText = "Análisis para: " + brand;
+                document.getElementById('final-score').innerText = data.geo_score + "%";
+                document.getElementById('final-grade').innerText = "Veredicto: " + data.grade;
+
+                const list = document.getElementById('roadmap-list');
+                data.strategic_roadmap.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerText = item;
+                    list.appendChild(li);
+                });
+
+            } catch (error) {
+                alert("Hubo un error al generar el reporte. Contacta a soporte.");
+                console.error(error);
+            }
+        };
+    </script>
+</body>
+</html>
