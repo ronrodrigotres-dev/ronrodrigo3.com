@@ -3,17 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RON3IA | GEO Services</title>
+    <title>RON3IA | Marketing Intelligence for the AI Era</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; }
-        .glass { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 136, 0.2); transition: all 0.3s ease; }
-        .glass:hover { border-color: #00ff88; box-shadow: 0 0 20px rgba(0, 255, 136, 0.1); }
+        .glass { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 136, 0.1); transition: all 0.3s ease; }
+        .glass:hover { border-color: #00ff88; box-shadow: 0 0 30px rgba(0, 255, 136, 0.05); transform: translateY(-5px); }
         .neon-text { color: #00ff88; text-shadow: 0 0 10px rgba(0, 255, 136, 0.5); }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 50; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
+        .modal.active { display: flex; }
     </style>
 </head>
 <body class="py-12 px-4">
+
+    <div id="contactModal" class="modal px-4">
+        <div class="glass p-8 rounded-3xl max-w-md w-full border border-green-500/30">
+            <h3 class="text-2xl font-bold mb-2 neon-text">Solicitar Información</h3>
+            <p class="text-gray-400 text-sm mb-6">Ingresa tus datos para recibir el diagnóstico o la propuesta técnica de RON3IA.</p>
+            <form id="leadForm" class="space-y-4">
+                <input type="text" placeholder="Nombre completo" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
+                <input type="email" placeholder="Email corporativo" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
+                <input type="text" placeholder="Empresa / Sitio Web" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
+                <button type="submit" class="w-full py-3 rounded-xl bg-green-500 text-black font-bold hover:bg-green-400 transition-all">Enviar y Recibir Información</button>
+            </form>
+            <button onclick="closeModal()" class="mt-4 text-xs text-gray-500 hover:text-white w-full text-center uppercase tracking-widest">Cerrar</button>
+        </div>
+    </div>
+
     <header class="max-w-6xl mx-auto text-center mb-16">
         <h1 class="text-6xl font-black tracking-tighter mb-4">RON3<span class="neon-text">IA</span></h1>
         <p class="text-gray-400 uppercase tracking-widest text-sm">Marketing Intelligence for the AI Era</p>
@@ -21,47 +38,83 @@
 
     <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <div class="glass p-8 rounded-3xl border-2 border-dashed border-green-500/50">
-            <span class="text-xs font-bold bg-green-500 text-black px-3 py-1 rounded-full uppercase">Gratis</span>
-            <h2 class="text-2xl font-bold mt-4 mb-2">Informe Express</h2>
-            <p class="text-gray-400 text-sm mb-6">Diagnóstico rápido: ¿Tu marca existe para los modelos de IA? (Sin detalles técnicos).</p>
-            <button class="w-full py-3 rounded-xl border border-green-500 text-green-500 font-bold hover:bg-green-500 hover:text-black transition-all">Probar Gratis</button>
+        <div class="glass p-8 rounded-3xl border-2 border-dashed border-green-500/50 flex flex-col justify-between">
+            <div>
+                <span class="text-xs font-bold bg-green-500 text-black px-3 py-1 rounded-full uppercase">Acceso Gratuito</span>
+                <h2 class="text-2xl font-bold mt-4 mb-2">Escaneo de Invisibilidad IA</h2>
+                <p class="text-gray-400 text-sm mb-6">Diagnóstico de Relevancia: Descubre si tu marca es invisible para los modelos que hoy deciden las compras de tus clientes.</p>
+            </div>
+            <button onclick="openModal()" class="w-full py-3 rounded-xl border border-green-500 text-green-500 font-bold hover:bg-green-500 hover:text-black transition-all">Iniciar Escaneo</button>
         </div>
 
-        <div class="glass p-8 rounded-3xl">
-            <span class="text-xs font-bold bg-white/10 text-gray-300 px-3 py-1 rounded-full uppercase">$10 USD</span>
-            <h2 class="text-2xl font-bold mt-4 mb-2">Auditoría Full GEO</h2>
-            <p class="text-gray-400 text-sm mb-6">Informe completo de visibilidad, sentimiento y hoja de ruta para dominar las respuestas de IA.</p>
-            <button onclick="location.href='https://buy.stripe.com/test_3cIcN56Ll9sV9PW9vo7wA00'" class="w-full py-3 rounded-xl bg-green-500 text-black font-bold hover:bg-green-400 shadow-lg shadow-green-500/20 transition-all">Comprar Ahora</button>
+        <div class="glass p-8 rounded-3xl flex flex-col justify-between">
+            <div>
+                <span class="text-xs font-bold bg-white/10 text-gray-300 px-3 py-1 rounded-full uppercase">Alta Demanda</span>
+                <h2 class="text-2xl font-bold mt-4 mb-2">Certificación GEO / AEO</h2>
+                <p class="text-gray-400 text-sm mb-6">Optimizamos tu ecosistema para que ChatGPT, Gemini y Perplexity citen tu marca como la autoridad oficial.</p>
+            </div>
+            <button onclick="openModal()" class="w-full py-3 rounded-xl bg-green-500 text-black font-bold hover:bg-green-400 shadow-lg shadow-green-500/20 transition-all">Solicitar Consultoría</button>
         </div>
 
-        <div class="glass p-8 rounded-3xl">
-            <h2 class="text-2xl font-bold mt-4 mb-2">Inyección de Entidades</h2>
-            <p class="text-gray-400 text-sm mb-6">Optimización de datos estructurados para que la IA te recomiende como líder de categoría.</p>
-            <button class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Consultar</button>
+        <div class="glass p-8 rounded-3xl flex flex-col justify-between">
+            <div>
+                <span class="text-xs font-bold bg-red-500/20 text-red-400 px-3 py-1 rounded-full uppercase border border-red-500/30">Crítico</span>
+                <h2 class="text-2xl font-bold mt-4 mb-2">Server-Side Tracking</h2>
+                <p class="text-gray-400 text-sm mb-6">Recuperamos el 40% de tus datos de conversión perdidos implementando infraestructura de trazabilidad propia.</p>
+            </div>
+            <button onclick="openModal()" class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Consultar Implementación</button>
         </div>
 
-        <div class="glass p-8 rounded-3xl">
-            <h2 class="text-2xl font-bold mt-4 mb-2">Blindaje Reputacional</h2>
-            <p class="text-gray-400 text-sm mb-6">Corregimos alucinaciones y respuestas negativas de ChatGPT/Gemini sobre tu negocio.</p>
-            <button class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Consultar</button>
+        <div class="glass p-8 rounded-3xl flex flex-col justify-between">
+            <div>
+                <h2 class="text-2xl font-bold mt-4 mb-2">Inteligencia UX Gemini</h2>
+                <p class="text-gray-400 text-sm mb-6">Auditoría de jerarquía visual y mensaje mediante modelos de lenguaje para eliminar fricciones de venta.</p>
+            </div>
+            <button onclick="openModal()" class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Ver Detalles</button>
         </div>
 
-        <div class="glass p-8 rounded-3xl">
-            <h2 class="text-2xl font-bold mt-4 mb-2">Autoridad Tópica</h2>
-            <p class="text-gray-400 text-sm mb-6">Estrategia de contenido diseñada para ser la fuente de datos oficial de los LLMs.</p>
-            <button class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Consultar</button>
+        <div class="glass p-8 rounded-3xl flex flex-col justify-between">
+            <div>
+                <h2 class="text-2xl font-bold mt-4 mb-2">Arquitectura RevOps</h2>
+                <p class="text-gray-400 text-sm mb-6">Unificación de marketing y ventas en un motor automatizado. Implementación experta de HubSpot o Salesforce.</p>
+            </div>
+            <button onclick="openModal()" class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Cotizar Proyecto</button>
         </div>
 
-        <div class="glass p-8 rounded-3xl">
-            <h2 class="text-2xl font-bold mt-4 mb-2">RON3IA Enterprise</h2>
-            <p class="text-gray-400 text-sm mb-6">Monitoreo mensual de visibilidad en IA para agencias y grandes corporaciones.</p>
-            <button class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Consultar</button>
+        <div class="glass p-8 rounded-3xl flex flex-col justify-between">
+            <div>
+                <span class="text-xs font-bold bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full uppercase border border-purple-500/30">Premium</span>
+                <h2 class="text-2xl font-bold mt-4 mb-2">Blindaje de Autoridad</h2>
+                <p class="text-gray-400 text-sm mb-6">Gestión de señales externas y PR digital para validar tu confianza ante las IAs y evitar alucinaciones.</p>
+            </div>
+            <button onclick="openModal()" class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Solicitar Auditoría</button>
         </div>
     </main>
 
     <footer class="mt-20 text-center text-gray-600 text-xs">
-        &copy; 2026 RON3IA | Marketing Intelligence Engine
+        &copy; 2026 RON3IA | Marketing Intelligence Engine | Santiago, Chile
     </footer>
+
+    <script>
+        function openModal() {
+            document.getElementById('contactModal').classList.add('active');
+        }
+        function closeModal() {
+            document.getElementById('contactModal').classList.remove('active');
+        }
+        // Cerrar al hacer clic fuera del contenido
+        window.onclick = function(event) {
+            let modal = document.getElementById('contactModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+        // Simulación de envío
+        document.getElementById('leadForm').onsubmit = function(e) {
+            e.preventDefault();
+            alert('¡Información recibida! En breve un consultor de RON3IA se pondrá en contacto contigo.');
+            closeModal();
+        }
+    </script>
 </body>
 </html>
