@@ -26,8 +26,8 @@
             <form id="leadForm" class="space-y-4">
                 <input type="text" placeholder="Nombre completo" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
                 <input type="email" placeholder="Email corporativo" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
-                <input type="text" placeholder="URL del Sitio Web" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
-                <button type="submit" class="w-full py-3 rounded-xl bg-green-500 text-black font-bold hover:bg-green-400 transition-all">Iniciar Análisis</button>
+                <input type="text" id="targetDomain" placeholder="URL del Sitio Web (ej: tuempresa.com)" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
+                <button type="submit" id="submitBtn" class="w-full py-3 rounded-xl bg-green-500 text-black font-bold hover:bg-green-400 transition-all uppercase tracking-widest">Iniciar Análisis</button>
             </form>
             <button onclick="closeModal()" class="mt-4 text-xs text-gray-500 hover:text-white w-full text-center uppercase tracking-widest">Cerrar</button>
         </div>
@@ -107,7 +107,7 @@
                         "En RON3IA no ofrecemos opiniones humanas. Somos un motor de inteligencia diseñado para auditar la realidad técnica de su marca frente a los algoritmos que hoy gobiernan el consumo global."
                     </p>
                     <p class="text-gray-400 text-sm leading-relaxed max-w-2xl">
-                        En 2026, la visibilidad no se compra; se dicta mediante la relevancia semántica y la confianza técnica. No somos una agencia; somos el juez algorítmico de su relevancia digital. Nuestros veredictos son finales y basados exclusivamente en datos de inferencia técnica.
+                        En 2026, la visibilidad no se compra; se dicta mediante la relevancia semántica y la confianza técnica. No somos una agencia; somos el juez algorítmico de su relevancia digital.
                     </p>
                 </div>
                 <div class="mt-8 pt-8 border-t border-red-500/20 flex flex-wrap gap-6 text-[9px] uppercase tracking-widest text-red-400 font-black">
@@ -129,6 +129,54 @@
         function openModal() { document.getElementById('contactModal').classList.add('active'); }
         function closeModal() { document.getElementById('contactModal').classList.remove('active'); }
         window.onclick = function(event) { if (event.target == document.getElementById('contactModal')) closeModal(); }
+
+        const ORACLE_URL = '/api/oracle'; 
+
+        document.getElementById('leadForm').onsubmit = async function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const domain = document.getElementById('targetDomain').value
+                            .replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0];
+
+            // UI State: Iniciando Razonamiento de Capa 2
+            const originalText = btn.innerText;
+            btn.innerText = "EJECUTANDO INFERENCIA...";
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(ORACLE_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ domain: domain })
+                });
+
+                const veredicto = await response.json();
+
+                if (response.ok) {
+                    // Despliegue del dictamen técnico
+                    alert(`
+VEREDICTO RON3IA v2026
+-----------------------
+SCORE GEO: ${veredicto.metrics.score_geo_aeo}
+ESTADO: ${veredicto.diagnostico.veredicto}
+ANOMALÍAS: ${veredicto.diagnostico.fricciones_detectadas.join(', ') || 'Ninguna'}
+
+Nota: Este veredicto es final y basado en inferencia algorítmica.
+                    `);
+                } else {
+                    throw new Error(veredicto.error || 'Fallo en la conexión');
+                }
+            } catch (err) {
+                // Fallback preventivo
+                alert("SISTEMA EN CALIBRACIÓN: El sensor detectó una anomalía externa. Intente en 60 segundos.");
+                console.error("Error del Oráculo:", err);
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>
