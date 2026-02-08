@@ -3,55 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RON3IA | Sistema Operativo</title>
+    <title>RON3IA | GEO Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #000000;
-            color: #00ff88;
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-
-        .container {
-            border: 1px solid #00ff88;
-            padding: 3rem;
-            border-radius: 2rem;
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
-        }
-
-        h1 {
-            font-weight: 900;
-            font-size: 3.5rem;
-            margin: 0;
-            letter-spacing: -2px;
-            text-transform: uppercase;
-        }
-
-        p {
-            color: #ffffff;
-            font-weight: 400;
-            letter-spacing: 2px;
-            margin-top: 1rem;
-            opacity: 0.8;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; }
+        .glass { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 136, 0.2); transition: all 0.3s ease; }
+        .glass:hover { border-color: #00ff88; box-shadow: 0 0 20px rgba(0, 255, 136, 0.1); }
+        .neon-text { color: #00ff88; text-shadow: 0 0 10px rgba(0, 255, 136, 0.5); }
     </style>
 </head>
-<body>
-    <div class="container">
-        <h1>RON3IA</h1>
-        <p>SISTEMA OPERATIVO ACTIVO</p>
-        <div style="margin-top: 2rem; color: #00ff88; font-size: 0.8rem; font-family: monospace;">
-            [ UTF-8 VERIFIED // STATUS: ONLINE ]
+<body class="py-12 px-4">
+    <header class="max-w-6xl mx-auto text-center mb-16">
+        <h1 class="text-6xl font-black tracking-tighter mb-4">RON3<span class="neon-text">IA</span></h1>
+        <p class="text-gray-400 uppercase tracking-widest text-sm">Marketing Intelligence for the AI Era</p>
+    </header>
+
+    <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="glass p-8 rounded-3xl border-2 border-dashed border-green-500/50">
+            <span class="text-xs font-bold bg-green-500 text-black px-3 py-1 rounded-full uppercase">Gratis</span>
+            <h2 class="text-2xl font-bold mt-4 mb-2">Informe Express</h2>
+            <p class="text-gray-400 text-sm mb-6">Diagnóstico rápido: ¿Tu marca existe para los modelos de IA? (Sin detalles técnicos).</p>
+            <button class="w-full py-3 rounded-xl border border-green-500 text-green-500 font-bold hover:bg-green-500 hover:text-black transition-all">Probar Gratis</button>
         </div>
-    </div>
+
+        <div class="glass p-8 rounded-3xl">
+            <span class="text-xs font-bold bg-white/10 text-gray-300 px-3 py-1 rounded-full uppercase">$10 USD</span>
+            <h2 class="text-2xl font-bold mt-4 mb-2">Auditoría Full GEO</h2>
+            <p class="text-gray-400 text-sm mb-6">Informe completo de visibilidad, sentimiento y hoja de ruta para dominar las respuestas de IA.</p>
+            <button onclick="location.href='https://buy.stripe.com/test_3cIcN56Ll9sV9PW9vo7wA00'" class="w-full py-3 rounded-xl bg-green-500 text-black font-bold hover:bg-green-400 shadow-lg shadow-green-500/20 transition-all">Comprar Ahora</button>
+        </div>
+
+        <div class="glass p-8 rounded-3xl">
+            <h2 class="text-2xl font-bold mt-4 mb-2">Inyección de Entidades</h2>
+            <p class="text-gray-400 text-sm mb-6">Optimización de datos estructurados para que la IA te recomiende como líder de categoría.</p>
+            <button class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Consultar</button>
+        </div>
+
+        <div class="glass p-8 rounded-3xl">
+            <h2 class="text-2xl font-bold mt-4 mb-2">Blindaje Reputacional</h2>
+            <p class="text-gray-400 text-sm mb-6">Corregimos alucinaciones y respuestas negativas de ChatGPT/Gemini sobre tu negocio.</p>
+            <button class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Consultar</button>
+        </div>
+
+        <div class="glass p-8 rounded-3xl">
+            <h2 class="text-2xl font-bold mt-4 mb-2">Autoridad Tópica</h2>
+            <p class="text-gray-400 text-sm mb-6">Estrategia de contenido diseñada para ser la fuente de datos oficial de los LLMs.</p>
+            <button class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Consultar</button>
+        </div>
+
+        <div class="glass p-8 rounded-3xl">
+            <h2 class="text-2xl font-bold mt-4 mb-2">RON3IA Enterprise</h2>
+            <p class="text-gray-400 text-sm mb-6">Monitoreo mensual de visibilidad en IA para agencias y grandes corporaciones.</p>
+            <button class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Consultar</button>
+        </div>
+    </main>
+
+    <footer class="mt-20 text-center text-gray-600 text-xs">
+        &copy; 2026 RON3IA | Marketing Intelligence Engine
+    </footer>
 </body>
 </html>
