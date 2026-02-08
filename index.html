@@ -13,108 +13,110 @@
         .neon-text { color: #00ff88; text-shadow: 0 0 10px rgba(0, 255, 136, 0.5); }
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 50; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
         .modal.active { display: flex; }
+        .manifesto-border { border-left: 2px solid #00ff88; padding-left: 2rem; }
     </style>
 </head>
 <body class="py-12 px-4">
 
     <div id="contactModal" class="modal px-4">
         <div class="glass p-8 rounded-3xl max-w-md w-full border border-green-500/30">
-            <h3 class="text-2xl font-bold mb-2 neon-text">Solicitar Información</h3>
-            <p class="text-gray-400 text-sm mb-6">Ingresa tus datos para recibir el diagnóstico o la propuesta técnica de RON3IA.</p>
+            <h3 class="text-2xl font-bold mb-2 neon-text">Diagnóstico de Capa 3</h3>
+            <p class="text-gray-400 text-sm mb-6">Inicia el proceso de recolección y análisis IA para tu marca.</p>
             <form id="leadForm" class="space-y-4">
                 <input type="text" placeholder="Nombre completo" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
                 <input type="email" placeholder="Email corporativo" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
-                <input type="text" placeholder="Empresa / Sitio Web" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
-                <button type="submit" class="w-full py-3 rounded-xl bg-green-500 text-black font-bold hover:bg-green-400 transition-all">Enviar y Recibir Información</button>
+                <input type="text" placeholder="URL del Sitio Web" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
+                <button type="submit" class="w-full py-3 rounded-xl bg-green-500 text-black font-bold hover:bg-green-400 transition-all">Ejecutar Escaneo</button>
             </form>
             <button onclick="closeModal()" class="mt-4 text-xs text-gray-500 hover:text-white w-full text-center uppercase tracking-widest">Cerrar</button>
         </div>
     </div>
 
-    <header class="max-w-6xl mx-auto text-center mb-16">
-        <h1 class="text-6xl font-black tracking-tighter mb-4">RON3<span class="neon-text">IA</span></h1>
-        <p class="text-gray-400 uppercase tracking-widest text-sm">Marketing Intelligence for the AI Era</p>
+    <header class="max-w-6xl mx-auto text-center mb-12">
+        <h1 class="text-7xl font-black tracking-tighter mb-4">RON3<span class="neon-text">IA</span></h1>
+        <p class="text-gray-400 uppercase tracking-widest text-xs">Marketing Intelligence for the AI Era</p>
     </header>
+
+    <section class="max-w-4xl mx-auto mb-20">
+        <div class="manifesto-border">
+            <h2 class="text-sm font-bold uppercase tracking-[0.3em] text-green-500 mb-6">Manifiesto de la Verdad Algorítmica</h2>
+            <p class="text-xl font-light leading-relaxed text-gray-300 italic">
+                "En RON3IA no ofrecemos opiniones humanas. Somos un motor de inteligencia diseñado para auditar la realidad técnica de su marca frente a los algoritmos que hoy gobiernan el consumo global. En 2026, la visibilidad no se compra; se dicta mediante la relevancia semántica y la confianza técnica. No somos una agencia; somos el juez algorítmico de su relevancia digital."
+            </p>
+            <div class="mt-6 flex gap-8 text-[10px] uppercase tracking-widest text-gray-500 font-bold">
+                <span>Cero Sesgo Humano</span>
+                <span>Ingeniería de Inferencia</span>
+                <span>Veredicto Cerrado</span>
+            </div>
+        </div>
+    </section>
 
     <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <div class="glass p-8 rounded-3xl border-2 border-dashed border-green-500/50 flex flex-col justify-between">
             <div>
-                <span class="text-xs font-bold bg-green-500 text-black px-3 py-1 rounded-full uppercase">Acceso Gratuito</span>
+                <span class="text-[10px] font-black bg-green-500 text-black px-2 py-1 rounded uppercase">Capa 1: Sensores</span>
                 <h2 class="text-2xl font-bold mt-4 mb-2">Escaneo de Invisibilidad IA</h2>
-                <p class="text-gray-400 text-sm mb-6">Diagnóstico de Relevancia: Descubre si tu marca es invisible para los modelos que hoy deciden las compras de tus clientes.</p>
+                <p class="text-gray-400 text-sm mb-6">Diagnóstico binario de presencia: Verifica si tu marca es ignorada por los modelos que deciden el 93% de las compras hoy.</p>
             </div>
-            <button onclick="openModal()" class="w-full py-3 rounded-xl border border-green-500 text-green-500 font-bold hover:bg-green-500 hover:text-black transition-all">Iniciar Escaneo</button>
+            <button onclick="openModal()" class="w-full py-3 rounded-xl border border-green-500 text-green-500 font-bold hover:bg-green-500 hover:text-black transition-all">Iniciar Escaneo Gratis</button>
         </div>
 
         <div class="glass p-8 rounded-3xl flex flex-col justify-between">
             <div>
-                <span class="text-xs font-bold bg-white/10 text-gray-300 px-3 py-1 rounded-full uppercase">Alta Demanda</span>
+                <span class="text-[10px] font-black bg-white/10 text-gray-400 px-2 py-1 rounded uppercase">Análisis GEO</span>
                 <h2 class="text-2xl font-bold mt-4 mb-2">Certificación GEO / AEO</h2>
-                <p class="text-gray-400 text-sm mb-6">Optimizamos tu ecosistema para que ChatGPT, Gemini y Perplexity citen tu marca como la autoridad oficial.</p>
+                <p class="text-gray-400 text-sm mb-6">Optimización de citabilidad para aparecer como la respuesta oficial en ChatGPT, Gemini y Perplexity.</p>
             </div>
-            <button onclick="openModal()" class="w-full py-3 rounded-xl bg-green-500 text-black font-bold hover:bg-green-400 shadow-lg shadow-green-500/20 transition-all">Solicitar Consultoría</button>
+            <button onclick="openModal()" class="w-full py-3 rounded-xl bg-green-500 text-black font-bold hover:bg-green-400 transition-all">Solicitar Veredicto</button>
         </div>
 
         <div class="glass p-8 rounded-3xl flex flex-col justify-between">
             <div>
-                <span class="text-xs font-bold bg-red-500/20 text-red-400 px-3 py-1 rounded-full uppercase border border-red-500/30">Crítico</span>
-                <h2 class="text-2xl font-bold mt-4 mb-2">Server-Side Tracking</h2>
-                <p class="text-gray-400 text-sm mb-6">Recuperamos el 40% de tus datos de conversión perdidos implementando infraestructura de trazabilidad propia.</p>
+                <span class="text-[10px] font-black bg-red-500/20 text-red-400 px-2 py-1 rounded border border-red-500/30 uppercase">Urgente</span>
+                <h2 class="text-2xl font-bold mt-4 mb-2">Ingeniería de Tracking</h2>
+                <p class="text-gray-400 text-sm mb-6">Recuperación técnica del 40% de datos perdidos por privacidad mediante infraestructura Server-Side propia.</p>
             </div>
-            <button onclick="openModal()" class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Consultar Implementación</button>
+            <button onclick="openModal()" class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Consultar</button>
         </div>
 
         <div class="glass p-8 rounded-3xl flex flex-col justify-between">
             <div>
+                <span class="text-[10px] font-black bg-white/10 text-gray-400 px-2 py-1 rounded uppercase">Visión Artificial</span>
                 <h2 class="text-2xl font-bold mt-4 mb-2">Inteligencia UX Gemini</h2>
-                <p class="text-gray-400 text-sm mb-6">Auditoría de jerarquía visual y mensaje mediante modelos de lenguaje para eliminar fricciones de venta.</p>
+                <p class="text-gray-400 text-sm mb-6">Auditoría automática de fricciones visuales y semánticas que impiden la conversión en tiempo real.</p>
             </div>
-            <button onclick="openModal()" class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Ver Detalles</button>
+            <button onclick="openModal()" class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Ejecutar Análisis</button>
         </div>
 
         <div class="glass p-8 rounded-3xl flex flex-col justify-between">
             <div>
                 <h2 class="text-2xl font-bold mt-4 mb-2">Arquitectura RevOps</h2>
-                <p class="text-gray-400 text-sm mb-6">Unificación de marketing y ventas en un motor automatizado. Implementación experta de HubSpot o Salesforce.</p>
+                <p class="text-gray-400 text-sm mb-6">Unificación de flujos de ingresos. Integración técnica de marketing y ventas para eliminar el caos operativo.</p>
             </div>
             <button onclick="openModal()" class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Cotizar Proyecto</button>
         </div>
 
         <div class="glass p-8 rounded-3xl flex flex-col justify-between">
             <div>
-                <span class="text-xs font-bold bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full uppercase border border-purple-500/30">Premium</span>
+                <span class="text-[10px] font-black bg-purple-500/20 text-purple-400 px-2 py-1 rounded border border-purple-500/30 uppercase">Premium</span>
                 <h2 class="text-2xl font-bold mt-4 mb-2">Blindaje de Autoridad</h2>
-                <p class="text-gray-400 text-sm mb-6">Gestión de señales externas y PR digital para validar tu confianza ante las IAs y evitar alucinaciones.</p>
+                <p class="text-gray-400 text-sm mb-6">Construcción de señales E-E-A-T externas para validar tu confianza ante los algoritmos y evitar alucinaciones.</p>
             </div>
             <button onclick="openModal()" class="w-full py-3 rounded-xl bg-white/5 text-white font-bold hover:bg-white/10 transition-all">Solicitar Auditoría</button>
         </div>
     </main>
 
-    <footer class="mt-20 text-center text-gray-600 text-xs">
-        &copy; 2026 RON3IA | Marketing Intelligence Engine | Santiago, Chile
+    <footer class="mt-24 py-8 border-t border-white/5 text-center">
+        <p class="text-[10px] text-gray-600 uppercase tracking-[0.5em]">
+            &copy; 2026 RON3IA | Marketing Intelligence Engine | Santiago, Chile
+        </p>
     </footer>
 
     <script>
-        function openModal() {
-            document.getElementById('contactModal').classList.add('active');
-        }
-        function closeModal() {
-            document.getElementById('contactModal').classList.remove('active');
-        }
-        // Cerrar al hacer clic fuera del contenido
-        window.onclick = function(event) {
-            let modal = document.getElementById('contactModal');
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-        // Simulación de envío
-        document.getElementById('leadForm').onsubmit = function(e) {
-            e.preventDefault();
-            alert('¡Información recibida! En breve un consultor de RON3IA se pondrá en contacto contigo.');
-            closeModal();
-        }
+        function openModal() { document.getElementById('contactModal').classList.add('active'); }
+        function closeModal() { document.getElementById('contactModal').classList.remove('active'); }
+        window.onclick = function(event) { if (event.target == document.getElementById('contactModal')) closeModal(); }
     </script>
 </body>
 </html>
