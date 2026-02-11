@@ -1,3 +1,5 @@
+<script>
+
 async function ejecutarAuditoria() {
 
     const email = document.getElementById('email').value;
@@ -17,12 +19,13 @@ async function ejecutarAuditoria() {
 
     btn.disabled = true;
     btnText.innerText = "PROCESANDO...";
+    glow.style.width = "0%";
 
     let progreso = 0;
 
     const intervalo = setInterval(() => {
         if (progreso < 90) {
-            progreso += 3;
+            progreso += 4;
             glow.style.width = progreso + "%";
         }
     }, 80);
@@ -38,7 +41,6 @@ async function ejecutarAuditoria() {
         const data = await response.json();
 
         clearInterval(intervalo);
-
         glow.style.width = "100%";
 
         if (data.status === "success") {
@@ -50,7 +52,6 @@ async function ejecutarAuditoria() {
             btnPdf.classList.remove('opacity-20', 'cursor-not-allowed');
 
             btnText.innerText = "ANÁLISIS COMPLETADO";
-
         }
 
     } catch (e) {
@@ -67,3 +68,7 @@ async function ejecutarAuditoria() {
     }, 1500);
 }
 
+</script>
+
+</body>
+</html>
