@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RON3IA | War Room Estratégico</title>
+    <title>RON3IA | Consola de Inteligencia Estratégica</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -23,7 +23,6 @@
         .neon-border:hover {
             box-shadow: 0 0 25px #ff0000, inset 0 0 10px #ff0000;
         }
-        /* Líneas de circuito animadas */
         .circuit-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -32,9 +31,15 @@
             background-image: url('https://www.transparenttextures.com/patterns/circuit-board.png');
         }
         .score-gauge {
-            background: conic-gradient(#dc2626 var(--percentage), #1a1a1a 0);
+            background: conic-gradient(#dc2626 var(--percentage, 0%), #1a1a1a 0);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
+            transition: --percentage 1s ease-in-out;
+        }
+        @property --percentage {
+            syntax: '<percentage>';
+            inherits: false;
+            initial-value: 0%;
         }
     </style>
 </head>
@@ -50,29 +55,30 @@
 
     <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
         
-        <div class="lg:col-span-1 neon-border p-6 bg-black/90 rounded-lg flex flex-col items-center">
-            <h2 class="text-lg mb-6 text-red-500 font-bold tracking-wider">SALUD DIGITAL</h2>
-            <div class="w-40 h-40 score-gauge relative mb-6" style="--percentage: 66%;">
+        <div id="health-module" class="lg:col-span-1 neon-border p-6 bg-black/90 rounded-lg flex flex-col items-center">
+            <h2 class="text-lg mb-6 text-red-500 font-bold tracking-wider uppercase">Salud Digital</h2>
+            <div class="w-40 h-40 score-gauge relative mb-6" style="--percentage: 0%;">
                 <div class="bg-black w-32 h-32 rounded-full flex flex-col items-center justify-center">
-                    <span class="text-3xl font-bold">66/100</span>
+                    <span id="score-number" class="text-3xl font-bold">--/100</span>
                 </div>
             </div>
-            <p class="text-red-600 text-center animate-pulse font-bold text-sm">RIESGO DE PÉRDIDA DE MARGEN</p>
+            <p id="score-status" class="text-gray-500 text-center font-bold text-sm uppercase">Esperando Datos...</p>
         </div>
 
         <div class="lg:col-span-3 neon-border p-6 bg-black/90 rounded-lg">
             <h2 class="text-lg mb-4 text-red-500 font-bold flex items-center">
-                <span class="w-3 h-3 bg-red-600 rounded-full mr-2 animate-ping"></span>
-                CONSOLA DE ANÁLISIS EN VIVO
+                <span class="w-3 h-3 bg-red-600 rounded-full mr-2 animate-pulse"></span>
+                CONSOLA DE COMANDO ESTRATÉGICO
             </h2>
             <textarea id="analizador" class="w-full h-40 bg-zinc-900 border border-red-900 text-red-100 p-4 focus:outline-none focus:ring-1 focus:ring-red-600 rounded transition" 
-                      placeholder="Escribe el desafío de tu negocio o pega la URL del sitio..."></textarea>
+                      placeholder="Describe tu desafío de negocio o pega la URL del sitio para iniciar diagnóstico..."></textarea>
+            
             <div class="flex flex-col md:flex-row gap-4 mt-4">
-                <button class="flex-1 bg-red-700 hover:bg-red-600 text-white font-bold py-3 px-6 rounded transition shadow-[0_0_10px_rgba(220,38,38,0.4)]">
-                    EJECUTAR AUDITORÍA ESTRATÉGICA
+                <button id="btn-analizar" onclick="ejecutarAuditoria()" class="flex-1 bg-red-700 hover:bg-red-600 text-white font-bold py-3 px-6 rounded transition shadow-[0_0_10px_rgba(220,38,38,0.4)] uppercase">
+                    Ejecutar Auditoría
                 </button>
-                <button class="flex-1 border border-red-700 text-red-500 font-bold py-3 px-6 rounded hover:bg-red-900/20 transition">
-                    DESCARGAR REPORTE PDF
+                <button id="btn-pdf" disabled class="flex-1 border border-red-700 text-red-500 font-bold py-3 px-6 rounded hover:bg-red-900/20 transition opacity-30 cursor-not-allowed uppercase">
+                    Descargar Reporte PDF
                 </button>
             </div>
         </div>
@@ -80,33 +86,12 @@
         <div class="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
             <div class="neon-border p-5 bg-zinc-900/60 backdrop-blur-sm group hover:scale-[1.02] transition-transform">
                 <h3 class="text-red-500 font-bold mb-1">AUDITORÍA ESTRATÉGICA</h3>
-                <p class="text-xs text-gray-500 uppercase tracking-tight">Análisis IA de alta profundidad técnico-financiera.</p>
+                <p class="text-xs text-gray-500 uppercase tracking-tight">Diagnóstico C-Level profundo con IA.</p>
             </div>
             <div class="neon-border p-5 bg-zinc-900/60 backdrop-blur-sm group hover:scale-[1.02] transition-transform">
                 <h3 class="text-red-500 font-bold mb-1">OPTIMIZACIÓN CRO</h3>
-                <p class="text-xs text-gray-500 uppercase tracking-tight">Maximización científica de tasas de conversión.</p>
+                <p class="text-xs text-gray-500 uppercase tracking-tight">Maximización científica de conversión.</p>
             </div>
             <div class="neon-border p-5 bg-zinc-900/60 backdrop-blur-sm group hover:scale-[1.02] transition-transform">
                 <h3 class="text-red-500 font-bold mb-1">SEO ALTA PRECISIÓN</h3>
-                <p class="text-xs text-gray-500 uppercase tracking-tight">Estrategias de visibilidad basadas en intención real.</p>
-            </div>
-            <div class="neon-border p-5 bg-zinc-900/60 backdrop-blur-sm group hover:scale-[1.02] transition-transform">
-                <h3 class="text-red-500 font-bold mb-1">GROWTH & SEM</h3>
-                <p class="text-xs text-gray-500 uppercase tracking-tight">Pauta publicitaria optimizada para ROI proyectado.</p>
-            </div>
-            <div class="neon-border p-5 bg-zinc-900/60 backdrop-blur-sm group hover:scale-[1.02] transition-transform">
-                <h3 class="text-red-500 font-bold mb-1">ARQUITECTURA E-COMMERCE</h3>
-                <p class="text-xs text-gray-500 uppercase tracking-tight">Robustez técnica para operaciones de gran escala.</p>
-            </div>
-            <div class="neon-border p-5 bg-zinc-900/60 backdrop-blur-sm group hover:scale-[1.02] transition-transform">
-                <h3 class="text-red-500 font-bold mb-1">CONSULTORÍA TRANSF.</h3>
-                <p class="text-xs text-gray-500 uppercase tracking-tight">Automatización de procesos e inteligencia de negocio.</p>
-            </div>
-        </div>
-    </main>
-
-    <footer class="mt-12 text-center text-gray-600 text-xs tracking-tighter uppercase">
-        RonRodrigo3.com © 2026 | Desarrollado por RON3IA Digital Intelligence
-    </footer>
-</body>
-</html>
+                <p class="text-xs text-gray-500 uppercase tracking-tight">Visibilidad basada en intención real
