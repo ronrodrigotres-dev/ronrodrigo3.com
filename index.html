@@ -1,106 +1,90 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <title>RON3IA | WAR ROOM</title>
+    <style>
+        :root { --neon: #ff3131; --bg: #050505; }
+        body { 
+            background: var(--bg); color: white; 
+            font-family: 'Courier New', monospace; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            height: 100vh; margin: 0; overflow: hidden;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        /* --- ANIMACIONES BINARIAS (ELECTRO-CUT SIN SUAVIZADO) --- */
+        @keyframes v-tremble {
+            0%, 100% { transform: translate(0,0); }
+            50% { transform: translate(-0.5px, 0.5px); }
+        }
 
-<title>RON3IA CORE | Sistema Autónomo</title>
+        @keyframes flicker-1 {
+            0%, 19.9%, 20.1%, 20.3%, 20.5%, 70%, 100% { 
+                opacity: 1; 
+                text-shadow: 0 0 10px #fff, 0 0 20px var(--neon), 0 0 40px var(--neon); 
+            }
+            20%, 20.2%, 20.4% { 
+                opacity: 0; 
+                text-shadow: none; 
+            }
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+        @keyframes flicker-2 {
+            0%, 41%, 45%, 82%, 86%, 100% { 
+                opacity: 1; 
+                box-shadow: 0 0 15px var(--neon); 
+                border-color: var(--neon); 
+            }
+            43%, 84% { 
+                opacity: 0; 
+                box-shadow: none; 
+                border-color: #300; 
+            }
+        }
 
-<style>
+        .title { 
+            font-size: 6rem; 
+            letter-spacing: 2rem; 
+            font-weight: 900;
+            /* steps(1) es la clave del parpadeo real */
+            animation: flicker-1 3.7s infinite steps(1), v-tremble 0.1s infinite; 
+        }
 
-body{
-background:#050505;
-font-family:'JetBrains Mono', monospace;
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-margin:0;
-}
+        .grid { display: flex; gap: 30px; margin-top: 50px; }
 
-.card{
-border:2px solid #ff0000;
-box-shadow:0 0 25px #ff0000;
-padding:40px;
-max-width:420px;
-width:90%;
-text-align:center;
-border-radius:10px;
-}
+        .box { 
+            border: 2px solid var(--neon); 
+            padding: 20px 30px; 
+            font-weight: bold;
+            letter-spacing: 2px;
+            animation: flicker-2 3.5s infinite steps(1);
+        }
 
-h1{
-color:#ff0000;
-letter-spacing:3px;
-margin-bottom:10px;
-}
+        /* Desfase de tiempos para asincronía total */
+        .b2 { animation-delay: 0.7s; animation-duration: 4.2s; }
+        .b3 { animation-delay: 1.3s; animation-duration: 2.9s; }
 
-.subtitle{
-color:#777;
-font-size:12px;
-margin-bottom:30px;
-}
-
-.score{
-width:150px;
-height:150px;
-border-radius:50%;
-border:12px solid #222;
-margin:20px auto;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:32px;
-}
-
-input{
-width:100%;
-background:#000;
-border:1px solid #ff0000;
-padding:12px;
-margin-top:15px;
-color:white;
-outline:none;
-}
-
-button{
-margin-top:20px;
-width:100%;
-padding:15px;
-background:#ff0000;
-border:none;
-color:white;
-font-weight:bold;
-cursor:pointer;
-transition:0.3s;
-}
-
-button:hover{
-box-shadow:0 0 15px #ff0000;
-}
-
-</style>
-
+        /* Capa de interferencia CRT */
+        body::after {
+            content: " "; 
+            position: fixed; 
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px; 
+            z-index: 100; 
+            pointer-events: none;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="card">
+    <h1 class="title">RON3IA</h1>
 
-<h1>RON3IA CORE</h1>
-<div class="subtitle">SISTEMA AUTÓNOMO DE AUDITORÍA ESTRATÉGICA</div>
-
-<div class="score">--</div>
-
-<input type="email" placeholder="EMAIL CORPORATIVO">
-<input type="text" placeholder="URL DEL SITIO (ej. empresa.com)">
-
-<button>INICIAR DIAGNÓSTICO</button>
-
-</div>
+    <div class="grid">
+        <div class="box b1">DIAGNÓSTICO</div>
+        <div class="box b2">PRIORIZACIÓN</div>
+        <div class="box b3">EJECUCIÓN</div>
+    </div>
 
 </body>
 </html>
