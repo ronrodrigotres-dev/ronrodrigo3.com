@@ -1,195 +1,234 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RON3IA | War Room Core V.2.6</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --neon: #ff3131; --bg: #050505; --neon-dim: rgba(255, 49, 49, 0.15); }
-        body { background: var(--bg); font-family: 'JetBrains Mono', monospace; color: white; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        
-        .container { width: 100%; max-width: 850px; }
-        
-        /* HEADER */
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; padding-bottom: 15px; margin-bottom: 30px; }
-        .status-light { color: #00ff00; font-size: 11px; letter-spacing: 1px; }
-        .status-light span { display: inline-block; width: 8px; height: 8px; background: #00ff00; border-radius: 50%; margin-right: 8px; box-shadow: 0 0 10px #00ff00; animation: blink 1.5s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RON3IA | Sistema Autónomo</title>
 
-        /* MAIN CARD */
-        .card { border: 1px solid #333; box-shadow: 0 0 40px rgba(0,0,0,1); padding: 40px; background: #0a0a0a; border-radius: 2px; position: relative; border-top: 3px solid var(--neon); }
-        
-        /* GAUGE & SCORE */
-        .score-box { display: flex; align-items: center; justify-content: space-around; gap: 20px; margin-bottom: 40px; background: #000; border: 1px solid #1a1a1a; padding: 25px; }
-        .gauge-wrapper { position: relative; width: 160px; height: 160px; }
-        .gauge { width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(var(--neon) 0%, #111 0%); display: flex; align-items: center; justify-content: center; transition: 2s cubic-bezier(0.19, 1, 0.22, 1); }
-        .gauge-inner { width: 130px; height: 130px; background: #000; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #111; }
-        #score-val { font-size: 38px; font-weight: 700; color: var(--neon); text-shadow: 0 0 15px var(--neon); }
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-        /* SERVICES GRID */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-top: 30px; border-top: 1px solid #222; padding-top: 30px; display: none; }
-        .service-item { background: #0d0d0d; padding: 15px; border-left: 2px solid #222; transition: 0.5s; }
-        .service-item.active { border-left-color: var(--neon); background: var(--neon-dim); }
-        .service-item h4 { font-size: 9px; color: #888; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px; }
-        .service-item p { font-size: 13px; margin: 0; color: #eee; line-height: 1.4; }
+<style>
+body{
+    margin:0;
+    background:#000;
+    font-family:'JetBrains Mono', monospace;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
 
-        /* FORM */
-        .form-group { position: relative; margin-bottom: 20px; }
-        input { width: 100%; padding: 18px; background: #000; border: 1px solid #222; color: white; box-sizing: border-box; outline: none; font-family: 'JetBrains Mono'; transition: 0.3s; font-size: 14px; }
-        input:focus { border-color: var(--neon); background: #050505; }
-        
-        .btn { width: 100%; padding: 22px; background: var(--neon); color: white; border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 3px; position: relative; overflow: hidden; transition: 0.3s; }
-        .btn:disabled { background: #333; cursor: not-allowed; }
-        .btn:not(:disabled):hover { background: #ff0000; box-shadow: 0 0 20px var(--neon); }
-        .btn-loading-bar { position: absolute; left: 0; top: 0; height: 4px; width: 0%; background: white; transition: width 0.3s; }
+.card{
+    width:520px;
+    padding:50px;
+    background:#070707;
+    border:2px solid #ff0000;
+    border-radius:10px;
+    box-shadow:0 0 40px #ff0000;
+    text-align:center;
+}
 
-        @keyframes scan { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
-    </style>
+h1{
+    color:#ff0000;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#777;
+    font-size:12px;
+    margin-bottom:40px;
+    letter-spacing:2px;
+}
+
+.score-gauge{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    background:conic-gradient(#ff0000 0%, #1a1a1a 0%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0 auto 40px auto;
+    transition:1.5s ease;
+}
+
+.score-inner{
+    width:130px;
+    height:130px;
+    background:#000;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+#score-number{
+    font-size:28px;
+    font-weight:bold;
+    text-shadow:0 0 10px #ff0000;
+}
+
+.label{
+    font-size:10px;
+    color:#666;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    background:#000;
+    border:1px solid #ff0000;
+    color:white;
+    text-align:center;
+}
+
+.neon-button{
+    width:100%;
+    padding:18px;
+    margin-top:20px;
+    background:#8b0000;
+    border:2px solid #ff0000;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 20px #ff0000;
+    transition:0.3s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.neon-button:hover{
+    box-shadow:0 0 35px #ff0000;
+}
+
+#BTN-glow{
+    position:absolute;
+    left:0;
+    top:0;
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg, rgba(255,0,0,0.7), rgba(255,0,0,0.1));
+    box-shadow:0 0 30px #ff0000;
+    z-index:1;
+}
+
+#btn-text{
+    position:relative;
+    z-index:2;
+}
+
+.results{
+    margin-top:25px;
+    font-size:12px;
+    display:none;
+    text-align:left;
+    border-top:1px solid #222;
+    padding-top:15px;
+}
+
+</style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <div style="font-weight: 700; color: var(--neon); font-size: 14px;">RON3IA // STRATEGIC_CORE_V.2.6</div>
-        <div class="status-light"><span></span>SECURE_CONNECTION // LATAM_SANTIAGO</div>
-    </div>
+<div class="card">
 
-    <div class="card">
-        <div class="score-box">
-            <div class="gauge-wrapper">
-                <div class="gauge" id="gauge-main">
-                    <div class="gauge-inner">
-                        <span id="score-val">00</span>
-                        <span style="font-size: 9px; color: #555; margin-top: 5px;">STRATEGIC_INDEX</span>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align: left; flex: 1; padding-left: 20px;">
-                <h3 style="margin: 0 0 10px 0; font-size: 20px; letter-spacing: -1px;">AUDITORÍA AUTÓNOMA</h3>
-                <p style="font-size: 11px; color: #777; line-height: 1.6; margin: 0;">Escaneando vulnerabilidades de conversión, autoridad SEO y proyecciones de rentabilidad mediante redes neuronales.</p>
-            </div>
-        </div>
+<h1>RON3IA CORE</h1>
+<div class="subtitle">SISTEMA AUTÓNOMO DE AUDITORÍA ESTRATÉGICA</div>
 
-        <div class="form-group">
-            <input type="email" id="email" placeholder="ENTER_CORP_EMAIL" autocomplete="off">
-        </div>
-        <div class="form-group">
-            <input type="text" id="url" placeholder="TARGET_DOMAIN (ej. mipyme.com)" autocomplete="off">
-        </div>
-
-        <button class="btn" id="main-btn" onclick="ejecutarAuditoria()">
-            <div class="btn-loading-bar" id="loader-bar"></div>
-            <span id="btn-text">INICIAR ESCANEO</span>
-        </button>
-
-        <div id="results" class="services-grid">
-            <div class="service-item active">
-                <h4>Diagnóstico SEO</h4>
-                <p id="res-seo">---</p>
-            </div>
-            <div class="service-item active">
-                <h4>Ingeniería de Conversión</h4>
-                <p id="res-cro">---</p>
-            </div>
-            <div class="service-item active">
-                <h4>Impacto ROI Proyectado</h4>
-                <p id="res-roi" style="color: var(--neon); font-weight: 700;">---</p>
-            </div>
-            <div class="service-item">
-                <h4>ID_TRANSACTION</h4>
-                <p id="res-id" style="font-size: 10px; color: #555; font-family: monospace;">---</p>
-            </div>
-        </div>
+<div class="score-gauge" id="gauge">
+    <div class="score-inner">
+        <span id="score-number">--</span>
+        <span class="label">SCORE</span>
     </div>
 </div>
 
-<script>
-async function ejecutarAuditoria() {
-    const email = document.getElementById('email').value.trim();
-    const url = document.getElementById('url').value.trim();
-    const btn = document.getElementById('main-btn');
-    const loaderBar = document.getElementById('loader-bar');
-    const btnText = document.getElementById('btn-text');
-    const gauge = document.getElementById('gauge-main');
-    const scoreVal = document.getElementById('score-val');
-    const results = document.getElementById('results');
+<input type="email" id="email" placeholder="EMAIL CORPORATIVO">
+<input type="text" id="url" placeholder="URL DEL SITIO (ej. empresa.com)">
 
-    if(!email || !url) {
-        alert("CRÍTICO: Faltan credenciales de acceso (Email/URL)");
+<button class="neon-button" onclick="ejecutarAuditoria()">
+    <div id="BTN-glow"></div>
+    <span id="btn-text">INICIAR DIAGNÓSTICO</span>
+</button>
+
+<div id="results-box" class="results">
+    <div id="metrics-content"></div>
+</div>
+
+</div>
+
+<script>
+
+async function ejecutarAuditoria(){
+
+    const email = document.getElementById("email").value;
+    const url = document.getElementById("url").value;
+    const gauge = document.getElementById("gauge");
+    const scoreNum = document.getElementById("score-number");
+    const btnGlow = document.getElementById("BTN-glow");
+    const btnText = document.getElementById("btn-text");
+
+    if(!email || !url){
+        alert("Email y URL requeridos.");
         return;
     }
 
-    // Bloqueo de UI
-    btn.disabled = true;
-    btnText.innerText = "ACCEDIENDO AL CORE...";
-    loaderBar.style.width = "40%";
-    results.style.display = "none";
-    gauge.style.background = `conic-gradient(var(--neon) 0%, #111 0%)`;
-    scoreVal.innerText = "??";
+    btnText.innerText = "ANALIZANDO...";
+    btnGlow.style.width = "0%";
 
-    try {
-        const response = await fetch("https://ron3ia-api-819648047297.southamerica-west1.run.app/analizar-sitio", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({email: email, url: url})
+    let progress = 0;
+
+    const interval = setInterval(()=>{
+        progress += 4;
+        btnGlow.style.width = progress + "%";
+        if(progress >= 95) clearInterval(interval);
+    },80);
+
+    try{
+
+        const response = await fetch("https://ron3ia-api-819648047297.southamerica-west1.run.app/analizar-sitio",{
+            method:"POST",
+            headers:{ "Content-Type":"application/json" },
+            body:JSON.stringify({ email:email, url:url })
         });
 
-        loaderBar.style.width = "80%";
         const data = await response.json();
 
-        if(data.status === "success") {
+        clearInterval(interval);
+        btnGlow.style.width = "100%";
+
+        if(data.status === "success"){
+
             const score = data.health_score.score;
-            
-            // Animación del Score
-            setTimeout(() => {
-                loaderBar.style.width = "100%";
-                gauge.style.background = `conic-gradient(var(--neon) ${score}%, #111 0%)`;
-                
-                // Contador numérico animado
-                let current = 0;
-                const timer = setInterval(() => {
-                    if(current >= score) {
-                        clearInterval(timer);
-                    } else {
-                        current++;
-                        scoreVal.innerText = current.toString().padStart(2, '0');
-                    }
-                }, 20);
 
-                // Mostrar resultados con Grid
-                results.style.display = "grid";
-                typeWriter('res-seo', data.metrics.seo);
-                typeWriter('res-cro', data.metrics.cro);
-                typeWriter('res-roi', data.metrics.roi_proyectado);
-                document.getElementById('res-id').innerText = data.audit_id;
+            gauge.style.background =
+            `conic-gradient(#ff0000 ${score}%, #1a1a1a 0%)`;
 
-                btnText.innerText = "SISTEMA SINCRONIZADO";
-                btn.disabled = false;
-            }, 800);
+            scoreNum.innerText = score;
+
+            btnText.innerText = "DIAGNÓSTICO COMPLETADO";
+
+            document.getElementById("results-box").style.display="block";
+
+            document.getElementById("metrics-content").innerHTML = `
+                <p>SEO: ${data.metrics.seo}</p>
+                <p>CRO: ${data.metrics.cro}</p>
+                <p>ROI PROYECTADO: ${data.metrics.roi_proyectado}</p>
+                <p style="font-size:9px;color:#444;margin-top:10px;">
+                ID: ${data.audit_id}
+                </p>
+            `;
         }
-    } catch(e) {
-        btnText.innerText = "ERROR_DE_PROTOCOLO";
-        btn.disabled = false;
-        loaderBar.style.width = "0%";
-        console.error(e);
+
+    }catch(e){
+        btnText.innerText = "ERROR";
+        btnGlow.style.width = "0%";
     }
 }
 
-function typeWriter(elementId, text) {
-    const el = document.getElementById(elementId);
-    el.innerText = "";
-    let i = 0;
-    const speed = 30; 
-    function type() {
-        if (i < text.length) {
-            el.innerText += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-    type();
-}
 </script>
 
 </body>
