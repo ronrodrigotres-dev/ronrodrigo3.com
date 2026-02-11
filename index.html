@@ -1,206 +1,157 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RON3IA | CORE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RON3IA | War Room Core</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon: #ff3131; --bg: #050505; }
+        body { background: var(--bg); font-family: 'JetBrains Mono', monospace; color: white; margin: 0; padding: 20px; }
+        
+        .container { max-width: 900px; margin: auto; }
+        
+        /* HEADER & STATUS */
+        .header { display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding-bottom: 10px; margin-bottom: 30px; }
+        .status-light { color: #00ff00; font-size: 12px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+        /* MAIN CARD */
+        .card { border: 2px solid var(--neon); box-shadow: 0 0 25px rgba(255, 49, 49, 0.2); padding: 40px; background: #0a0a0a; border-radius: 4px; position: relative; overflow: hidden; }
+        
+        /* SCORE ENGINE VISUAL */
+        .score-box { display: flex; align-items: center; justify-content: space-around; margin-bottom: 40px; border: 1px solid #222; padding: 20px; background: #000; }
+        .gauge-wrapper { position: relative; width: 150px; height: 150px; }
+        .gauge { width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(var(--neon) 0%, #111 0%); display: flex; align-items: center; justify-content: center; transition: 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .gauge-inner { width: 120px; height: 120px; background: #000; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #score-val { font-size: 32px; font-weight: bold; color: var(--neon); text-shadow: 0 0 10px var(--neon); }
 
-<style>
+        /* SERVICES GRID - LO QUE FALTABA */
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; text-align: left; }
+        .service-item { border-left: 3px solid #333; padding-left: 15px; }
+        .service-item h4 { font-size: 10px; color: #666; margin: 0; text-transform: uppercase; }
+        .service-item p { font-size: 13px; margin: 5px 0; color: #ddd; }
+        .active-service { border-left-color: var(--neon); }
 
-body{
-    background:#050505;
-    font-family:'JetBrains Mono', monospace;
-    color:#fff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    margin:0;
-}
+        /* INPUTS & BUTTON */
+        input { width: 100%; padding: 15px; background: #000; border: 1px solid #333; color: white; margin-bottom: 15px; box-sizing: border-box; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--neon); box-shadow: 0 0 10px rgba(255, 49, 49, 0.3); }
+        
+        .btn { width: 100%; padding: 20px; background: var(--neon); color: white; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; position: relative; }
+        .btn:hover { background: #d20000; box-shadow: 0 0 30px var(--neon); }
+        .btn-loading { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: rgba(0,0,0,0.3); transition: width 2s linear; }
 
-.card{
-    width:500px;
-    background:#0a0a0a;
-    border:2px solid #ff3131;
-    box-shadow:0 0 25px rgba(255,0,0,0.6);
-    padding:40px;
-    border-radius:8px;
-    text-align:center;
-}
-
-h1{
-    color:#ff3131;
-    letter-spacing:3px;
-    font-size:18px;
-    margin-bottom:30px;
-}
-
-.score-gauge{
-    width:160px;
-    height:160px;
-    border-radius:50%;
-    margin:0 auto 30px auto;
-    background:conic-gradient(#ff3131 0%, #1a1a1a 0%);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:1s ease;
-}
-
-.score-inner{
-    width:120px;
-    height:120px;
-    background:#000;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:28px;
-    font-weight:bold;
-    text-shadow:0 0 10px #ff0000;
-}
-
-input{
-    width:100%;
-    padding:14px;
-    margin-bottom:15px;
-    background:#000;
-    border:1px solid #ff3131;
-    color:#fff;
-    text-align:center;
-    outline:none;
-}
-
-.neon-button{
-    position:relative;
-    width:100%;
-    padding:16px;
-    border:2px solid #ff3131;
-    background:#300000;
-    color:#fff;
-    font-weight:bold;
-    cursor:pointer;
-    overflow:hidden;
-    letter-spacing:2px;
-}
-
-.neon-button:hover{
-    box-shadow:0 0 20px #ff0000;
-}
-
-#progress-bar{
-    position:absolute;
-    left:0;
-    top:0;
-    height:100%;
-    width:0%;
-    background:rgba(255,0,0,0.5);
-    transition:width 0.2s linear;
-    z-index:1;
-}
-
-#btn-text{
-    position:relative;
-    z-index:2;
-}
-
-.results{
-    margin-top:20px;
-    font-size:12px;
-    text-align:left;
-    display:none;
-}
-
-</style>
+        #results { display: none; margin-top: 30px; animation: fadeIn 1s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
 </head>
 <body>
 
-<div class="card">
-
-    <h1>RON3IA CORE</h1>
-
-    <div class="score-gauge" id="gauge">
-        <div class="score-inner" id="score">--</div>
+<div class="container">
+    <div class="header">
+        <div style="font-weight: bold; color: var(--neon);">RON3IA CORE // V.2.5</div>
+        <div class="status-light">● SYSTEM_ONLINE // REGION: SOUTH_AMERICA</div>
     </div>
 
-    <input type="email" id="email" placeholder="EMAIL CORPORATIVO">
-    <input type="text" id="url" placeholder="URL DEL SITIO">
+    <div class="card">
+        <div class="score-box">
+            <div class="gauge-wrapper">
+                <div class="gauge" id="gauge-main">
+                    <div class="gauge-inner">
+                        <span id="score-val">--</span>
+                        <span style="font-size: 8px; color: #444;">SALUD DIGITAL</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: left; max-width: 250px;">
+                <h3 style="margin: 0; font-size: 18px;">AUDITORÍA AUTÓNOMA</h3>
+                <p style="font-size: 10px; color: #666;">Analizando vectores de SEO, CRO y ROI financiero en tiempo real.</p>
+            </div>
+        </div>
 
-    <button class="neon-button" onclick="ejecutarAuditoria()">
-        <div id="progress-bar"></div>
-        <span id="btn-text">INICIAR DIAGNÓSTICO</span>
-    </button>
+        <input type="email" id="email" placeholder="ID_CORP_EMAIL">
+        <input type="text" id="url" placeholder="TARGET_URL (ej. empresa.com)">
 
-    <div class="results" id="results">
-        <div id="metrics"></div>
+        <button class="btn" onclick="ejecutarAuditoria()">
+            <div class="btn-loading" id="loader"></div>
+            <span id="btn-text">EJECUTAR DIAGNÓSTICO</span>
+        </button>
+
+        <div id="results">
+            <div class="services-grid">
+                <div class="service-item active-service">
+                    <h4>Diagnóstico SEO</h4>
+                    <p id="res-seo">Calculando brechas...</p>
+                </div>
+                <div class="service-item active-service">
+                    <h4>Ingeniería de Conversión</h4>
+                    <p id="res-cro">Identificando fricción...</p>
+                </div>
+                <div class="service-item">
+                    <h4>Impacto ROI</h4>
+                    <p id="res-roi" style="color: var(--neon); font-weight: bold;">--</p>
+                </div>
+                <div class="service-item">
+                    <h4>ID_AUDIT</h4>
+                    <p id="res-id" style="font-size: 10px; color: #444;">--</p>
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
 
 <script>
-
-async function ejecutarAuditoria(){
-
+async function ejecutarAuditoria() {
     const email = document.getElementById('email').value;
     const url = document.getElementById('url').value;
-
-    const progressBar = document.getElementById('progress-bar');
+    const loader = document.getElementById('loader');
     const btnText = document.getElementById('btn-text');
-    const gauge = document.getElementById('gauge');
-    const score = document.getElementById('score');
+    const gauge = document.getElementById('gauge-main');
+    const scoreVal = document.getElementById('score-val');
+    const results = document.getElementById('results');
 
-    if(!email || !url){
-        alert("Se requiere Email y URL.");
-        return;
-    }
+    if(!email || !url) { alert("DATOS INCOMPLETOS"); return; }
 
-    btnText.innerText = "PROCESANDO...";
-    progressBar.style.width = "0%";
+    // Animación de inicio
+    btnText.innerText = "ACCEDIENDO AL CORE...";
+    loader.style.width = "100%";
 
-    let progress = 0;
-    const interval = setInterval(()=>{
-        progress += 4;
-        progressBar.style.width = progress + "%";
-        if(progress >= 100) clearInterval(interval);
-    },80);
-
-    try{
-
-        const response = await fetch("https://ron3ia-api-819648047297.southamerica-west1.run.app/analizar-sitio",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({email:email,url:url})
+    try {
+        const response = await fetch("https://ron3ia-api-819648047297.southamerica-west1.run.app/analizar-sitio", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({email: email, url: url})
         });
 
         const data = await response.json();
 
-        if(data.status === "success"){
+        // CORRECCIÓN DEL ERROR DE STATUS
+        if(data.status === "success") {
+            const score = data.health_score.score;
+            
+            // Actualización Visual
+            gauge.style.background = `conic-gradient(var(--neon) ${score}%, #111 0%)`;
+            scoreVal.innerText = score;
+            
+            // Inyectar Servicios
+            document.getElementById('res-seo').innerText = data.metrics.seo;
+            document.getElementById('res-cro').innerText = data.metrics.cro;
+            document.getElementById('res-roi').innerText = data.metrics.roi_proyectado;
+            document.getElementById('res-id').innerText = data.audit_id;
 
-            const finalScore = data.health_score.score;
-
-            gauge.style.background = `conic-gradient(#ff3131 ${finalScore}%, #1a1a1a 0%)`;
-            score.innerText = finalScore;
-
-            document.getElementById("results").style.display = "block";
-            document.getElementById("metrics").innerHTML = `
-                <p>SEO: ${data.metrics.seo}</p>
-                <p>CRO: ${data.metrics.cro}</p>
-                <p>ROI Proyectado: ${data.metrics.roi_proyectado}</p>
-                <p style="font-size:10px;color:#777;margin-top:10px;">ID: ${data.audit_id}</p>
-            `;
-
-            btnText.innerText = "ANÁLISIS COMPLETADO";
+            results.style.display = "block";
+            btnText.innerText = "SISTEMA SINCRONIZADO";
         }
-
-    }catch(e){
-        btnText.innerText = "ERROR";
+    } catch(e) {
+        btnText.innerText = "FALLO_EN_CONEXIÓN";
         console.error(e);
     }
 
+    setTimeout(() => {
+        loader.style.width = "0%";
+        if(btnText.innerText !== "FALLO_EN_CONEXIÓN") btnText.innerText = "NUEVO DIAGNÓSTICO";
+    }, 4000);
 }
-
 </script>
 
 </body>
