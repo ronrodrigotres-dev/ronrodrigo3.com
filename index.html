@@ -1,100 +1,106 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>RON3IA | War Room</title>
-    <style>
-        :root {
-            --neon-red: #ff3131;
-            --dark-bg: #050505;
-        }
 
-        body {
-            background-color: var(--dark-bg);
-            color: white;
-            font-family: 'Courier New', monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-            text-transform: uppercase;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        /* --- EFECTO CRT / SCANLINES --- */
-        body::before {
-            content: " ";
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 10;
-            background-size: 100% 3px, 9px 100%;
-            pointer-events: none;
-        }
+<title>RON3IA CORE | Sistema Autónomo</title>
 
-        /* --- ANIMACIONES NERVIOSAS (STEPS 1) --- */
-        @keyframes flicker-heavy {
-            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; text-shadow: 0 0 10px #fff, 0 0 20px var(--neon-red), 0 0 40px #f00; }
-            20%, 24%, 55% { opacity: 0; text-shadow: none; }
-        }
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-        @keyframes flicker-soft {
-            0%, 42%, 46%, 81%, 85%, 100% { opacity: 1; text-shadow: 0 0 5px var(--neon-red); }
-            44%, 83% { opacity: 0.3; text-shadow: none; }
-        }
+<style>
 
-        @keyframes flicker-box {
-            0%, 12%, 15%, 90%, 93%, 100% { border-color: var(--neon-red); box-shadow: 0 0 15px var(--neon-red); opacity: 1; }
-            13%, 91% { border-color: #300; box-shadow: none; opacity: 0.2; }
-        }
+body{
+background:#050505;
+font-family:'JetBrains Mono', monospace;
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
 
-        /* --- ELEMENTOS --- */
-        .title {
-            font-size: 5rem;
-            letter-spacing: 1.5rem;
-            margin-bottom: 0;
-            animation: flicker-heavy 4s infinite steps(1);
-        }
+.card{
+border:2px solid #ff0000;
+box-shadow:0 0 25px #ff0000;
+padding:40px;
+max-width:420px;
+width:90%;
+text-align:center;
+border-radius:10px;
+}
 
-        .subtitle {
-            color: var(--neon-red);
-            font-size: 1rem;
-            letter-spacing: 0.3rem;
-            margin-bottom: 3rem;
-            animation: flicker-soft 5s infinite steps(1) 1s;
-        }
+h1{
+color:#ff0000;
+letter-spacing:3px;
+margin-bottom:10px;
+}
 
-        .grid {
-            display: flex;
-            gap: 20px;
-        }
+.subtitle{
+color:#777;
+font-size:12px;
+margin-bottom:30px;
+}
 
-        .box {
-            border: 2px solid var(--neon-red);
-            padding: 15px 25px;
-            font-size: 0.8rem;
-            animation: flicker-box 3.5s infinite steps(1);
-        }
+.score{
+width:150px;
+height:150px;
+border-radius:50%;
+border:12px solid #222;
+margin:20px auto;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:32px;
+}
 
-        /* Desfase de tiempos para asincronía */
-        .box:nth-child(2) { animation-duration: 4.2s; animation-delay: 0.5s; }
-        .box:nth-child(3) { animation-duration: 2.8s; animation-delay: 1.2s; }
+input{
+width:100%;
+background:#000;
+border:1px solid #ff0000;
+padding:12px;
+margin-top:15px;
+color:white;
+outline:none;
+}
 
-    </style>
+button{
+margin-top:20px;
+width:100%;
+padding:15px;
+background:#ff0000;
+border:none;
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+box-shadow:0 0 15px #ff0000;
+}
+
+</style>
+
 </head>
+
 <body>
 
-    <h1 class="title">RON3IA</h1>
-    <p class="subtitle">Sistema Autónomo de Optimización</p>
+<div class="card">
 
-    <div class="grid">
-        <div class="box">Diagnóstico Autónomo</div>
-        <div class="box">Priorización Financiera</div>
-        <div class="box">Ejecución Inteligente</div>
-    </div>
+<h1>RON3IA CORE</h1>
+<div class="subtitle">SISTEMA AUTÓNOMO DE AUDITORÍA ESTRATÉGICA</div>
+
+<div class="score">--</div>
+
+<input type="email" placeholder="EMAIL CORPORATIVO">
+<input type="text" placeholder="URL DEL SITIO (ej. empresa.com)">
+
+<button>INICIAR DIAGNÓSTICO</button>
+
+</div>
 
 </body>
 </html>
