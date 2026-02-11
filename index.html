@@ -9,82 +9,64 @@
             background: var(--bg); color: white; 
             font-family: 'Courier New', monospace; 
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            height: 100vh; margin: 0; overflow: hidden;
+            height: 100vh; margin: 0; overflow: hidden; text-align: center;
         }
 
-        /* --- ANIMACIONES BINARIAS (ELECTRO-CUT SIN SUAVIZADO) --- */
+        /* --- ANIMACIONES BINARIAS (CORTES ELÉCTRICOS REALES) --- */
         @keyframes v-tremble {
             0%, 100% { transform: translate(0,0); }
             50% { transform: translate(-0.5px, 0.5px); }
         }
 
-        @keyframes flicker-1 {
-            0%, 19.9%, 20.1%, 20.3%, 20.5%, 70%, 100% { 
-                opacity: 1; 
-                text-shadow: 0 0 10px #fff, 0 0 20px var(--neon), 0 0 40px var(--neon); 
-            }
-            20%, 20.2%, 20.4% { 
-                opacity: 0; 
-                text-shadow: none; 
-            }
+        @keyframes flicker-main {
+            0%, 19.9%, 20.1%, 20.3%, 20.5%, 70%, 100% { opacity: 1; text-shadow: 0 0 10px #fff, 0 0 20px var(--neon), 0 0 40px var(--neon); }
+            20%, 20.2%, 20.4% { opacity: 0; text-shadow: none; }
         }
 
-        @keyframes flicker-2 {
-            0%, 41%, 45%, 82%, 86%, 100% { 
-                opacity: 1; 
-                box-shadow: 0 0 15px var(--neon); 
-                border-color: var(--neon); 
-            }
-            43%, 84% { 
-                opacity: 0; 
-                box-shadow: none; 
-                border-color: #300; 
-            }
+        @keyframes flicker-sub {
+            0%, 41%, 45%, 82%, 86%, 100% { opacity: 1; }
+            43%, 84% { opacity: 0.1; }
         }
 
         .title { 
-            font-size: 6rem; 
-            letter-spacing: 2rem; 
-            font-weight: 900;
-            /* steps(1) es la clave del parpadeo real */
-            animation: flicker-1 3.7s infinite steps(1), v-tremble 0.1s infinite; 
+            font-size: 6rem; letter-spacing: 15px; font-weight: 900;
+            animation: flicker-main 3.7s infinite steps(1), v-tremble 0.1s infinite; 
         }
 
-        .grid { display: flex; gap: 30px; margin-top: 50px; }
-
-        .box { 
-            border: 2px solid var(--neon); 
-            padding: 20px 30px; 
-            font-weight: bold;
-            letter-spacing: 2px;
-            animation: flicker-2 3.5s infinite steps(1);
+        .subtitle {
+            color: var(--neon); font-size: 1.4rem; letter-spacing: 4px; margin: 20px 0; font-weight: bold;
+            animation: flicker-sub 5s infinite steps(1);
         }
 
-        /* Desfase de tiempos para asincronía total */
-        .b2 { animation-delay: 0.7s; animation-duration: 4.2s; }
-        .b3 { animation-delay: 1.3s; animation-duration: 2.9s; }
+        .description { max-width: 800px; color: #888; margin-bottom: 50px; line-height: 1.6; }
 
-        /* Capa de interferencia CRT */
+        .grid { display: flex; gap: 40px; border-top: 1px solid #222; padding-top: 30px; }
+        .link {
+            color: #666; text-decoration: none; font-size: 0.9rem; letter-spacing: 2px;
+            border-bottom: 1px solid var(--neon); padding-bottom: 5px; transition: 0.3s;
+        }
+        .link:hover { color: #fff; text-shadow: 0 0 10px var(--neon); }
+
+        /* Filtro de monitor antiguo */
         body::after {
-            content: " "; 
-            position: fixed; 
-            top: 0; left: 0; width: 100%; height: 100%;
+            content: " "; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-            background-size: 100% 4px; 
-            z-index: 100; 
-            pointer-events: none;
+            background-size: 100% 4px; z-index: 100; pointer-events: none;
         }
     </style>
 </head>
 <body>
-
     <h1 class="title">RON3IA</h1>
-
+    <div class="subtitle">SISTEMA AUTÓNOMO DE OPTIMIZACIÓN FINANCIERA DIGITAL</div>
+    <p class="description">
+        Desde la mejora de conversión hasta la optimización del margen empresarial, 
+        RON3IA detecta ineficiencias en tu ecosistema digital y genera decisiones 
+        estratégicas accionables en minutos.
+    </p>
     <div class="grid">
-        <div class="box b1">DIAGNÓSTICO</div>
-        <div class="box b2">PRIORIZACIÓN</div>
-        <div class="box b3">EJECUCIÓN</div>
+        <a href="#" class="link">DIAGNÓSTICO AUTÓNOMO</a>
+        <a href="#" class="link">PRIORIZACIÓN FINANCIERA</a>
+        <a href="#" class="link">EJECUCIÓN INTELIGENTE</a>
     </div>
-
 </body>
 </html>
