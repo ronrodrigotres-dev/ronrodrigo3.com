@@ -5,13 +5,13 @@ async function ejecutarAuditoria() {
     const email = document.getElementById('email').value;
     const url = document.getElementById('url').value;
 
-    const btn = document.getElementById('btn-auditoria');
-    const btnText = document.getElementById('btn-text');
-    const glow = document.getElementById('btn-glow');
+    const btn = document.getElementById('BTN-auditoria');
+    const btnText = document.getElementById('BTN-text');
+    const brillo = document.getElementById('BTN-glow');
 
-    const scoreNum = document.getElementById('score-number');
+    const scoreNum = document.getElementById('numero-de-puntuacion');
     const gauge = document.querySelector('.score-gauge');
-    const btnPdf = document.getElementById('btn-pdf');
+    const btnPdf = document.getElementById('BTN-PDF');
 
     if (!email || !url) {
         return alert("CRÍTICO: Email y URL requeridos.");
@@ -19,50 +19,50 @@ async function ejecutarAuditoria() {
 
     btn.disabled = true;
     btnText.innerText = "PROCESANDO...";
-    glow.style.width = "0%";
+    brillo.style.width = "0%";
 
     let progreso = 0;
 
     const intervalo = setInterval(() => {
         if (progreso < 90) {
             progreso += 4;
-            glow.style.width = progreso + "%";
+            brillo.style.width = progreso + "%";
         }
     }, 80);
 
     try {
 
         const response = await fetch(`${API_BASE_URL}/analizar-sitio`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, url })
         });
 
         const data = await response.json();
 
         clearInterval(intervalo);
-        glow.style.width = "100%";
+        brillo.style.width = "100%";
 
         if (data.status === "success") {
 
-            gauge.style.setProperty('--percentage', `${data.health_score.score}%`);
+            gauge.style.setProperty("--percentage", `${data.health_score.score}%`);
             scoreNum.innerText = `${data.health_score.score}/100`;
 
             btnPdf.disabled = false;
-            btnPdf.classList.remove('opacity-20', 'cursor-not-allowed');
+            btnPdf.classList.remove("opacity-20", "cursor-not-allowed");
 
             btnText.innerText = "ANÁLISIS COMPLETADO";
         }
 
     } catch (e) {
         clearInterval(intervalo);
-        glow.style.width = "0%";
+        brillo.style.width = "0%";
         btnText.innerText = "ERROR";
         alert("Motor inaccesible.");
     }
 
     setTimeout(() => {
-        glow.style.width = "0%";
+        brillo.style.width = "0%";
         btnText.innerText = "INICIAR AUDITORÍA";
         btn.disabled = false;
     }, 1500);
