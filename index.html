@@ -2,7 +2,11 @@ async function ejecutarAuditoria() {
 
     const email = document.getElementById('email').value;
     const url = document.getElementById('url').value;
-    const btn = document.querySelector('button[onclick]');
+
+    const btn = document.getElementById('btn-auditoria');
+    const btnText = document.getElementById('btn-text');
+    const btnFill = document.getElementById('btn-fill');
+
     const scoreNum = document.getElementById('score-number');
     const gauge = document.querySelector('.score-gauge');
     const btnPdf = document.getElementById('btn-pdf');
@@ -11,8 +15,18 @@ async function ejecutarAuditoria() {
         return alert("CRÍTICO: Email y URL requeridos.");
     }
 
-    btn.innerText = "PROCESANDO LÓGICA...";
     btn.disabled = true;
+    btn.classList.add("processing");
+    btnText.innerText = "PROCESANDO...";
+
+    let progreso = 0;
+
+    const intervalo = setInterval(() => {
+        if (progreso < 95) {
+            progreso += 5;
+            btnFill.style.width = progreso + "%";
+        }
+    }, 120);
 
     try {
 
@@ -27,20 +41,37 @@ async function ejecutarAuditoria() {
 
         const data = await response.json();
 
+        clearInterval(intervalo);
+
+        btnFill.style.width = "100%";
+
         if (data.status === "success") {
 
             currentAuditId = data.audit_id;
+
             gauge.style.setProperty('--percentage', `${data.health_score.score}%`);
             scoreNum.innerText = `${data.health_score.score}/100`;
 
             btnPdf.disabled = false;
             btnPdf.classList.remove('opacity-20', 'cursor-not-allowed');
+
+            btnText.innerText = "ANÁLISIS COMPLETADO";
+
         }
 
     } catch (e) {
+
+        clearInterval(intervalo);
+        btnFill.style.width = "0%";
+        btnText.innerText = "ERROR";
+
         alert("ERROR: Motor autónomo inaccesible.");
     }
 
-    btn.innerText = "INICIAR AUDITORÍA";
-    btn.disabled = false;
+    setTimeout(() => {
+        btnFill.style.width = "0%";
+        btnText.innerText = "INICIAR AUDITORÍA";
+        btn.classList.remove("processing");
+        btn.disabled = false;
+    }, 2000);
 }
