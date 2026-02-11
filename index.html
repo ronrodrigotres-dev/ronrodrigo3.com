@@ -1,89 +1,242 @@
-<div class="lg:col-span-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-    
-    <div class="neon-border p-6 rounded-lg service-card group cursor-help transition-all duration-500">
-        <h3 class="text-red-500 font-bold text-sm uppercase tracking-tighter mb-2">Auditoría Estratégica Autónoma™</h3>
-        <p class="text-[10px] text-gray-400 uppercase group-hover:hidden">Diagnóstico financiero impulsado por IA evolutiva.</p>
-        <div class="details hidden group-hover:block animate-fade-in">
-            <p class="text-[11px] text-gray-300 leading-relaxed mb-2">
-                <span class="text-red-600 font-bold">QUÉ HACE:</span> Calcula tu Score de Salud Digital, detecta fugas de margen y prioriza acciones según Impacto vs Esfuerzo.
-            </p>
-            <p class="text-[11px] text-white font-bold">
-                <span class="text-red-600">RESULTADO:</span> Identificación de entre 15% y 40% de margen oculto.
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RON3IA | Consola de Inteligencia Estratégica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 0, 0, 0.15) 0%, transparent 80%),
+                url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+        }
+        
+        .neon-border {
+            border: 2px solid #ff3131;
+            box-shadow: 0 0 10px #ff3131, inset 0 0 5px #ff3131;
+            background: rgba(0, 0, 0, 0.9);
+            transition: all 0.4s ease;
+        }
+
+        .neon-border:hover {
+            box-shadow: 0 0 20px #ff3131, 0 0 40px #ff3131, inset 0 0 10px #ff3131;
+        }
+
+        .neon-text {
+            color: #fff;
+            text-shadow: 0 0 5px #fff, 0 0 10px #ff3131, 0 0 20px #ff3131;
+        }
+
+        .service-card .details {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            font-size: 0.75rem;
+        }
+
+        .service-card:hover .details {
+            max-height: 250px;
+            opacity: 1;
+            margin-top: 15px;
+        }
+
+        .score-gauge {
+            background: conic-gradient(#ff3131 var(--percentage, 0%), #1a1a1a 0);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen overflow-x-hidden">
+
+    <header class="max-w-7xl mx-auto text-center mb-16 pt-10">
+        <h1 class="text-5xl md:text-7xl font-bold tracking-tighter neon-text mb-4 uppercase">RON3IA</h1>
+        <p class="text-red-500 text-lg md:text-2xl font-bold mb-4 tracking-widest uppercase">Sistema Autónomo de Optimización Financiera Digital</p>
+        <p class="text-gray-400 max-w-3xl mx-auto text-sm md:text-base leading-relaxed mb-8">
+            Desde la mejora de conversión hasta la optimización del margen empresarial, RON3IA detecta ineficiencias en tu ecosistema digital y genera decisiones estratégicas accionables en minutos.
+        </p>
+        <div class="flex flex-wrap justify-center gap-6 text-[10px] md:text-xs tracking-[0.2em] font-bold text-gray-500 uppercase mb-10">
+            <span class="border-b border-red-900 pb-1">Diagnóstico Autónomo</span>
+            <span class="border-b border-red-900 pb-1">Priorización Financiera</span>
+            <span class="border-b border-red-900 pb-1">Ejecución Inteligente</span>
+        </div>
+        <button onclick="document.getElementById('analizador').scrollIntoView({behavior: 'smooth'})" class="neon-border px-10 py-4 font-bold text-white hover:bg-red-900/20 transition-all uppercase tracking-widest">
+            Ejecutar Auditoría
+        </button>
+    </header>
+
+    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
+        
+        <div class="lg:col-span-1 neon-border p-8 rounded-lg flex flex-col items-center">
+            <h2 class="text-sm mb-6 text-red-500 font-bold uppercase tracking-widest text-center">Score de Salud Digital</h2>
+            <div class="w-44 h-44 score-gauge relative mb-8" style="--percentage: 0%;">
+                <div class="bg-black w-36 h-36 rounded-full flex flex-col items-center justify-center border border-red-900">
+                    <span id="score-number" class="text-4xl font-bold neon-text">--/100</span>
+                </div>
+            </div>
+            <div class="text-[10px] text-gray-500 space-y-2 uppercase w-full">
+                <p class="flex justify-between"><span>SEO Estructural</span> <span class="text-red-900">●</span></p>
+                <p class="flex justify-between"><span>Performance Técnica</span> <span class="text-red-900">●</span></p>
+                <p class="flex justify-between"><span>Conversión / Fricción</span> <span class="text-red-900">●</span></p>
+                <p class="flex justify-between"><span>Eficiencia Ads</span> <span class="text-red-900">●</span></p>
+            </div>
+        </div>
+
+        <div class="lg:col-span-3 neon-border p-8 rounded-lg">
+            <h2 class="text-sm mb-4 text-red-500 font-bold flex items-center uppercase">
+                <span class="w-3 h-3 bg-red-600 rounded-full mr-3 animate-pulse shadow-[0_0_10px_#ff0000]"></span>
+                Consola de Comando Estratégico
+            </h2>
+            <textarea id="analizador" class="w-full h-48 bg-black border border-red-950 text-red-100 p-5 focus:outline-none focus:border-red-500 rounded text-sm mb-6" 
+                      placeholder="Describe tu desafío de negocio o pega la URL del sitio para iniciar diagnóstico autónomo..."></textarea>
+            <div class="flex gap-4">
+                <button onclick="ejecutarAuditoria()" class="flex-1 bg-red-900 hover:bg-red-600 text-white font-bold py-4 rounded transition uppercase text-xs tracking-widest">
+                    Iniciar Auditoría
+                </button>
+                <button id="btn-pdf" disabled class="flex-1 border border-red-900 text-red-500 font-bold py-4 rounded opacity-20 cursor-not-allowed uppercase text-xs tracking-widest">
+                    Descargar Reporte Ejecutivo
+                </button>
+            </div>
+        </div>
+
+        <div class="lg:col-span-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+            <div class="neon-border p-6 rounded-lg service-card group cursor-help transition-all">
+                <h3 class="text-red-500 font-bold text-sm uppercase mb-2">Auditoría Estratégica Autónoma™</h3>
+                <p class="text-[10px] text-gray-500 uppercase">Detección de fugas de margen y reducción de riesgo.</p>
+                <div class="details">
+                    <p class="text-gray-400 mb-2">OPERATIVO: Identificación técnica detallada en 360°.</p>
+                    <p class="text-white font-bold">RESULTADO: Entre 15% y 40% de margen oculto identificado.</p>
+                </div>
+            </div>
+
+            <div class="neon-border p-6 rounded-lg service-card group cursor-help transition-all">
+                <h3 class="text-red-500 font-bold text-sm uppercase mb-2">Ingeniería de Conversión (CRO)</h3>
+                <p class="text-[10px] text-gray-500 uppercase">Incremento directo en rentabilidad por cliente.</p>
+                <div class="details">
+                    <p class="text-gray-400 mb-2">OPERATIVO: Eliminación de fricción en embudos y checkout.</p>
+                    <p class="text-white font-bold">IMPACTO: +10% a +35% en tasa de conversión sin más tráfico.</p>
+                </div>
+            </div>
+
+            <div class="neon-border p-6 rounded-lg service-card group cursor-help transition-all">
+                <h3 class="text-red-500 font-bold text-sm uppercase mb-2">SEO de Arquitectura Estratégica</h3>
+                <p class="text-[10px] text-gray-500 uppercase">Reducción de dependencia publicitaria.</p>
+                <div class="details">
+                    <p class="text-gray-400 mb-2">OPERATIVO: Optimización técnica y clustering inteligente.</p>
+                    <p class="text-white font-bold">RESULTADO: Dominancia orgánica y crecimiento sostenible.</p>
+                </div>
+            </div>
+
+            <div class="neon-border p-6 rounded-lg service-card group cursor-help transition-all">
+                <h3 class="text-red-500 font-bold text-sm uppercase mb-2">Growth & SEM Inteligente</h3>
+                <p class="text-[10px] text-gray-500 uppercase">Mejor asignación de capital digital.</p>
+                <div class="details">
+                    <p class="text-gray-400 mb-2">OPERATIVO: Control de CPA y estructura eficiente de campañas.</p>
+                    <p class="text-white font-bold">IMPACTO: Reducción de CPA entre 10% y 25%.</p>
+                </div>
+            </div>
+
+            <div class="neon-border p-6 rounded-lg service-card group cursor-help transition-all">
+                <h3 class="text-red-500 font-bold text-sm uppercase mb-2">Arquitectura E-commerce Escalable</h3>
+                <p class="text-[10px] text-gray-500 uppercase">Reducción de riesgo operativo en escalado.</p>
+                <div class="details">
+                    <p class="text-gray-400 mb-2">OPERATIVO: Optimización de performance, seguridad y estabilidad.</p>
+                    <p class="text-white font-bold">RESULTADO: Infraestructura sin fricción técnica.</p>
+                </div>
+            </div>
+
+            <div class="neon-border p-6 rounded-lg service-card group cursor-help transition-all">
+                <h3 class="text-red-500 font-bold text-sm uppercase mb-2">Transformación Digital Autónoma</h3>
+                <p class="text-[10px] text-gray-500 uppercase">Escalabilidad sin aumentar estructura de costos.</p>
+                <div class="details">
+                    <p class="text-gray-400 mb-2">OPERATIVO: Automatización de decisiones y procesos con IA.</p>
+                    <p class="text-white font-bold">RESULTADO: Eficiencia estructural absoluta.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-4 border border-red-900 bg-red-950/10 p-10 mt-10 rounded-lg">
+            <h2 class="neon-text text-xl mb-8 uppercase text-center tracking-widest">🏛 RON3IA Executive View</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-[10px] tracking-widest uppercase">
+                <div class="space-y-4">
+                    <p class="text-red-500 font-bold">Análisis Proyectado</p>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>● Nivel de Riesgo Estratégico</li>
+                        <li>● Proyección de Mejora Financiera</li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <p class="text-red-500 font-bold">Plan de Acción</p>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>● Roadmap Priorizado por Impacto</li>
+                        <li>● Clasificación Quick Wins vs Strategic Bets</li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <p class="text-red-500 font-bold">Diferencial Puro</p>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>● Optimización por Costo y Complejidad</li>
+                        <li>● Sistema Evolutivo con Memoria</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:col-span-4 p-8 mt-10 text-center">
+            <p class="text-[10px] text-gray-500 tracking-[0.3em] uppercase max-w-4xl mx-auto leading-relaxed">
+                RON3IA opera bajo protocolos de análisis autónomo y validación estratégica. Cada diagnóstico elimina el sesgo subjetivo y prioriza decisiones basadas en impacto real y riesgo financiero medible. <span class="text-red-600 font-bold">La eficiencia digital no es opcional. Es estructural.</span>
             </p>
         </div>
-    </div>
+    </main>
 
-    <div class="neon-border p-6 rounded-lg service-card group cursor-help transition-all duration-500">
-        <h3 class="text-red-500 font-bold text-sm uppercase tracking-tighter mb-2">Ingeniería de Conversión (CRO)</h3>
-        <p class="text-[10px] text-gray-400 uppercase group-hover:hidden">Optimización de rentabilidad por visita.</p>
-        <div class="details hidden group-hover:block">
-            <p class="text-[11px] text-gray-300 leading-relaxed mb-2">
-                <span class="text-red-600 font-bold">QUÉ HACE:</span> Analiza fricción en el embudo, pérdida en checkout y reestructura la jerarquía de oferta mediante datos.
-            </p>
-            <p class="text-[11px] text-white font-bold">
-                <span class="text-red-600">RESULTADO:</span> Incremento de conversión entre 10% y 35% sin aumentar inversión.
-            </p>
-        </div>
-    </div>
+    <footer class="mt-16 text-center text-gray-600 text-[9px] uppercase tracking-widest">
+        RonRodrigo3.com © 2026 | Operando bajo protocolos de Seguridad IA
+    </footer>
 
-    <div class="neon-border p-6 rounded-lg service-card group cursor-help transition-all duration-500">
-        <h3 class="text-red-500 font-bold text-sm uppercase tracking-tighter mb-2">Arquitectura de Posicionamiento (SEO)</h3>
-        <p class="text-[10px] text-gray-400 uppercase group-hover:hidden">Dominancia estructural en buscadores.</p>
-        <div class="details hidden group-hover:block">
-            <p class="text-[11px] text-gray-300 leading-relaxed mb-2">
-                <span class="text-red-600 font-bold">QUÉ HACE:</span> Diseña clusters de autoridad y arquitectura técnica para capturar demanda transaccional de alto valor.
-            </p>
-            <p class="text-[11px] text-white font-bold">
-                <span class="text-red-600">RESULTADO:</span> Tráfico cualificado sostenido y reducción de dependencia de Ads.
-            </p>
-        </div>
-    </div>
+    <script>
+        const API_BASE_URL = "https://ron3ia-api-819648047297.southamerica-west1.run.app";
+        let currentAuditId = null;
 
-    <div class="neon-border p-6 rounded-lg service-card group cursor-help transition-all duration-500">
-        <h3 class="text-red-500 font-bold text-sm uppercase tracking-tighter mb-2">SEM & Arquitectura de Costos</h3>
-        <p class="text-[10px] text-gray-400 uppercase group-hover:hidden">Maximización de margen por cada dólar invertido.</p>
-        <div class="details hidden group-hover:block">
-            <p class="text-[11px] text-gray-300 leading-relaxed mb-2">
-                <span class="text-red-600 font-bold">QUÉ HACE:</span> Optimiza CPA y ROAS decidiendo qué modelo estratégico maximiza el margen neto de la operación.
-            </p>
-            <p class="text-[11px] text-white font-bold">
-                <span class="text-red-600">RESULTADO:</span> Reducción de CPA entre 10% y 25% en campañas escalables.
-            </p>
-        </div>
-    </div>
+        async function ejecutarAuditoria() {
+            const input = document.getElementById('analizador');
+            const btn = document.querySelector('button[onclick]');
+            const scoreNum = document.getElementById('score-number');
+            const gauge = document.querySelector('.score-gauge');
+            const btnPdf = document.getElementById('btn-pdf');
 
-    <div class="neon-border p-6 rounded-lg service-card group cursor-help transition-all duration-500">
-        <h3 class="text-red-500 font-bold text-sm uppercase tracking-tighter mb-2">Infraestructura Escalable</h3>
-        <p class="text-[10px] text-gray-400 uppercase group-hover:hidden">Sistemas robustos preparados para el crecimiento.</p>
-        <div class="details hidden group-hover:block">
-            <p class="text-[11px] text-gray-300 leading-relaxed mb-2">
-                <span class="text-red-600 font-bold">QUÉ HACE:</span> Optimiza arquitectura Cloudflare + Google Cloud para mejorar performance y seguridad técnica.
-            </p>
-            <p class="text-[11px] text-white font-bold">
-                <span class="text-red-600">RESULTADO:</span> Mayor estabilidad y menor fricción operativa en ventas masivas.
-            </p>
-        </div>
-    </div>
+            if (!input.value.trim()) return alert("CRÍTICO: Inyecte parámetros para iniciar.");
 
-    <div class="neon-border p-6 rounded-lg service-card group cursor-help transition-all duration-500">
-        <h3 class="text-red-500 font-bold text-sm uppercase tracking-tighter mb-2">Integración de Sistemas IA</h3>
-        <p class="text-[10px] text-gray-400 uppercase group-hover:hidden">Implementación de flujos autónomos operativos.</p>
-        <div class="details hidden group-hover:block">
-            <p class="text-[11px] text-gray-300 leading-relaxed mb-2">
-                <span class="text-red-600 font-bold">QUÉ HACE:</span> Automatiza decisiones estratégicas e integra IA en marketing y operación para reducir errores humanos.
-            </p>
-            <p class="text-[11px] text-white font-bold">
-                <span class="text-red-600">RESULTADO:</span> Operación eficiente con decisiones basadas 100% en datos.
-            </p>
-        </div>
-    </div>
-</div>
+            btn.innerText = "PROCESANDO LÓGICA...";
+            btn.disabled = true;
 
-<div class="lg:col-span-4 manifesto-rect p-8 mt-12 rounded-lg text-center border border-red-900 bg-black/50">
-    <h2 class="neon-text text-sm mb-4 uppercase tracking-[0.2em]">Manifiesto de Inteligencia Pura: Zero Bias</h2>
-    <p class="text-[11px] text-gray-400 tracking-widest leading-relaxed max-w-4xl mx-auto">
-        RON3IA OPERA BAJO UN ESTRICTO PROTOCOLO DE <span class="text-red-600 font-bold">CERO INTERVENCIÓN HUMANA</span>. 
-        CADA DIAGNÓSTICO ES PRODUCTO DE LÓGICA COMPUTACIONAL PURA, ELIMINANDO EL SESGO SUBJETIVO Y EL ERROR MANUAL. 
-        ESTO GARANTIZA RESULTADOS BASADOS EN DATOS DUROS PARA DECISIONES FINANCIERAS DE ALTO RIESGO.
-    </p>
-</div>
+            try {
+                const response = await fetch(`${API_BASE_URL}/analizar-sitio`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ descripcion: input.value })
+                });
+                const data = await response.json();
+                if (data.status === "success") {
+                    currentAuditId = data.audit_id;
+                    gauge.style.setProperty('--percentage', `${data.health_score.score}%`);
+                    scoreNum.innerText = `${data.health_score.score}/100`;
+                    btnPdf.disabled = false;
+                    btnPdf.classList.remove('opacity-20', 'cursor-not-allowed');
+                    btnPdf.onclick = () => window.open(`${API_BASE_URL}/descargar-reporte/${currentAuditId}`, '_blank');
+                }
+            } catch (e) {
+                alert("ERROR DE CONEXIÓN: Motor de IA inaccesible.");
+            } finally {
+                btn.innerText = "INICIAR AUDITORÍA";
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
