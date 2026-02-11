@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RON3IA | War Room Dashboard</title>
     <style>
-        :root { --neon: #ff3131; --bg: #050505; }
-        
+        :root {
+            --neon: #ff3131;
+            --bg: #050505;
+            --panel-bg: #0a0a0a;
+        }
+
         body {
             background-color: var(--bg);
             color: #fff;
@@ -16,134 +20,159 @@
             flex-direction: column;
             align-items: center;
             padding: 40px 20px;
+            /* Fondo de puntos exacto de tus fotos */
             background-image: radial-gradient(#111 1px, transparent 1px);
             background-size: 20px 20px;
         }
 
-        /* --- ANIMACIONES DE PARPADEO REAL (STEPS 1) --- */
-        @keyframes flicker-heavy {
+        /* --- ANIMACIONES DE PARPADEO NERVIOSO (STEPS 1) --- */
+        @keyframes flicker-title {
             0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; text-shadow: 0 0 20px var(--neon); }
             20%, 22%, 24%, 55% { opacity: 0; text-shadow: none; }
         }
 
         @keyframes flicker-border {
-            0%, 12%, 15%, 90%, 93%, 100% { border-color: var(--neon); box-shadow: 0 0 15px var(--neon); }
-            13%, 91% { border-color: #300; box-shadow: none; }
+            0%, 12%, 15%, 90%, 93%, 100% { border-color: var(--neon); box-shadow: 0 0 15px var(--neon); opacity: 1; }
+            13%, 91% { border-color: #300; box-shadow: none; opacity: 0.5; }
         }
 
-        /* --- HEADER & HERO --- */
-        .title { font-size: 4rem; letter-spacing: 10px; animation: flicker-heavy 4s infinite steps(1); margin: 0; }
+        /* --- HEADER --- */
+        .title {
+            font-size: 4rem;
+            letter-spacing: 10px;
+            margin-bottom: 10px;
+            animation: flicker-title 4s infinite steps(1);
+        }
+
+        .subtitle {
+            color: var(--neon);
+            font-size: 1rem;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .description {
+            max-width: 700px;
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 50px;
+        }
+
+        /* --- BOTÓN EJECUTAR AUDITORÍA --- */
         .hero-btn {
             border: 2px solid var(--neon);
-            padding: 15px 40px;
-            margin: 40px 0;
+            padding: 15px 50px;
+            background: transparent;
+            color: #fff;
             font-weight: bold;
             letter-spacing: 3px;
+            cursor: pointer;
+            margin-bottom: 60px;
             animation: flicker-border 3s infinite steps(1);
-            background: transparent; color: #fff; cursor: pointer;
+            transition: 0.3s;
+        }
+        .hero-btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 30px var(--neon); }
+
+        /* --- CONSOLA DE COMANDO (Diseño de la foto) --- */
+        .console-card {
+            width: 100%; max-width: 800px;
+            border: 2px solid var(--neon);
+            padding: 30px;
+            background: var(--panel-bg);
+            margin-bottom: 60px;
+            /* Parpadeo en el borde de toda la consola */
+            animation: flicker-border 5s infinite steps(1);
         }
 
-        /* --- SCORE SECTION --- */
-        .section-title { color: var(--neon); font-size: 0.9rem; letter-spacing: 5px; margin-bottom: 20px; }
         .score-circle {
-            width: 150px; height: 150px;
+            width: 120px; height: 120px;
             border-radius: 50%;
-            border: 5px solid #1a1a1a;
+            border: 6px solid #1a1a1a;
             display: flex; align-items: center; justify-content: center;
-            font-size: 2.5rem; font-weight: bold;
-            margin-bottom: 60px;
+            font-size: 2rem; font-weight: bold;
+            margin: 0 auto 30px;
             box-shadow: inset 0 0 20px #000;
         }
 
-        /* --- CONSOLA DE COMANDO --- */
-        .console-box {
-            width: 100%; max-width: 800px;
-            border: 1px solid #222;
-            padding: 30px;
-            background: #000;
-            margin-bottom: 60px;
-        }
         textarea {
-            width: 100%; height: 150px;
-            background: transparent; border: 1px solid #111;
-            color: #888; padding: 15px; font-family: inherit;
-            resize: none; box-sizing: border-box;
+            width: 100%; height: 120px;
+            background: #000;
+            border: 1px solid #222;
+            color: #888; padding: 15px;
+            font-family: inherit; resize: none;
+            box-sizing: border-box; margin-bottom: 20px;
+            outline: none; transition: 0.3s;
         }
+        textarea:focus { border-color: var(--neon); color: #fff; }
 
-        /* --- GRID DE 6 CAJAS --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            max-width: 900px;
-            margin-bottom: 80px;
+        .btn-group { display: flex; gap: 20px; }
+        .btn-primary {
+            flex: 1; background: #400; border: none; color: white;
+            padding: 15px; font-weight: bold; cursor: pointer; transition: 0.3s;
         }
-        .service-box {
-            border: 2px solid var(--neon);
-            padding: 25px;
-            text-align: left;
-            animation: flicker-border 5s infinite steps(1);
+        .btn-primary:hover { background: var(--neon); color: #000; }
+        .btn-secondary {
+            flex: 1; background: transparent; border: 1px solid #222; color: #444;
+            padding: 15px; cursor: pointer; transition: 0.3s;
         }
-        .service-box h3 { margin: 0; font-size: 1rem; color: var(--neon); }
-        .service-box p { font-size: 0.7rem; color: #666; margin-top: 10px; }
+        .btn-secondary:hover { border-color: #666; color: #888; }
 
         /* --- EXECUTIVE VIEW --- */
         .exec-view {
+            width: 100%; max-width: 800px;
             border: 1px solid var(--neon);
-            padding: 40px;
-            max-width: 800px;
-            width: 100%;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+            padding: 30px;
             background: rgba(255, 49, 49, 0.02);
         }
-        .exec-view h4 { color: var(--neon); font-size: 0.8rem; margin-bottom: 15px; }
-        .exec-view ul { list-style: none; padding: 0; font-size: 0.75rem; color: #999; }
+        .exec-view h3 { text-align: center; color: #fff; letter-spacing: 3px; margin-bottom: 30px; }
+        .exec-view h4 { color: var(--neon); font-size: 0.8rem; margin-top: 25px; }
+        .exec-view ul { list-style: none; padding: 0; font-size: 0.7rem; color: #999; }
         .exec-view li::before { content: "● "; color: var(--neon); margin-right: 10px; }
 
-        footer { margin-top: 100px; font-size: 0.6rem; color: #333; letter-spacing: 2px; }
+        footer { margin-top: 80px; font-size: 0.6rem; color: #444; letter-spacing: 2px; }
 
-        @media (max-width: 768px) {
-            .grid, .exec-view { grid-template-columns: 1fr; }
-            .title { font-size: 2.5rem; }
-        }
     </style>
 </head>
 <body>
 
     <h1 class="title">RON3IA</h1>
+    <div class="subtitle">SISTEMA AUTÓNOMO DE OPTIMIZACIÓN FINANCIERA DIGITAL</div>
+    <p class="description">
+        Desde la mejora de conversión hasta la optimización del margen empresarial, 
+        RON3IA detecta ineficiencias en tu ecosistema digital y genera decisiones 
+        estratégicas accionables en minutos.
+    </p>
+
     <button class="hero-btn">EJECUTAR AUDITORÍA</button>
 
-    <div class="section-title">SCORE DE SALUD DIGITAL</div>
-    <div class="score-circle">--/100</div>
-
-    <div class="console-box">
-        <div class="section-title" style="text-align: left; margin-bottom: 15px;">CONSOLA DE COMANDO ESTRATÉGICO</div>
+    <div class="console-card">
+        <div style="text-align: center; color: var(--neon); margin-bottom: 20px; letter-spacing: 3px;">SCORE DE SALUD DIGITAL</div>
+        <div class="score-circle">--/100</div>
+        
+        <div style="color: var(--neon); margin-bottom: 10px;">CONSOLA DE COMANDO ESTRATÉGICO</div>
         <textarea placeholder="Describe tu desafío de negocio o pega la URL del sitio..."></textarea>
-        <div style="display: flex; gap: 20px; margin-top: 20px;">
-            <button style="background: #400; border: none; color: white; padding: 15px 30px; flex: 1; cursor: pointer; font-weight: bold;">INICIAR AUDITORÍA</button>
-            <button style="background: transparent; border: 1px solid #222; color: #444; padding: 15px 30px; flex: 1; cursor: pointer;">DESCARGAR REPORTE</button>
+        <div class="btn-group">
+            <button class="btn-primary">INICIAR AUDITORÍA</button>
+            <button class="btn-secondary">DESCARGAR REPORTE</button>
         </div>
-    </div>
-
-    <div class="grid">
-        <div class="service-box"><h3>AUDITORÍA ESTRATÉGICA</h3><p>Detección de fugas de margen y reducción de riesgo.</p></div>
-        <div class="service-box"><h3>INGENIERÍA DE CONVERSIÓN</h3><p>Incremento directo en rentabilidad por cliente.</p></div>
-        <div class="service-box"><h3>SEO ESTRATÉGICO</h3><p>Reducción de dependencia publicitaria.</p></div>
-        <div class="service-box"><h3>GROWTH & SEM</h3><p>Mejor asignación de capital digital.</p></div>
-        <div class="service-box"><h3>ARQUITECTURA E-COMMERCE</h3><p>Reducción de riesgo operativo en escalado.</p></div>
-        <div class="service-box"><h3>TRANSFORMACIÓN DIGITAL</h3><p>Escalabilidad sin aumentar estructura de costos.</p></div>
     </div>
 
     <div class="exec-view">
-        <div>
-            <h4>ANÁLISIS PROYECTADO</h4>
-            <ul><li>Nivel de Riesgo Estratégico</li><li>Proyección de Mejora Financiera</li></ul>
-            <h4 style="margin-top: 30px;">DIFERENCIAL PURO</h4>
-            <ul><li>Optimización por Costo y Complejidad</li><li>Sistema Evolutivo con Memoria</li></ul>
-        </div>
-        <div>
-            <h4>PLAN DE ACCIÓN</h4>
-            <ul><li>Roadmap Priorizado por Impacto</li><li>Clasificación Quick Wins vs Strategic Bets</li></ul>
+        <h3>RON3IA EXECUTIVE VIEW</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+            <div>
+                <h4>ANÁLISIS PROYECTADO</h4>
+                <ul><li>Nivel de Riesgo Estratégico</li><li>Proyección de Mejora Financiera</li></ul>
+                <h4>DIFERENCIAL PURO</h4>
+                <ul><li>Optimización por Costo y Complejidad</li><li>Sistema Evolutivo con Memoria</li></ul>
+            </div>
+            <div>
+                <h4>PLAN DE ACCIÓN</h4>
+                <ul><li>Roadmap Priorizado por Impacto</li><li>Clasificación Quick Wins vs Strategic Bets</li></ul>
+            </div>
         </div>
     </div>
 
