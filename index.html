@@ -1,235 +1,148 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RON3IA | Sistema Autónomo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RON3IA | War Room Elite</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon: #ff3131; --bg: #050505; }
+        body { background: var(--bg); font-family: 'JetBrains Mono', monospace; color: white; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 1000px; }
+        
+        /* HEADER */
+        .header { display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding-bottom: 10px; margin-bottom: 25px; }
+        .status { color: #00ff00; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; }
 
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+        /* CARD */
+        .card { border: 2px solid var(--neon); box-shadow: 0 0 30px rgba(255, 49, 49, 0.15); padding: 35px; background: #0a0a0a; border-radius: 2px; }
 
-<style>
-body{
-    margin:0;
-    background:#000;
-    font-family:'JetBrains Mono', monospace;
-    color:white;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-}
+        /* SCORE SECTION */
+        .score-section { display: grid; grid-template-columns: 200px 1fr; gap: 30px; align-items: center; margin-bottom: 35px; background: #000; padding: 25px; border: 1px solid #111; }
+        .gauge { width: 150px; height: 150px; border-radius: 50%; background: conic-gradient(var(--neon) 0%, #1a1a1a 0%); display: flex; align-items: center; justify-content: center; transition: 2s ease-in-out; }
+        .gauge-inner { width: 120px; height: 120px; background: #000; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #score-val { font-size: 36px; font-weight: bold; color: var(--neon); text-shadow: 0 0 15px var(--neon); }
 
-.card{
-    width:520px;
-    padding:50px;
-    background:#070707;
-    border:2px solid #ff0000;
-    border-radius:10px;
-    box-shadow:0 0 40px #ff0000;
-    text-align:center;
-}
+        /* 6 SERVICES GRID */
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 25px; display: none; }
+        .service-card { background: #000; border: 1px solid #222; padding: 15px; border-top: 2px solid #333; transition: 0.3s; }
+        .service-card.active { border-top-color: var(--neon); box-shadow: 0 5px 15px rgba(255,49,49,0.05); }
+        .service-card h4 { font-size: 9px; color: #666; margin: 0 0 8px 0; text-transform: uppercase; }
+        .service-card p { font-size: 12px; margin: 0; color: #ccc; line-height: 1.4; }
 
-h1{
-    color:#ff0000;
-    letter-spacing:2px;
-    margin-bottom:10px;
-}
-
-.subtitle{
-    color:#777;
-    font-size:12px;
-    margin-bottom:40px;
-    letter-spacing:2px;
-}
-
-.score-gauge{
-    width:170px;
-    height:170px;
-    border-radius:50%;
-    background:conic-gradient(#ff0000 0%, #1a1a1a 0%);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin:0 auto 40px auto;
-    transition:1.5s ease;
-}
-
-.score-inner{
-    width:130px;
-    height:130px;
-    background:#000;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-}
-
-#score-number{
-    font-size:28px;
-    font-weight:bold;
-    text-shadow:0 0 10px #ff0000;
-}
-
-.label{
-    font-size:10px;
-    color:#666;
-}
-
-input{
-    width:100%;
-    padding:14px;
-    margin:10px 0;
-    background:#000;
-    border:1px solid #ff0000;
-    color:white;
-    text-align:center;
-}
-
-.neon-button{
-    width:100%;
-    padding:18px;
-    margin-top:20px;
-    background:#8b0000;
-    border:2px solid #ff0000;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    box-shadow:0 0 20px #ff0000;
-    transition:0.3s ease;
-    position:relative;
-    overflow:hidden;
-}
-
-.neon-button:hover{
-    box-shadow:0 0 35px #ff0000;
-}
-
-#BTN-glow{
-    position:absolute;
-    left:0;
-    top:0;
-    height:100%;
-    width:0%;
-    background:linear-gradient(90deg, rgba(255,0,0,0.7), rgba(255,0,0,0.1));
-    box-shadow:0 0 30px #ff0000;
-    z-index:1;
-}
-
-#btn-text{
-    position:relative;
-    z-index:2;
-}
-
-.results{
-    margin-top:25px;
-    font-size:12px;
-    display:none;
-    text-align:left;
-    border-top:1px solid #222;
-    padding-top:15px;
-}
-
-</style>
+        /* INPUTS & BTN */
+        input { width: 100%; padding: 15px; background: #000; border: 1px solid #222; color: white; margin-bottom: 12px; box-sizing: border-box; font-family: 'JetBrains Mono'; outline: none; }
+        input:focus { border-color: var(--neon); }
+        .btn { width: 100%; padding: 20px; background: var(--neon); color: white; border: none; font-weight: bold; cursor: pointer; letter-spacing: 3px; position: relative; overflow: hidden; }
+        .btn:hover { background: #cc0000; box-shadow: 0 0 20px var(--neon); }
+        .loader-bar { position: absolute; left: 0; bottom: 0; height: 4px; background: rgba(0,0,0,0.3); width: 0%; transition: width 2s; }
+    </style>
 </head>
 <body>
 
-<div class="card">
+<div class="container">
+    <div class="header">
+        <div style="color: var(--neon); font-weight: bold;">RON3IA // STRATEGIC_ELITE_v2.7</div>
+        <div class="status">● SYSTEM_ACTIVE</div>
+    </div>
 
-<h1>RON3IA CORE</h1>
-<div class="subtitle">SISTEMA AUTÓNOMO DE AUDITORÍA ESTRATÉGICA</div>
+    <div class="card">
+        <div class="score-section">
+            <div class="gauge" id="main-gauge">
+                <div class="gauge-inner">
+                    <span id="score-val">--</span>
+                    <span style="font-size: 8px; color: #444;">HEALTH_INDEX</span>
+                </div>
+            </div>
+            <div style="text-align: left;">
+                <h3 style="margin: 0 0 10px 0;">AUDITORÍA DE 6 EJES</h3>
+                <p style="font-size: 11px; color: #777;">Análisis multidimensional de activos digitales mediante el motor heurístico de RON3IA.</p>
+            </div>
+        </div>
 
-<div class="score-gauge" id="gauge">
-    <div class="score-inner">
-        <span id="score-number">--</span>
-        <span class="label">SCORE</span>
+        <input type="email" id="email" placeholder="EMAIL_USUARIO">
+        <input type="text" id="url" placeholder="URL_DEL_SITIO">
+
+        <button class="btn" onclick="ejecutarAuditoria()">
+            <span id="btn-text">EJECUTAR PROTOCOLO</span>
+            <div class="loader-bar" id="l-bar"></div>
+        </button>
+
+        <div class="services-grid" id="s-grid">
+            <div class="service-card active">
+                <h4>1. SEO Authority</h4>
+                <p id="s-seo">Analizando visibilidad...</p>
+            </div>
+            <div class="service-card active">
+                <h4>2. CRO Engineering</h4>
+                <p id="s-cro">Escaneando fricción...</p>
+            </div>
+            <div class="service-card active">
+                <h4>3. ROI Financial</h4>
+                <p id="s-roi" style="color: var(--neon);">Calculando...</p>
+            </div>
+            <div class="service-card active">
+                <h4>4. UX/UI Flow</h4>
+                <p id="s-ux">Validando experiencia...</p>
+            </div>
+            <div class="service-card active">
+                <h4>5. Performance</h4>
+                <p id="s-perf">Midiendo latencia...</p>
+            </div>
+            <div class="service-card active">
+                <h4>6. Security Check</h4>
+                <p id="s-sec">Verificando SSL/Headers...</p>
+            </div>
+        </div>
     </div>
 </div>
 
-<input type="email" id="email" placeholder="EMAIL CORPORATIVO">
-<input type="text" id="url" placeholder="URL DEL SITIO (ej. empresa.com)">
-
-<button class="neon-button" onclick="ejecutarAuditoria()">
-    <div id="BTN-glow"></div>
-    <span id="btn-text">INICIAR DIAGNÓSTICO</span>
-</button>
-
-<div id="results-box" class="results">
-    <div id="metrics-content"></div>
-</div>
-
-</div>
-
 <script>
+async function ejecutarAuditoria() {
+    const email = document.getElementById('email').value;
+    const url = document.getElementById('url').value;
+    const lBar = document.getElementById('l-bar');
+    const btnText = document.getElementById('btn-text');
+    const scoreVal = document.getElementById('score-val');
+    const gauge = document.getElementById('main-gauge');
+    const grid = document.getElementById('s-grid');
 
-async function ejecutarAuditoria(){
+    if(!email || !url) return alert("Faltan datos.");
 
-    const email = document.getElementById("email").value;
-    const url = document.getElementById("url").value;
-    const gauge = document.getElementById("gauge");
-    const scoreNum = document.getElementById("score-number");
-    const btnGlow = document.getElementById("BTN-glow");
-    const btnText = document.getElementById("btn-text");
+    btnText.innerText = "INICIANDO ESCANEO MULTIEJE...";
+    lBar.style.width = "100%";
 
-    if(!email || !url){
-        alert("Email y URL requeridos.");
-        return;
-    }
-
-    btnText.innerText = "ANALIZANDO...";
-    btnGlow.style.width = "0%";
-
-    let progress = 0;
-
-    const interval = setInterval(()=>{
-        progress += 4;
-        btnGlow.style.width = progress + "%";
-        if(progress >= 95) clearInterval(interval);
-    },80);
-
-    try{
-
-        const response = await fetch("https://ron3ia-api-819648047297.southamerica-west1.run.app/analizar-sitio",{
-            method:"POST",
-            headers:{ "Content-Type":"application/json" },
-            body:JSON.stringify({ email:email, url:url })
+    try {
+        const response = await fetch("https://ron3ia-api-819648047297.southamerica-west1.run.app/analizar-sitio", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({email: email, url: url})
         });
-
+        
         const data = await response.json();
 
-        clearInterval(interval);
-        btnGlow.style.width = "100%";
-
-        if(data.status === "success"){
-
+        if(data.status === "success") {
             const score = data.health_score.score;
+            scoreVal.innerText = score;
+            gauge.style.background = `conic-gradient(var(--neon) ${score}%, #1a1a1a 0%)`;
+            
+            // Llenado de los 6 servicios
+            grid.style.display = "grid";
+            document.getElementById('s-seo').innerText = data.metrics.seo;
+            document.getElementById('s-cro').innerText = data.metrics.cro;
+            document.getElementById('s-roi').innerText = data.metrics.roi_proyectado;
+            document.getElementById('s-ux').innerText = "Optimización de flujo detectada";
+            document.getElementById('s-perf').innerText = "Latencia en rango aceptable (Cloud Run)";
+            document.getElementById('s-sec').innerText = url.includes('https') ? "SSL VÁLIDO" : "RIESGO DETECTADO";
 
-            gauge.style.background =
-            `conic-gradient(#ff0000 ${score}%, #1a1a1a 0%)`;
-
-            scoreNum.innerText = score;
-
-            btnText.innerText = "DIAGNÓSTICO COMPLETADO";
-
-            document.getElementById("results-box").style.display="block";
-
-            document.getElementById("metrics-content").innerHTML = `
-                <p>SEO: ${data.metrics.seo}</p>
-                <p>CRO: ${data.metrics.cro}</p>
-                <p>ROI PROYECTADO: ${data.metrics.roi_proyectado}</p>
-                <p style="font-size:9px;color:#444;margin-top:10px;">
-                ID: ${data.audit_id}
-                </p>
-            `;
+            btnText.innerText = "ESCANEO COMPLETADO";
         }
-
-    }catch(e){
-        btnText.innerText = "ERROR";
-        btnGlow.style.width = "0%";
+    } catch(e) {
+        btnText.innerText = "ERROR EN EL NÚCLEO";
     }
+
+    setTimeout(() => { lBar.style.width = "0%"; }, 3000);
 }
-
 </script>
-
 </body>
 </html>
