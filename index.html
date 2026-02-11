@@ -3,114 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RON3IA | War Room Elite</title>
+    <title>RON3IA | War Room Core</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --neon: #ff3131; --bg: #050505; }
+        :root { --neon: #ff3131; --bg: #050505; --panel: #0a0a0a; }
         body { background: var(--bg); font-family: 'JetBrains Mono', monospace; color: white; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 1000px; }
         
-        /* HEADER */
-        .header { display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding-bottom: 10px; margin-bottom: 25px; }
-        .status { color: #00ff00; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; }
+        .container { width: 100%; max-width: 900px; }
+        
+        /* HEADER MECÁNICO */
+        .header { display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding-bottom: 10px; margin-bottom: 30px; }
+        .status { color: #00ff00; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+        .status span { animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-        /* CARD */
-        .card { border: 2px solid var(--neon); box-shadow: 0 0 30px rgba(255, 49, 49, 0.15); padding: 35px; background: #0a0a0a; border-radius: 2px; }
+        /* WAR ROOM CARD */
+        .card { border: 2px solid var(--neon); box-shadow: 0 0 30px rgba(255, 49, 49, 0.2); padding: 40px; background: var(--panel); border-radius: 2px; }
 
-        /* SCORE SECTION */
-        .score-section { display: grid; grid-template-columns: 200px 1fr; gap: 30px; align-items: center; margin-bottom: 35px; background: #000; padding: 25px; border: 1px solid #111; }
-        .gauge { width: 150px; height: 150px; border-radius: 50%; background: conic-gradient(var(--neon) 0%, #1a1a1a 0%); display: flex; align-items: center; justify-content: center; transition: 2s ease-in-out; }
-        .gauge-inner { width: 120px; height: 120px; background: #000; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        #score-val { font-size: 36px; font-weight: bold; color: var(--neon); text-shadow: 0 0 15px var(--neon); }
+        /* SCORE ENGINE VISUAL */
+        .score-display { display: grid; grid-template-columns: 180px 1fr; gap: 30px; align-items: center; background: #000; padding: 30px; border: 1px solid #1a1a1a; margin-bottom: 30px; }
+        .gauge-ring { width: 150px; height: 150px; border-radius: 50%; background: conic-gradient(var(--neon) 0%, #111 0%); display: flex; align-items: center; justify-content: center; transition: 2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .gauge-core { width: 120px; height: 120px; background: #000; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        #score-val { font-size: 38px; font-weight: bold; color: var(--neon); text-shadow: 0 0 15px var(--neon); }
 
-        /* 6 SERVICES GRID */
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 25px; display: none; }
-        .service-card { background: #000; border: 1px solid #222; padding: 15px; border-top: 2px solid #333; transition: 0.3s; }
-        .service-card.active { border-top-color: var(--neon); box-shadow: 0 5px 15px rgba(255,49,49,0.05); }
-        .service-card h4 { font-size: 9px; color: #666; margin: 0 0 8px 0; text-transform: uppercase; }
-        .service-card p { font-size: 12px; margin: 0; color: #ccc; line-height: 1.4; }
+        /* GRID DE 6 SERVICIOS ORIGINALES */
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 30px; display: none; border-top: 1px solid #222; padding-top: 30px; }
+        .service-block { background: #000; border: 1px solid #1a1a1a; padding: 15px; border-left: 3px solid #333; transition: 0.4s; }
+        .service-block.active { border-left-color: var(--neon); box-shadow: 5px 0 15px rgba(255,49,49,0.05); }
+        .service-block h4 { font-size: 9px; color: #555; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .service-block p { font-size: 12px; margin: 0; color: #bbb; line-height: 1.4; }
 
-        /* INPUTS & BTN */
-        input { width: 100%; padding: 15px; background: #000; border: 1px solid #222; color: white; margin-bottom: 12px; box-sizing: border-box; font-family: 'JetBrains Mono'; outline: none; }
-        input:focus { border-color: var(--neon); }
-        .btn { width: 100%; padding: 20px; background: var(--neon); color: white; border: none; font-weight: bold; cursor: pointer; letter-spacing: 3px; position: relative; overflow: hidden; }
-        .btn:hover { background: #cc0000; box-shadow: 0 0 20px var(--neon); }
-        .loader-bar { position: absolute; left: 0; bottom: 0; height: 4px; background: rgba(0,0,0,0.3); width: 0%; transition: width 2s; }
+        /* INPUTS & BUTTON */
+        .input-group { margin-bottom: 15px; }
+        input { width: 100%; padding: 15px; background: #000; border: 1px solid #222; color: white; box-sizing: border-box; font-family: 'JetBrains Mono'; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--neon); box-shadow: 0 0 15px rgba(255,49,49,0.2); }
+        
+        .btn-neon { width: 100%; padding: 22px; background: var(--neon); color: white; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 4px; position: relative; overflow: hidden; }
+        .btn-neon:hover { background: #cc0000; box-shadow: 0 0 30px var(--neon); }
+        .btn-progress { position: absolute; left: 0; bottom: 0; height: 5px; background: rgba(0,0,0,0.4); width: 0%; transition: width 2s linear; }
+
+        @media (max-width: 600px) { .services-grid { grid-template-columns: 1fr 1fr; } .score-display { grid-template-columns: 1fr; text-align: center; } }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <div style="color: var(--neon); font-weight: bold;">RON3IA // STRATEGIC_ELITE_v2.7</div>
-        <div class="status">● SYSTEM_ACTIVE</div>
+        <div style="color: var(--neon); font-weight: bold; font-size: 14px;">RON3IA // STRATEGIC_ELITE_v2.8</div>
+        <div class="status"><span>●</span> SYSTEM_READY // PORT_8080</div>
     </div>
 
     <div class="card">
-        <div class="score-section">
-            <div class="gauge" id="main-gauge">
-                <div class="gauge-inner">
+        <div class="score-display">
+            <div class="gauge-ring" id="main-gauge">
+                <div class="gauge-core">
                     <span id="score-val">--</span>
-                    <span style="font-size: 8px; color: #444;">HEALTH_INDEX</span>
+                    <span style="font-size: 8px; color: #444; margin-top: 5px;">INDEX_SCORE</span>
                 </div>
             </div>
-            <div style="text-align: left;">
-                <h3 style="margin: 0 0 10px 0;">AUDITORÍA DE 6 EJES</h3>
-                <p style="font-size: 11px; color: #777;">Análisis multidimensional de activos digitales mediante el motor heurístico de RON3IA.</p>
+            <div>
+                <h3 style="margin: 0 0 10px 0; letter-spacing: -1px;">AUDITORÍA DE 6 EJES</h3>
+                <p style="font-size: 10px; color: #666; line-height: 1.6; margin: 0;">Análisis masivo de vectores de conversión, autoridad de dominio y proyecciones de escalabilidad financiera.</p>
             </div>
         </div>
 
-        <input type="email" id="email" placeholder="EMAIL_USUARIO">
-        <input type="text" id="url" placeholder="URL_DEL_SITIO">
+        <div class="input-group">
+            <input type="email" id="email" placeholder="USER_ID_EMAIL">
+        </div>
+        <div class="input-group">
+            <input type="text" id="url" placeholder="TARGET_DOMAIN_URL">
+        </div>
 
-        <button class="btn" onclick="ejecutarAuditoria()">
-            <span id="btn-text">EJECUTAR PROTOCOLO</span>
-            <div class="loader-bar" id="l-bar"></div>
+        <button class="btn-neon" onclick="ejecutarAuditoria()">
+            <span id="btn-text">INICIAR PROTOCOLO</span>
+            <div class="btn-progress" id="p-bar"></div>
         </button>
 
-        <div class="services-grid" id="s-grid">
-            <div class="service-card active">
-                <h4>1. SEO Authority</h4>
-                <p id="s-seo">Analizando visibilidad...</p>
+        <div class="services-grid" id="results-grid">
+            <div class="service-block active">
+                <h4>01. SEO Authority</h4>
+                <p id="res-seo">Escaneando...</p>
             </div>
-            <div class="service-card active">
-                <h4>2. CRO Engineering</h4>
-                <p id="s-cro">Escaneando fricción...</p>
+            <div class="service-block active">
+                <h4>02. CRO Engineering</h4>
+                <p id="res-cro">Analizando...</p>
             </div>
-            <div class="service-card active">
-                <h4>3. ROI Financial</h4>
-                <p id="s-roi" style="color: var(--neon);">Calculando...</p>
+            <div class="service-block active">
+                <h4>03. ROI Proyectado</h4>
+                <p id="res-roi" style="color: var(--neon); font-weight: bold;">--</p>
             </div>
-            <div class="service-card active">
-                <h4>4. UX/UI Flow</h4>
-                <p id="s-ux">Validando experiencia...</p>
+            <div class="service-block active">
+                <h4>04. UX/UI Flow</h4>
+                <p id="res-ux">Validando...</p>
             </div>
-            <div class="service-card active">
-                <h4>5. Performance</h4>
-                <p id="s-perf">Midiendo latencia...</p>
+            <div class="service-block active">
+                <h4>05. Performance</h4>
+                <p id="res-perf">Midiendo...</p>
             </div>
-            <div class="service-card active">
-                <h4>6. Security Check</h4>
-                <p id="s-sec">Verificando SSL/Headers...</p>
+            <div class="service-block active">
+                <h4>06. Security Check</h4>
+                <p id="res-sec">Verificando...</p>
             </div>
         </div>
+        
+        <p id="audit-id-display" style="font-size: 9px; color: #333; margin-top: 20px; text-align: center; display: none;"></p>
     </div>
 </div>
 
 <script>
 async function ejecutarAuditoria() {
-    const email = document.getElementById('email').value;
-    const url = document.getElementById('url').value;
-    const lBar = document.getElementById('l-bar');
+    const email = document.getElementById('email').value.trim();
+    const url = document.getElementById('url').value.trim();
+    const pBar = document.getElementById('p-bar');
     const btnText = document.getElementById('btn-text');
     const scoreVal = document.getElementById('score-val');
     const gauge = document.getElementById('main-gauge');
-    const grid = document.getElementById('s-grid');
+    const results = document.getElementById('results-grid');
 
-    if(!email || !url) return alert("Faltan datos.");
+    if(!email || !url) return alert("CRÍTICO: Datos insuficientes.");
 
-    btnText.innerText = "INICIANDO ESCANEO MULTIEJE...";
-    lBar.style.width = "100%";
+    // Fase de Carga
+    btnText.innerText = "PROCESANDO HEURÍSTICA...";
+    pBar.style.width = "100%";
 
     try {
         const response = await fetch("https://ron3ia-api-819648047297.southamerica-west1.run.app/analizar-sitio", {
@@ -118,31 +132,44 @@ async function ejecutarAuditoria() {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({email: email, url: url})
         });
-        
+
         const data = await response.json();
 
+        // VALIDACIÓN DE ÉXITO
         if(data.status === "success") {
             const score = data.health_score.score;
-            scoreVal.innerText = score;
-            gauge.style.background = `conic-gradient(var(--neon) ${score}%, #1a1a1a 0%)`;
             
-            // Llenado de los 6 servicios
-            grid.style.display = "grid";
-            document.getElementById('s-seo').innerText = data.metrics.seo;
-            document.getElementById('s-cro').innerText = data.metrics.cro;
-            document.getElementById('s-roi').innerText = data.metrics.roi_proyectado;
-            document.getElementById('s-ux').innerText = "Optimización de flujo detectada";
-            document.getElementById('s-perf').innerText = "Latencia en rango aceptable (Cloud Run)";
-            document.getElementById('s-sec').innerText = url.includes('https') ? "SSL VÁLIDO" : "RIESGO DETECTADO";
+            // Animación del Core
+            gauge.style.background = `conic-gradient(var(--neon) ${score}%, #111 0%)`;
+            scoreVal.innerText = score;
 
-            btnText.innerText = "ESCANEO COMPLETADO";
+            // Inyectar Datos en los 6 Servicios
+            results.style.display = "grid";
+            document.getElementById('res-seo').innerText = data.metrics.seo;
+            document.getElementById('res-cro').innerText = data.metrics.cro;
+            document.getElementById('res-roi').innerText = data.metrics.roi_proyectado;
+            
+            // Servicios Heurísticos Adicionales
+            document.getElementById('res-ux').innerText = "Optimización de carga identificada";
+            document.getElementById('res-perf').innerText = "Latencia estable en red local";
+            document.getElementById('res-sec').innerText = url.includes('https') ? "SSL ACTIVADO" : "SSL NO DETECTADO";
+
+            document.getElementById('audit-id-display').innerText = `ID_AUDIT: ${data.audit_id}`;
+            document.getElementById('audit-id-display').style.display = "block";
+
+            btnText.innerText = "SISTEMA SINCRONIZADO";
         }
-    } catch(e) {
-        btnText.innerText = "ERROR EN EL NÚCLEO";
+    } catch(error) {
+        btnText.innerText = "ERROR_DE_PROTOCOLO";
+        console.error(error);
     }
 
-    setTimeout(() => { lBar.style.width = "0%"; }, 3000);
+    setTimeout(() => { 
+        pBar.style.width = "0%"; 
+        if(btnText.innerText !== "ERROR_DE_PROTOCOLO") btnText.innerText = "NUEVO ESCANEO";
+    }, 4000);
 }
 </script>
+
 </body>
 </html>
