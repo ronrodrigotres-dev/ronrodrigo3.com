@@ -5,7 +5,7 @@ async function ejecutarAuditoria() {
 
     const btn = document.getElementById('btn-auditoria');
     const btnText = document.getElementById('btn-text');
-    const btnFill = document.getElementById('btn-fill');
+    const glow = document.getElementById('btn-glow');
 
     const scoreNum = document.getElementById('score-number');
     const gauge = document.querySelector('.score-gauge');
@@ -16,38 +16,32 @@ async function ejecutarAuditoria() {
     }
 
     btn.disabled = true;
-    btn.classList.add("processing");
     btnText.innerText = "PROCESANDO...";
 
     let progreso = 0;
 
     const intervalo = setInterval(() => {
-        if (progreso < 95) {
-            progreso += 5;
-            btnFill.style.width = progreso + "%";
+        if (progreso < 90) {
+            progreso += 3;
+            glow.style.width = progreso + "%";
         }
-    }, 120);
+    }, 80);
 
     try {
 
         const response = await fetch(`${API_BASE_URL}/analizar-sitio`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                email: email,
-                url: url
-            })
+            body: JSON.stringify({ email, url })
         });
 
         const data = await response.json();
 
         clearInterval(intervalo);
 
-        btnFill.style.width = "100%";
+        glow.style.width = "100%";
 
         if (data.status === "success") {
-
-            currentAuditId = data.audit_id;
 
             gauge.style.setProperty('--percentage', `${data.health_score.score}%`);
             scoreNum.innerText = `${data.health_score.score}/100`;
@@ -60,18 +54,16 @@ async function ejecutarAuditoria() {
         }
 
     } catch (e) {
-
         clearInterval(intervalo);
-        btnFill.style.width = "0%";
+        glow.style.width = "0%";
         btnText.innerText = "ERROR";
-
-        alert("ERROR: Motor autónomo inaccesible.");
+        alert("Motor inaccesible.");
     }
 
     setTimeout(() => {
-        btnFill.style.width = "0%";
+        glow.style.width = "0%";
         btnText.innerText = "INICIAR AUDITORÍA";
-        btn.classList.remove("processing");
         btn.disabled = false;
-    }, 2000);
+    }, 1500);
 }
+
