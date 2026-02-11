@@ -3,151 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RON3IA | WAR ROOM ELITE</title>
+    <title>RON3IA | WAR ROOM</title>
     <style>
         :root {
-            --neon-red: #ff3131;  /* Rojo Táctico */
-            --deep-black: #050505; /* Negro Absoluto */
-            --panel-dark: #0a0a0a; /* Negro Panel */
-            --text-grey: #888;
+            --neon: #ff3131;  /* Rojo Neón Táctico */
+            --bg: #050505;    /* Negro Absoluto */
         }
 
         body {
-            background-color: var(--deep-black);
+            background-color: var(--bg);
             color: #fff;
-            font-family: 'Courier New', Courier, monospace; /* Tipografía Monoespaciada Militar */
+            font-family: 'Courier New', Courier, monospace;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 80px 20px;
-            /* DETALLE DE LUJO: Fondo de micro-puntos de radar */
+            padding: 60px 20px;
+            /* Fondo de puntos exacto de la foto IMG_8795 */
             background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-size: 25px 25px;
             text-align: center;
         }
 
-        /* --- INGENIERÍA DE LUZ: PARPADEO BINARIO (SIN SUAVIZADO) --- */
-        @keyframes voltage-spike {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { 
-                opacity: 1; 
-                text-shadow: 0 0 15px var(--neon-red), 0 0 30px var(--neon-red); 
-            }
-            20%, 22%, 24%, 55% { 
-                opacity: 0; 
-                text-shadow: none; 
-            }
+        /* --- ANIMACIONES DE PARPADEO REAL (STEPS 1) --- */
+        /* Esta es la clave para que la luz "falle" de verdad */
+        @keyframes flicker-main {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; text-shadow: 0 0 20px var(--neon), 0 0 40px var(--neon); }
+            20%, 22%, 24%, 55% { opacity: 0; text-shadow: none; }
         }
 
-        @keyframes circuit-fault {
-            0%, 12%, 15%, 90%, 93%, 100% { 
-                border-color: var(--neon-red); 
-                box-shadow: 0 0 15px rgba(255, 49, 49, 0.4); 
-            }
-            13%, 91% { 
-                border-color: #330000; 
-                box-shadow: none; 
-            }
+        @keyframes flicker-border {
+            0%, 12%, 15%, 90%, 93%, 100% { border-color: var(--neon); box-shadow: 0 0 15px var(--neon); }
+            13%, 91% { border-color: #300; box-shadow: none; }
         }
 
-        /* --- SECCIÓN 1: LA IDENTIDAD (Hero) --- */
+        /* --- SECCIÓN 1: PORTADA (IMG_8795) --- */
         .title {
             font-size: 5.5rem;
             letter-spacing: 15px;
             font-weight: 900;
             margin: 0;
             text-transform: uppercase;
-            /* La joya de la corona: Parpadeo asíncrono */
-            animation: voltage-spike 4s infinite steps(1);
+            /* Parpadeo principal */
+            animation: flicker-main 4s infinite steps(1);
         }
 
         .subtitle {
-            color: var(--neon-red);
-            font-size: 1.1rem;
+            color: var(--neon);
+            font-size: 1.2rem;
             letter-spacing: 4px;
-            font-weight: 700;
-            margin: 25px 0;
+            font-weight: bold;
+            margin: 20px 0;
             text-transform: uppercase;
         }
 
         .description {
-            max-width: 800px;
-            color: var(--text-grey);
-            font-size: 0.95rem;
-            line-height: 1.8;
-            margin-bottom: 50px;
+            max-width: 850px;
+            color: #888;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
         }
 
         .hero-nav {
             display: flex;
-            gap: 40px;
-            margin-bottom: 60px;
-            text-transform: uppercase;
+            gap: 30px;
+            margin-bottom: 80px;
         }
 
         .hero-nav span {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 2px;
             border-bottom: 1px solid #333;
-            padding-bottom: 8px;
-            color: #666;
-            transition: 0.3s;
+            padding-bottom: 5px;
+            color: #555;
         }
-        .hero-nav span:hover { color: #fff; border-color: var(--neon-red); }
 
-        /* --- SECCIÓN 2: EL GATILLO (Action) --- */
+        /* --- SECCIÓN 2: SCORE & BOTÓN (IMG_8796) --- */
         .hero-btn {
-            border: 2px solid var(--neon-red);
-            padding: 18px 60px;
+            border: 2px solid var(--neon);
+            padding: 15px 50px;
             background: transparent;
             color: #fff;
             font-weight: bold;
             letter-spacing: 4px;
             cursor: pointer;
             margin-bottom: 80px;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            /* Parpadeo independiente al título */
-            animation: circuit-fault 3.2s infinite steps(1);
+            text-transform: uppercase;
+            /* Parpadeo del borde */
+            animation: flicker-border 3.5s infinite steps(1);
         }
-        .hero-btn:hover { background: var(--neon-red); color: #000; box-shadow: 0 0 40px var(--neon-red); }
 
-        /* --- SECCIÓN 3: MÉTRICAS VITALES (Score) --- */
-        .section-label { 
-            color: var(--neon-red); 
-            font-size: 0.8rem; 
-            letter-spacing: 5px; 
-            margin-bottom: 30px; 
+        .section-label {
+            color: var(--neon);
+            font-size: 0.8rem;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
             text-transform: uppercase;
         }
-        
+
         .score-circle {
             width: 140px; height: 140px;
             border-radius: 50%;
-            border: 8px solid #151515;
+            border: 8px solid #111;
             display: flex; align-items: center; justify-content: center;
             font-size: 2.2rem; font-weight: bold;
-            margin: 0 auto 90px;
-            box-shadow: inset 0 0 30px #000;
-            position: relative;
-            animation: voltage-spike 5s infinite steps(1);
+            margin-bottom: 80px;
+            box-shadow: inset 0 0 20px #000;
+            /* Parpadeo asíncrono */
+            animation: flicker-main 5s infinite steps(1);
         }
 
-        /* --- SECCIÓN 4: INTERFAZ DE MANDO (Console) --- */
+        /* --- SECCIÓN 3: CONSOLA (IMG_8797) --- */
         .console-container {
-            width: 100%; max-width: 900px;
-            border: 2px solid var(--neon-red);
-            padding: 40px;
+            width: 100%; max-width: 850px;
+            border: 2px solid var(--neon);
+            padding: 35px;
             background: #000;
-            margin-bottom: 90px;
+            margin-bottom: 80px;
             text-align: left;
-            position: relative;
-            /* Parpadeo lento y pesado */
-            animation: circuit-fault 6s infinite steps(1);
+            /* Parpadeo de consola */
+            animation: flicker-border 4.2s infinite steps(1);
         }
 
         .console-header {
-            color: var(--neon-red);
+            color: var(--neon);
             font-size: 0.85rem;
             display: flex; align-items: center;
-            gap
+            gap: 10px; margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .dot { width: 10px; height: 10px; background: var(--neon); border-radius: 50%; box-shadow: 0 0 10px var(--neon); }
+
+        textarea {
+            width: 100%; height: 140px;
+            background: #020202; border: 1px solid #1a1a1a;
+            color: #777; padding: 20px; font-family: inherit;
+            resize: none; box-sizing: border-box; margin-bottom: 25px; outline: none;
+        }
+
+        .btn-group { display: flex; gap: 20px; }
+        .btn-init {
+            flex: 1; background: #500; color: #fff; border: none;
+            padding: 18px; font-weight: bold; cursor: pointer; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .btn-init:hover { background: var(--neon); color: #000; }
+        .btn-report {
+            flex: 1; background: transparent; border: 1px solid #222;
+            color: #333; padding: 18px; cursor: pointer; letter-spacing: 2px; text-transform: uppercase;
+        }
+
+        /* --- SECCIÓN 4: GRILLA 6 CAJAS (IMG_8798) --- */
+        .service-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 20px; max-width: 850px; margin-bottom: 80px;
+        }
+
+        .service-box {
+            border: 2px solid var(--neon);
+            padding: 25px; text-align: left;
+            background: rgba(10,10,10,0.6);
+            /* Parpadeo aleatorio para cada caja */
+            animation: flicker-border 6s infinite steps(1);
+        }
+        /* Desfase para que parpadeen en tiempos distintos */
+        .service-box:nth-child(even) { animation-duration: 5s; animation-delay: 0.5s; }
+        .service-box:nth-child(3) { animation-duration: 4s; }
+
+        .service-box h3 { margin: 0; color: var(--neon); font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+        .service-box p { font-size: 0.7rem; color: #666; margin-top: 10px; line-height: 1.4; }
+
+        /* --- SECCIÓN 5: EXECUTIVE VIEW (IMG_8799) --- */
+        .exec-view {
+            width: 100%; max-width: 850px;
+            border: 1px solid var(--neon);
+            padding: 40px; background: rgba(255, 49, 49, 0.01);
+            text-align: left;
+        }
+
+        .exec-view h2 { text-align: center; font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 40px; text-transform: uppercase; }
+        .exec-view h4 { color: var(--neon); font-size: 0.8rem; margin-top: 30px; letter-spacing: 2px; text-transform: uppercase; }
+        .exec-view ul { list-style: none; padding: 0; font-size: 0.7rem; color: #999; margin-top: 15px; }
+        .exec-view li::before { content: "● "; color: var(--neon); margin-right: 10px; }
+
+        /* --- SECCIÓN 6: CIERRE (IMG_8800) --- */
+        .final-statement {
+            color: var(--neon); font-size: 0.85rem; max-width: 800px;
+            margin: 60px 0; line-height: 1.8; letter-spacing: 2px; font-weight: bold; text-transform: uppercase;
+        }
+
+        footer { font-size: 0.65rem; color: #444; letter-spacing: 3px; margin-top: 40px; }
+
+        @media (max-width: 768px) { .service-grid { grid-template-columns: 1fr; } .title { font-size: 3rem; } }
+    </style>
+</head>
+<body>
+
+    <h1 class="title">RON3IA</h1>
+    <div class="subtitle">SISTEMA AUTÓNOMO DE OPTIMIZACIÓN FINANCIERA DIGITAL</div>
+    <p class="description">
+        Desde la mejora de conversión hasta la optimización del margen empresarial, 
+        RON3IA detecta ineficiencias en tu ecosistema digital y genera decisiones 
+        estratégicas accionables en minutos.
+    </p>
+    <div class="hero-nav">
+        <span>DIAGNÓSTICO AUTÓNOMO</span>
+        <span>PRIORIZACIÓN FINANCIERA</span>
+        <span>EJECUCIÓN INTELIGENTE</span>
+    </div>
+
+    <button class="hero-btn">EJECUTAR AUDITORÍA</button>
+
+    <div class="section-label">SCORE DE SALUD DIGITAL</div>
+    <div class="score-circle">--/100</div>
+
+    <div class="console-container">
+        <div class="console-header"><div class="dot"></div> CONSOLA DE COMANDO ESTRATÉGICO</div>
+        <textarea placeholder="Describe tu desafío de negocio o pega la URL del sitio para iniciar diagnóstico autónomo..."></textarea>
+        <div class="btn-group">
+            <button class="btn-init">INICIAR AUDITORÍA</button>
+            <button class="btn-report">DESCARGAR REPORTE EJECUTIVO</button>
+        </div>
+    </div>
+
+    <div class="service-grid">
+        <div class="service-box"><h3>AUDITORÍA ESTRATÉGICA AUTÓNOMA™</h3><p>Detección de fugas de margen y reducción de riesgo.</p></div>
+        <div class="service-box"><h3>INGENIERÍA DE CONVERSIÓN (CRO)</h3><p>Incremento directo en rentabilidad por cliente.</p></div>
+        <div class="service-box"><h3>SEO DE ARQUITECTURA ESTRATÉGICA</h3><p>Reducción de dependencia publicitaria.</p></div>
+        <div class="service-box"><h3>GROWTH & SEM INTELIGENTE</h3><p>Mejor asignación de capital digital.</p></div>
+        <div class="service-box"><h3>ARQUITECTURA E-COMMERCE ESCALABLE</h3><p>Reducción de riesgo operativo en escalado.</p></div>
+        <div class="service-box"><h3>TRANSFORMACIÓN DIGITAL AUTÓNOMA</h3><p>Escalabilidad sin aumentar costos fijos.</p></div>
+    </div>
+
+    <div class="exec-view">
+        <h2>🏛️ RON3IA EXECUTIVE VIEW</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <div>
+                <h4>ANÁLISIS PROYECTADO</h4>
+                <ul><li>NIVEL DE RIESGO ESTRATÉGICO</li><li>PROYECCIÓN DE MEJORA FINANCIERA</li></ul>
+                <h4>DIFERENCIAL PURO</h4>
+                <ul><li>OPTIMIZACIÓN POR COSTO Y COMPLEJIDAD</li><li>SISTEMA EVOLUTIVO CON MEMORIA</li></ul>
+            </div>
+            <div>
+                <h4>PLAN DE ACCIÓN</h4>
+                <ul><li>ROADMAP PRIORIZADO POR IMPACTO</li><li>CLASIFICACIÓN QUICK WINS VS STRATEGIC BETS</li></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="final-statement">
+        RON3IA OPERA BAJO PROTOCOLOS DE ANÁLISIS AUTÓNOMO Y VALIDACIÓN ESTRATÉGICA. 
+        <span style="color: #fff;">LA EFICIENCIA DIGITAL NO ES OPCIONAL. ES ESTRUCTURAL.</span>
+    </div>
+
+    <footer>RONRODRIGO3.COM © 2026 | OPERANDO BAJO PROTOCOLOS DE SEGURIDAD IA</footer>
+
+</body>
+</html>
