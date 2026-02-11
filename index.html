@@ -1,150 +1,266 @@
-body {
-    margin: 0;
-    background: #000;
-    color: #fff;
-    font-family: 'Orbitron', sans-serif;
-    text-align: center;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RON3IA | WAR ROOM TOTAL</title>
+    <style>
+        :root {
+            --neon: #ff3131;  /* Rojo Neón Exacto */
+            --bg: #050505;    /* Negro Absoluto */
+            --panel: #0a0a0a; /* Negro Panel */
+        }
 
-/* HERO */
+        body {
+            background-color: var(--bg);
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+            /* Fondo de puntos exacto (Foto IMG_8795) */
+            background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
+            background-size: 25px 25px;
+            text-align: center;
+        }
 
-.hero {
-    padding: 100px 20px;
-}
+        /* --- PARPADEO NERVIOSO REAL (STEPS 1) --- */
+        /* Esta animación hace que la luz "falle" de golpe, sin suavizado */
+        @keyframes flicker-text {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; text-shadow: 0 0 20px var(--neon), 0 0 40px var(--neon); }
+            20%, 22%, 24%, 55% { opacity: 0; text-shadow: none; }
+        }
 
-.logo {
-    font-size: 72px;
-    font-weight: 900;
-    letter-spacing: 6px;
-    text-shadow:
-        0 0 10px #ff0000,
-        0 0 20px #ff0000,
-        0 0 40px #ff0000;
-}
+        @keyframes flicker-border {
+            0%, 12%, 15%, 90%, 93%, 100% { border-color: var(--neon); box-shadow: 0 0 15px var(--neon); }
+            13%, 91% { border-color: #300; box-shadow: none; }
+        }
 
-.subtitle {
-    color: #ff1a1a;
-    margin-top: 20px;
-    font-size: 20px;
-    letter-spacing: 3px;
-}
+        /* --- 1. HERO (Foto IMG_8795) --- */
+        .title {
+            font-size: 5.5rem;
+            letter-spacing: 15px;
+            font-weight: 900;
+            margin: 0;
+            text-transform: uppercase;
+            /* Parpadeo principal */
+            animation: flicker-text 4s infinite steps(1);
+        }
 
-.description {
-    max-width: 800px;
-    margin: 30px auto;
-    color: #aaa;
-}
+        .subtitle {
+            color: var(--neon);
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            font-weight: bold;
+            margin: 25px 0;
+            text-transform: uppercase;
+        }
 
-.cta-btn {
-    background: #000;
-    border: 2px solid #ff0000;
-    padding: 15px 40px;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    box-shadow:
-        0 0 10px #ff0000,
-        0 0 25px rgba(255,0,0,0.5);
-}
+        .description {
+            max-width: 850px;
+            color: #888;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 50px;
+        }
 
-.cta-btn:hover {
-    transform: scale(1.05);
-    box-shadow:
-        0 0 20px #ff0000,
-        0 0 50px #ff0000;
-}
+        .nav-links {
+            display: flex; gap: 40px; margin-bottom: 80px;
+            border-bottom: 1px solid #222; padding-bottom: 20px;
+        }
+        .nav-links span { 
+            font-size: 0.75rem; letter-spacing: 2px; color: #666; cursor: pointer; text-transform: uppercase;
+        }
+        .nav-links span:hover { color: #fff; text-shadow: 0 0 10px #fff; }
 
-/* SCORE */
+        /* --- 2. SCORE (Foto IMG_8796) --- */
+        .hero-btn {
+            border: 2px solid var(--neon);
+            padding: 15px 50px;
+            background: transparent; color: #fff;
+            font-weight: bold; letter-spacing: 3px;
+            cursor: pointer; margin-bottom: 80px;
+            text-transform: uppercase;
+            /* Parpadeo de borde */
+            animation: flicker-border 3.5s infinite steps(1);
+        }
 
-.score-section {
-    padding: 80px 20px;
-}
+        .label-score { color: var(--neon); font-size: 0.8rem; letter-spacing: 4px; margin-bottom: 30px; text-transform: uppercase; }
+        
+        .score-circle {
+            width: 140px; height: 140px;
+            border-radius: 50%;
+            border: 8px solid #111;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; font-weight: bold; margin-bottom: 80px;
+            box-shadow: inset 0 0 20px #000;
+            /* Parpadeo de texto/luz */
+            animation: flicker-text 5s infinite steps(1);
+        }
 
-.score-circle {
-    margin: 40px auto;
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    border: 2px solid #ff0000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 36px;
-    box-shadow:
-        0 0 20px rgba(255,0,0,0.6);
-}
+        /* --- 3. CONSOLA (Foto IMG_8797) --- */
+        .console-box {
+            width: 100%; max-width: 850px;
+            border: 2px solid var(--neon);
+            padding: 35px; background: #000;
+            margin-bottom: 80px; text-align: left;
+            animation: flicker-border 4.5s infinite steps(1);
+        }
+        .console-head { 
+            color: var(--neon); font-size: 0.9rem; margin-bottom: 20px; 
+            display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .dot { width: 10px; height: 10px; background: var(--neon); border-radius: 50%; box-shadow: 0 0 5px var(--neon); }
+        
+        textarea {
+            width: 100%; height: 140px; background: #050505; border: 1px solid #222;
+            color: #aaa; padding: 20px; font-family: inherit; resize: none; margin-bottom: 25px;
+            box-sizing: border-box; outline: none; font-size: 0.9rem;
+        }
+        .btn-row { display: flex; gap: 20px; }
+        .btn-fill { 
+            flex: 1; background: #500; color: #fff; border: none; padding: 18px; 
+            cursor: pointer; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .btn-fill:hover { background: var(--neon); color: #000; }
+        .btn-outline { 
+            flex: 1; background: transparent; border: 1px solid #333; color: #666; 
+            padding: 18px; cursor: pointer; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .btn-outline:hover { border-color: #fff; color: #fff; }
 
-/* CONSOLE */
+        /* --- 4. GRILLA 6 CAJAS (Foto IMG_8798) --- */
+        .service-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 20px; max-width: 850px; margin-bottom: 80px;
+        }
 
-.console-section {
-    padding: 80px 20px;
-    border: 1px solid #ff0000;
-    margin: 50px;
-    box-shadow:
-        0 0 15px rgba(255,0,0,0.6),
-        0 0 40px rgba(255,0,0,0.3);
-}
+        .service-box {
+            border: 2px solid var(--neon);
+            padding: 25px; text-align: left;
+            background: rgba(10,10,10,0.4);
+            /* Parpadeo individual */
+            animation: flicker-border 5s infinite steps(1);
+        }
+        /* Asincronía para realismo */
+        .service-box:nth-child(even) { animation-duration: 4.2s; animation-delay: 0.3s; }
+        .service-box:nth-child(3) { animation-duration: 6.1s; animation-delay: 0.1s; }
 
-.console-section textarea {
-    width: 80%;
-    height: 120px;
-    background: #111;
-    border: 1px solid #ff0000;
-    color: #fff;
-    padding: 15px;
-    margin-top: 20px;
-}
+        .service-box h3 { margin: 0; color: var(--neon); font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+        .service-box p { font-size: 0.7rem; color: #666; margin-top: 10px; line-height: 1.4; text-transform: uppercase; }
 
-.console-buttons {
-    margin-top: 30px;
-}
+        /* --- 5. EXECUTIVE VIEW (Foto IMG_8799) --- */
+        .exec-view {
+            width: 100%; max-width: 850px;
+            border: 1px solid var(--neon);
+            padding: 40px; background: rgba(255, 49, 49, 0.02);
+            text-align: left; margin-bottom: 60px;
+        }
+        .exec-view h2 { text-align: center; font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 40px; text-transform: uppercase; color: #fff; }
+        .exec-view h4 { color: var(--neon); font-size: 0.8rem; margin-top: 30px; letter-spacing: 2px; text-transform: uppercase; }
+        .exec-view ul { list-style: none; padding: 0; font-size: 0.7rem; color: #999; margin-top: 15px; }
+        .exec-view li { margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .exec-view li::before { content: "● "; color: var(--neon); margin-right: 10px; }
 
-.primary-btn {
-    background: #8b0000;
-    border: none;
-    padding: 15px 30px;
-    color: white;
-    font-weight: bold;
-    margin-right: 10px;
-    cursor: pointer;
-}
+        /* --- 6. FOOTER (Foto IMG_8800) --- */
+        .final-statement {
+            color: var(--neon); font-size: 0.85rem; max-width: 800px;
+            margin: 0 auto 60px; line-height: 1.8; letter-spacing: 2px; font-weight: bold; text-transform: uppercase;
+        }
 
-.secondary-btn {
-    background: transparent;
-    border: 1px solid #ff0000;
-    padding: 15px 30px;
-    color: #ff0000;
-    cursor: pointer;
-}
+        footer { font-size: 0.65rem; color: #444; letter-spacing: 3px; margin-top: 40px; border-top: 1px solid #111; padding-top: 20px; width: 100%; max-width: 850px; text-transform: uppercase; }
 
-/* EXECUTIVE VIEW */
+        @media (max-width: 768px) { 
+            .service-grid { grid-template-columns: 1fr; } 
+            .title { font-size: 3.5rem; letter-spacing: 5px; } 
+            .nav-links { flex-direction: column; gap: 15px; border: none; }
+        }
+    </style>
+</head>
+<body>
 
-.executive-view {
-    padding: 80px 20px;
-    border: 1px solid #ff0000;
-    margin: 50px;
-    box-shadow:
-        0 0 15px rgba(255,0,0,0.6),
-        0 0 40px rgba(255,0,0,0.3);
-}
+    <h1 class="title">RON3IA</h1>
+    <div class="subtitle">SISTEMA AUTÓNOMO DE OPTIMIZACIÓN FINANCIERA DIGITAL</div>
+    <p class="description">
+        Desde la mejora de conversión hasta la optimización del margen empresarial, 
+        RON3IA detecta ineficiencias en tu ecosistema digital y genera decisiones 
+        estratégicas accionables en minutos.
+    </p>
 
-.exec-columns {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 40px;
-}
+    <div class="nav-links">
+        <span>DIAGNÓSTICO AUTÓNOMO</span>
+        <span>PRIORIZACIÓN FINANCIERA</span>
+        <span>EJECUCIÓN INTELIGENTE</span>
+    </div>
 
-.exec-columns ul {
-    list-style: none;
-    padding: 0;
-    color: #aaa;
-}
+    <button class="hero-btn">EJECUTAR AUDITORÍA</button>
 
-/* FOOTER */
+    <div class="label-score">SCORE DE SALUD DIGITAL</div>
+    <div class="score-circle">--/100</div>
 
-footer {
-    padding: 40px;
-    color: #555;
-    font-size: 12px;
-}
+    <div class="console-box">
+        <div class="console-head"><div class="dot"></div> CONSOLA DE COMANDO ESTRATÉGICO</div>
+        <textarea placeholder="Describe tu desafío de negocio o pega la URL del sitio para iniciar diagnóstico autónomo..."></textarea>
+        <div class="btn-row">
+            <button class="btn-fill">INICIAR AUDITORÍA</button>
+            <button class="btn-outline">DESCARGAR REPORTE EJECUTIVO</button>
+        </div>
+    </div>
+
+    <div class="service-grid">
+        <div class="service-box">
+            <h3>AUDITORÍA ESTRATÉGICA AUTÓNOMA™</h3>
+            <p>Detección de fugas de margen y reducción de riesgo.</p>
+        </div>
+        <div class="service-box">
+            <h3>INGENIERÍA DE CONVERSIÓN (CRO)</h3>
+            <p>Incremento directo en rentabilidad por cliente.</p>
+        </div>
+        <div class="service-box">
+            <h3>SEO DE ARQUITECTURA ESTRATÉGICA</h3>
+            <p>Reducción de dependencia publicitaria.</p>
+        </div>
+        <div class="service-box">
+            <h3>GROWTH & SEM INTELIGENTE</h3>
+            <p>Mejor asignación de capital digital.</p>
+        </div>
+        <div class="service-box">
+            <h3>ARQUITECTURA E-COMMERCE ESCALABLE</h3>
+            <p>Reducción de riesgo operativo en escalado.</p>
+        </div>
+        <div class="service-box">
+            <h3>TRANSFORMACIÓN DIGITAL AUTÓNOMA</h3>
+            <p>Escalabilidad sin aumentar estructura de costos.</p>
+        </div>
+    </div>
+
+    <div class="exec-view">
+        <h2>🏛️ RON3IA EXECUTIVE VIEW</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <div>
+                <h4>ANÁLISIS PROYECTADO</h4>
+                <ul><li>NIVEL DE RIESGO ESTRATÉGICO</li><li>PROYECCIÓN DE MEJORA FINANCIERA</li></ul>
+                <h4>DIFERENCIAL PURO</h4>
+                <ul><li>OPTIMIZACIÓN POR COSTO Y COMPLEJIDAD</li><li>SISTEMA EVOLUTIVO CON MEMORIA</li></ul>
+            </div>
+            <div>
+                <h4>PLAN DE ACCIÓN</h4>
+                <ul><li>ROADMAP PRIORIZADO POR IMPACTO</li><li>CLASIFICACIÓN QUICK WINS VS STRATEGIC BETS</li></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="final-statement">
+        RON3IA OPERA BAJO PROTOCOLOS DE ANÁLISIS AUTÓNOMO Y VALIDACIÓN ESTRATÉGICA. 
+        CADA DIAGNÓSTICO ELIMINA EL SESGO SUBJETIVO Y PRIORIZA DECISIONES BASADAS 
+        EN IMPACTO REAL Y RIESGO FINANCIERO MEDIBLE. 
+        <br><br>
+        <span style="color: #fff;">LA EFICIENCIA DIGITAL NO ES OPCIONAL. ES ESTRUCTURAL.</span>
+    </div>
+
+    <footer>RONRODRIGO3.COM © 2026 | OPERANDO BAJO PROTOCOLOS DE SEGURIDAD IA</footer>
+
+</body>
+</html>
