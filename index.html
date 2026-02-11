@@ -1,79 +1,150 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>RON3IA | Sistema Autónomo de Optimización Financiera Digital</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-</head>
-<body>
+body {
+    margin: 0;
+    background: #000;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+}
 
-<section class="hero">
+/* HERO */
 
-    <h1 class="logo">RON3IA</h1>
+.hero {
+    padding: 100px 20px;
+}
 
-    <h2 class="subtitle">
-        SISTEMA AUTÓNOMO DE OPTIMIZACIÓN FINANCIERA DIGITAL
-    </h2>
+.logo {
+    font-size: 72px;
+    font-weight: 900;
+    letter-spacing: 6px;
+    text-shadow:
+        0 0 10px #ff0000,
+        0 0 20px #ff0000,
+        0 0 40px #ff0000;
+}
 
-    <p class="description">
-        Desde la mejora de conversión hasta la optimización del margen empresarial,
-        RON3IA detecta ineficiencias en tu ecosistema digital y genera decisiones
-        estratégicas accionables en minutos.
-    </p>
+.subtitle {
+    color: #ff1a1a;
+    margin-top: 20px;
+    font-size: 20px;
+    letter-spacing: 3px;
+}
 
-    <div class="cta-container">
-        <button class="cta-btn">EJECUTAR AUDITORÍA</button>
-    </div>
+.description {
+    max-width: 800px;
+    margin: 30px auto;
+    color: #aaa;
+}
 
-</section>
+.cta-btn {
+    background: #000;
+    border: 2px solid #ff0000;
+    padding: 15px 40px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow:
+        0 0 10px #ff0000,
+        0 0 25px rgba(255,0,0,0.5);
+}
 
-<section class="score-section">
-    <h3>SCORE DE SALUD DIGITAL</h3>
-    <div class="score-circle">
-        --/100
-    </div>
-</section>
+.cta-btn:hover {
+    transform: scale(1.05);
+    box-shadow:
+        0 0 20px #ff0000,
+        0 0 50px #ff0000;
+}
 
-<section class="console-section">
-    <h3>● CONSOLA DE COMANDO ESTRATÉGICO</h3>
+/* SCORE */
 
-    <textarea placeholder="Describe tu desafío de negocio o pega la URL del sitio para iniciar diagnóstico autónomo..."></textarea>
+.score-section {
+    padding: 80px 20px;
+}
 
-    <div class="console-buttons">
-        <button class="primary-btn">INICIAR AUDITORÍA</button>
-        <button class="secondary-btn">DESCARGAR REPORTE EJECUTIVO</button>
-    </div>
-</section>
+.score-circle {
+    margin: 40px auto;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 2px solid #ff0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    box-shadow:
+        0 0 20px rgba(255,0,0,0.6);
+}
 
-<section class="executive-view">
-    <h3>🏛 RON3IA EXECUTIVE VIEW</h3>
+/* CONSOLE */
 
-    <div class="exec-columns">
+.console-section {
+    padding: 80px 20px;
+    border: 1px solid #ff0000;
+    margin: 50px;
+    box-shadow:
+        0 0 15px rgba(255,0,0,0.6),
+        0 0 40px rgba(255,0,0,0.3);
+}
 
-        <div>
-            <h4>ANÁLISIS PROYECTADO</h4>
-            <ul>
-                <li>Nivel de riesgo estratégico</li>
-                <li>Proyección de mejora financiera</li>
-            </ul>
-        </div>
+.console-section textarea {
+    width: 80%;
+    height: 120px;
+    background: #111;
+    border: 1px solid #ff0000;
+    color: #fff;
+    padding: 15px;
+    margin-top: 20px;
+}
 
-        <div>
-            <h4>PLAN DE ACCIÓN</h4>
-            <ul>
-                <li>Roadmap priorizado por impacto</li>
-                <li>Quick Wins vs Strategic Bets</li>
-            </ul>
-        </div>
+.console-buttons {
+    margin-top: 30px;
+}
 
-    </div>
-</section>
+.primary-btn {
+    background: #8b0000;
+    border: none;
+    padding: 15px 30px;
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
+    cursor: pointer;
+}
 
-<footer>
-    RONRODRIGO3.COM © 2026 | Operando bajo protocolos de seguridad IA
-</footer>
+.secondary-btn {
+    background: transparent;
+    border: 1px solid #ff0000;
+    padding: 15px 30px;
+    color: #ff0000;
+    cursor: pointer;
+}
 
-</body>
-</html>
+/* EXECUTIVE VIEW */
+
+.executive-view {
+    padding: 80px 20px;
+    border: 1px solid #ff0000;
+    margin: 50px;
+    box-shadow:
+        0 0 15px rgba(255,0,0,0.6),
+        0 0 40px rgba(255,0,0,0.3);
+}
+
+.exec-columns {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.exec-columns ul {
+    list-style: none;
+    padding: 0;
+    color: #aaa;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 40px;
+    color: #555;
+    font-size: 12px;
+}
