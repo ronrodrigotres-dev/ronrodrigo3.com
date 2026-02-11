@@ -42,7 +42,7 @@
        const domain = "ronrodrigo3.com";
 
             try {
-                // Llamada a la función de Netlify que configuramos
+                const apiURL = "https://ron3ia-api-819648047297.southamerica-west1.run.app/analizar-sitio";
                 const response = await fetch('/.netlify/functions/analyze', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
