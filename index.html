@@ -3,180 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RON3IA | Marketing Intelligence for the AI Era</title>
+    <title>RON3IA | War Room Estratégico</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #000; color: #fff; }
-        .glass { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 255, 136, 0.1); transition: all 0.3s ease; }
-        .glass-active:hover { border-color: #00ff88; box-shadow: 0 0 30px rgba(0, 255, 136, 0.1); transform: translateY(-5px); }
-        .neon-text { color: #00ff88; text-shadow: 0 0 10px rgba(0, 255, 136, 0.5); }
-        .neon-border-red { border: 1px solid #ff003c; box-shadow: 0 0 20px rgba(255, 0, 60, 0.15); }
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 50; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
-        .modal.active { display: flex; }
-        .disabled-btn { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.05); cursor: not-allowed; }
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(220, 38, 38, 0.15) 0%, transparent 80%),
+                url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+        }
+        .neon-border {
+            border: 2px solid #dc2626;
+            box-shadow: 0 0 15px #dc2626, inset 0 0 5px #dc2626;
+            transition: all 0.3s ease;
+        }
+        .neon-border:hover {
+            box-shadow: 0 0 25px #ff0000, inset 0 0 10px #ff0000;
+        }
+        /* Líneas de circuito animadas */
+        .circuit-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            background-image: url('https://www.transparenttextures.com/patterns/circuit-board.png');
+        }
+        .score-gauge {
+            background: conic-gradient(#dc2626 var(--percentage), #1a1a1a 0);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
     </style>
 </head>
-<body class="py-12 px-4">
+<body class="p-4 md:p-8 relative min-h-screen overflow-x-hidden">
+    <div class="circuit-bg"></div>
 
-    <div id="contactModal" class="modal px-4">
-        <div class="glass p-8 rounded-3xl max-w-md w-full border border-green-500/30">
-            <h3 class="text-2xl font-bold mb-2 neon-text">Ejecutar Capa 1</h3>
-            <p class="text-gray-400 text-sm mb-6">Inicia el escaneo de sensores para determinar tu visibilidad algorítmica.</p>
-            <form id="leadForm" class="space-y-4">
-                <input type="text" placeholder="Nombre completo" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
-                <input type="email" placeholder="Email corporativo" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
-                <input type="text" id="targetDomain" placeholder="URL del Sitio Web (ej: tuempresa.com)" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-green-500 transition-all">
-                <button type="submit" id="submitBtn" class="w-full py-3 rounded-xl bg-green-500 text-black font-bold hover:bg-green-400 transition-all uppercase tracking-widest">Iniciar Análisis</button>
-            </form>
-            <button onclick="closeModal()" class="mt-4 text-xs text-gray-500 hover:text-white w-full text-center uppercase tracking-widest">Cerrar</button>
-        </div>
-    </div>
-
-    <header class="max-w-6xl mx-auto text-center mb-20">
-        <h1 class="text-7xl font-black tracking-tighter mb-4">RON3<span class="neon-text">IA</span></h1>
-        <p class="text-gray-400 uppercase tracking-widest text-xs font-bold">Marketing Intelligence for the AI Era</p>
+    <header class="text-center mb-10">
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tighter text-red-600 mb-2 drop-shadow-[0_0_15px_rgba(220,38,38,0.9)] uppercase">
+            RON3IA: Inteligencia Estratégica
+        </h1>
+        <p class="text-gray-400 text-sm tracking-widest">SISTEMA AUTÓNOMO DE OPTIMIZACIÓN FINANCIERA DIGITAL</p>
     </header>
 
-    <main class="max-w-6xl mx-auto space-y-24">
+    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
         
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="glass glass-active p-8 rounded-3xl border-2 border-dashed border-green-500/50 flex flex-col justify-between">
-                <div>
-                    <span class="text-[10px] font-black bg-green-500 text-black px-2 py-1 rounded uppercase">Capa 1: Sensores</span>
-                    <h2 class="text-2xl font-bold mt-4 mb-2">Escaneo de Invisibilidad IA</h2>
-                    <p class="text-gray-400 text-sm mb-6">Diagnóstico binario de presencia: Verifica si tu marca es ignorada por los modelos que deciden el 93% de las compras hoy.</p>
+        <div class="lg:col-span-1 neon-border p-6 bg-black/90 rounded-lg flex flex-col items-center">
+            <h2 class="text-lg mb-6 text-red-500 font-bold tracking-wider">SALUD DIGITAL</h2>
+            <div class="w-40 h-40 score-gauge relative mb-6" style="--percentage: 66%;">
+                <div class="bg-black w-32 h-32 rounded-full flex flex-col items-center justify-center">
+                    <span class="text-3xl font-bold">66/100</span>
                 </div>
-                <button onclick="openModal()" class="w-full py-3 rounded-xl bg-green-500 text-black font-bold hover:bg-green-400 shadow-lg shadow-green-500/20 transition-all">Iniciar Escaneo Gratis</button>
             </div>
+            <p class="text-red-600 text-center animate-pulse font-bold text-sm">RIESGO DE PÉRDIDA DE MARGEN</p>
+        </div>
 
-            <div class="glass p-8 rounded-3xl opacity-50 flex flex-col justify-between">
-                <div>
-                    <span class="text-[10px] font-black bg-white/10 text-gray-400 px-2 py-1 rounded uppercase">Análisis GEO</span>
-                    <h2 class="text-2xl font-bold mt-4 mb-2">Certificación GEO / AEO</h2>
-                    <p class="text-gray-400 text-sm mb-6">Optimización de citabilidad para aparecer como respuesta oficial en ChatGPT y Perplexity.</p>
-                </div>
-                <button class="disabled-btn w-full py-3 rounded-xl font-bold">Solicitar Veredicto</button>
+        <div class="lg:col-span-3 neon-border p-6 bg-black/90 rounded-lg">
+            <h2 class="text-lg mb-4 text-red-500 font-bold flex items-center">
+                <span class="w-3 h-3 bg-red-600 rounded-full mr-2 animate-ping"></span>
+                CONSOLA DE ANÁLISIS EN VIVO
+            </h2>
+            <textarea id="analizador" class="w-full h-40 bg-zinc-900 border border-red-900 text-red-100 p-4 focus:outline-none focus:ring-1 focus:ring-red-600 rounded transition" 
+                      placeholder="Escribe el desafío de tu negocio o pega la URL del sitio..."></textarea>
+            <div class="flex flex-col md:flex-row gap-4 mt-4">
+                <button class="flex-1 bg-red-700 hover:bg-red-600 text-white font-bold py-3 px-6 rounded transition shadow-[0_0_10px_rgba(220,38,38,0.4)]">
+                    EJECUTAR AUDITORÍA ESTRATÉGICA
+                </button>
+                <button class="flex-1 border border-red-700 text-red-500 font-bold py-3 px-6 rounded hover:bg-red-900/20 transition">
+                    DESCARGAR REPORTE PDF
+                </button>
             </div>
+        </div>
 
-            <div class="glass p-8 rounded-3xl opacity-50 flex flex-col justify-between">
-                <div>
-                    <span class="text-[10px] font-black bg-red-500/20 text-red-400 px-2 py-1 rounded border border-red-500/30 uppercase">Urgente</span>
-                    <h2 class="text-2xl font-bold mt-4 mb-2">Ingeniería de Tracking</h2>
-                    <p class="text-gray-400 text-sm mb-6">Recuperación técnica del 40% de datos perdidos mediante infraestructura Server-Side propia.</p>
-                </div>
-                <button class="disabled-btn w-full py-3 rounded-xl font-bold">Consultar</button>
+        <div class="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+            <div class="neon-border p-5 bg-zinc-900/60 backdrop-blur-sm group hover:scale-[1.02] transition-transform">
+                <h3 class="text-red-500 font-bold mb-1">AUDITORÍA ESTRATÉGICA</h3>
+                <p class="text-xs text-gray-500 uppercase tracking-tight">Análisis IA de alta profundidad técnico-financiera.</p>
             </div>
-
-            <div class="glass p-8 rounded-3xl opacity-50 flex flex-col justify-between">
-                <div>
-                    <span class="text-[10px] font-black bg-white/10 text-gray-400 px-2 py-1 rounded uppercase">Visión Artificial</span>
-                    <h2 class="text-2xl font-bold mt-4 mb-2">Inteligencia UX Gemini</h2>
-                    <p class="text-gray-400 text-sm mb-6">Auditoría automática de fricciones visuales y semánticas que impiden la conversión de clientes.</p>
-                </div>
-                <button class="disabled-btn w-full py-3 rounded-xl font-bold">Ejecutar Análisis</button>
+            <div class="neon-border p-5 bg-zinc-900/60 backdrop-blur-sm group hover:scale-[1.02] transition-transform">
+                <h3 class="text-red-500 font-bold mb-1">OPTIMIZACIÓN CRO</h3>
+                <p class="text-xs text-gray-500 uppercase tracking-tight">Maximización científica de tasas de conversión.</p>
             </div>
-
-            <div class="glass p-8 rounded-3xl opacity-50 flex flex-col justify-between">
-                <div>
-                    <span class="text-[10px] font-black bg-white/10 text-gray-400 px-2 py-1 rounded uppercase tracking-widest">Eficiencia</span>
-                    <h2 class="text-2xl font-bold mt-4 mb-2">Arquitectura RevOps</h2>
-                    <p class="text-gray-400 text-sm mb-6">Integración técnica de marketing y ventas para eliminar el caos operativo y duplicar el cierre.</p>
-                </div>
-                <button class="disabled-btn w-full py-3 rounded-xl font-bold">Cotizar Proyecto</button>
+            <div class="neon-border p-5 bg-zinc-900/60 backdrop-blur-sm group hover:scale-[1.02] transition-transform">
+                <h3 class="text-red-500 font-bold mb-1">SEO ALTA PRECISIÓN</h3>
+                <p class="text-xs text-gray-500 uppercase tracking-tight">Estrategias de visibilidad basadas en intención real.</p>
             </div>
-
-            <div class="glass p-8 rounded-3xl opacity-50 flex flex-col justify-between">
-                <div>
-                    <span class="text-[10px] font-black bg-purple-500/20 text-purple-400 px-2 py-1 rounded border border-purple-500/30 uppercase">Premium</span>
-                    <h2 class="text-2xl font-bold mt-4 mb-2">Blindaje de Autoridad</h2>
-                    <p class="text-gray-400 text-sm mb-6">Construcción de señales E-E-A-T externas para validar tu confianza ante algoritmos.</p>
-                </div>
-                <button class="disabled-btn w-full py-3 rounded-xl font-bold">Solicitar Auditoría</button>
+            <div class="neon-border p-5 bg-zinc-900/60 backdrop-blur-sm group hover:scale-[1.02] transition-transform">
+                <h3 class="text-red-500 font-bold mb-1">GROWTH & SEM</h3>
+                <p class="text-xs text-gray-500 uppercase tracking-tight">Pauta publicitaria optimizada para ROI proyectado.</p>
             </div>
-        </section>
-
-        <section class="max-w-4xl mx-auto">
-            <div class="neon-border-red p-10 rounded-3xl bg-red-950/10">
-                <h2 class="text-xs font-black uppercase tracking-[0.4em] text-red-500 mb-6 flex items-center gap-2">
-                    <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-                    Manifiesto de la Verdad Algorítmica
-                </h2>
-                <div class="space-y-6 text-gray-200">
-                    <p class="text-2xl font-bold tracking-tight leading-snug">
-                        "En RON3IA no ofrecemos opiniones humanas. Somos un motor de inteligencia diseñado para auditar la realidad técnica de su marca frente a los algoritmos que hoy gobiernan el consumo global."
-                    </p>
-                    <p class="text-gray-400 text-sm leading-relaxed max-w-2xl">
-                        En 2026, la visibilidad no se compra; se dicta mediante la relevancia semántica y la confianza técnica. No somos una agencia; somos el juez algorítmico de su relevancia digital.
-                    </p>
-                </div>
-                <div class="mt-8 pt-8 border-t border-red-500/20 flex flex-wrap gap-6 text-[9px] uppercase tracking-widest text-red-400 font-black">
-                    <span>Sin Sesgo Humano</span>
-                    <span>Ingeniería de Autoridad</span>
-                    <span>Neutralidad Algorítmica</span>
-                </div>
+            <div class="neon-border p-5 bg-zinc-900/60 backdrop-blur-sm group hover:scale-[1.02] transition-transform">
+                <h3 class="text-red-500 font-bold mb-1">ARQUITECTURA E-COMMERCE</h3>
+                <p class="text-xs text-gray-500 uppercase tracking-tight">Robustez técnica para operaciones de gran escala.</p>
             </div>
-        </section>
+            <div class="neon-border p-5 bg-zinc-900/60 backdrop-blur-sm group hover:scale-[1.02] transition-transform">
+                <h3 class="text-red-500 font-bold mb-1">CONSULTORÍA TRANSF.</h3>
+                <p class="text-xs text-gray-500 uppercase tracking-tight">Automatización de procesos e inteligencia de negocio.</p>
+            </div>
+        </div>
     </main>
 
-    <footer class="mt-24 py-12 border-t border-white/5 text-center">
-        <p class="text-[10px] text-gray-600 uppercase tracking-[0.5em]">
-            &copy; 2026 RON3IA | Marketing Intelligence Engine | Santiago, Chile
-        </p>
+    <footer class="mt-12 text-center text-gray-600 text-xs tracking-tighter uppercase">
+        RonRodrigo3.com © 2026 | Desarrollado por RON3IA Digital Intelligence
     </footer>
-
-    <script>
-        function openModal() { document.getElementById('contactModal').classList.add('active'); }
-        function closeModal() { document.getElementById('contactModal').classList.remove('active'); }
-        window.onclick = function(event) { if (event.target == document.getElementById('contactModal')) closeModal(); }
-
-        const ORACLE_URL = '/api/oracle'; 
-
-        document.getElementById('leadForm').onsubmit = async function(e) {
-            e.preventDefault();
-            
-            const btn = document.getElementById('submitBtn');
-            const domain = document.getElementById('targetDomain').value
-                            .replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0];
-
-            // UI State: Iniciando Razonamiento de Capa 2
-            const originalText = btn.innerText;
-            btn.innerText = "EJECUTANDO INFERENCIA...";
-            btn.disabled = true;
-
-            try {
-                const response = await fetch(ORACLE_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ domain: domain })
-                });
-
-                const veredicto = await response.json();
-
-                if (response.ok) {
-                    // Despliegue del dictamen técnico
-                    alert(`
-VEREDICTO RON3IA v2026
------------------------
-SCORE GEO: ${veredicto.metrics.score_geo_aeo}
-ESTADO: ${veredicto.diagnostico.veredicto}
-ANOMALÍAS: ${veredicto.diagnostico.fricciones_detectadas.join(', ') || 'Ninguna'}
-
-Nota: Este veredicto es final y basado en inferencia algorítmica.
-                    `);
-                } else {
-                    throw new Error(veredicto.error || 'Fallo en la conexión');
-                }
-            } catch (err) {
-                // Fallback preventivo
-                alert("SISTEMA EN CALIBRACIÓN: El sensor detectó una anomalía externa. Intente en 60 segundos.");
-                console.error("Error del Oráculo:", err);
-            } finally {
-                btn.innerText = originalText;
-                btn.disabled = false;
-                closeModal();
-            }
-        };
-    </script>
 </body>
 </html>
