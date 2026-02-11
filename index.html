@@ -16,17 +16,18 @@
                 url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
         }
         
-        /* Neón Real con Brillo Intenso */
+        /* Neón Real Láser */
         .neon-border {
             border: 2px solid #ff3131;
-            box-shadow: 0 0 10px #ff3131, inset 0 0 5px #ff3131;
-            background: rgba(0, 0, 0, 0.9);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 8px #ff3131, inset 0 0 4px #ff3131;
+            background: rgba(0, 0, 0, 0.95);
+            transition: all 0.4s ease-in-out;
         }
 
         .neon-border:hover {
             box-shadow: 0 0 20px #ff3131, 0 0 40px #ff3131, inset 0 0 10px #ff3131;
             transform: scale(1.02);
+            z-index: 10;
         }
 
         .neon-text {
@@ -34,7 +35,7 @@
             text-shadow: 0 0 5px #fff, 0 0 10px #ff3131, 0 0 20px #ff3131;
         }
 
-        /* Descripciones que aparecen al pasar el mouse */
+        /* Descripciones Interactivas al pasar el mouse */
         .service-card .details {
             max-height: 0;
             opacity: 0;
@@ -42,101 +43,162 @@
             transition: all 0.5s ease;
             font-size: 0.7rem;
             color: #9ca3af;
+            text-transform: uppercase;
+            line-height: 1.4;
         }
 
         .service-card:hover .details {
-            max-height: 100px;
+            max-height: 120px;
             opacity: 1;
-            margin-top: 10px;
+            margin-top: 12px;
         }
 
-        .manifesto-box {
+        .manifesto-rect {
             border: 1px solid #ff3131;
-            background: linear-gradient(90deg, rgba(255,0,0,0.1), transparent);
-            box-shadow: 0 0 15px rgba(255, 49, 49, 0.2);
+            background: linear-gradient(90deg, rgba(255,0,0,0.15) 0%, transparent 50%, rgba(255,0,0,0.15) 100%);
+            box-shadow: 0 0 25px rgba(255, 49, 49, 0.2);
+        }
+
+        /* Gauge de Score Dinámico */
+        .score-gauge {
+            background: conic-gradient(#ff3131 var(--percentage, 0%), #1a1a1a 0);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
         }
     </style>
 </head>
-<body class="p-4 md:p-8 min-h-screen">
+<body class="p-4 md:p-10 min-h-screen">
 
-    <header class="text-center mb-10">
+    <header class="text-center mb-12">
         <h1 class="text-4xl md:text-6xl font-bold tracking-tighter neon-text mb-2 uppercase">
             RON3IA: Inteligencia Estratégica
         </h1>
-        <p class="text-gray-400 text-xs tracking-[0.3em] uppercase">Sistema Autónomo de Optimización Digital</p>
+        <p class="text-gray-400 text-[10px] tracking-[0.4em] uppercase">Mecanismo de Optimización Financiera Autónoma</p>
     </header>
 
-    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
         
-        <div class="lg:col-span-1 neon-border p-6 rounded-lg flex flex-col items-center">
-            <h2 class="text-sm mb-6 text-red-500 font-bold uppercase">Salud Digital</h2>
-            <div class="w-40 h-40 rounded-full border-4 border-red-900 flex items-center justify-center shadow-[0_0_20px_rgba(255,0,0,0.2)]">
-                <span id="score-number" class="text-3xl font-bold neon-text">--/100</span>
+        <div class="lg:col-span-1 neon-border p-8 rounded-lg flex flex-col items-center justify-center">
+            <h2 class="text-xs mb-8 text-red-500 font-bold uppercase tracking-widest">Salud Digital</h2>
+            <div class="w-44 h-44 score-gauge relative mb-6" style="--percentage: 0%;">
+                <div class="bg-black w-36 h-36 rounded-full flex flex-col items-center justify-center border border-red-900">
+                    <span id="score-number" class="text-4xl font-bold neon-text">--/100</span>
+                </div>
             </div>
-            <p id="score-status" class="mt-6 text-gray-500 text-[10px] uppercase font-bold">Esperando Análisis...</p>
+            <p id="score-status" class="text-gray-600 text-[9px] uppercase font-bold text-center tracking-tighter">Sincronizando con Motor de IA...</p>
         </div>
 
-        <div class="lg:col-span-3 neon-border p-6 rounded-lg">
-            <h2 class="text-sm mb-4 text-red-500 font-bold flex items-center uppercase">
-                <span class="w-2 h-2 bg-red-600 rounded-full mr-2 animate-ping"></span>
-                Consola de Comando
+        <div class="lg:col-span-3 neon-border p-8 rounded-lg">
+            <h2 class="text-sm mb-5 text-red-500 font-bold flex items-center uppercase tracking-widest">
+                <span class="w-3 h-3 bg-red-600 rounded-full mr-3 animate-pulse shadow-[0_0_10px_#ff0000]"></span>
+                Consola de Comando Estratégico
             </h2>
-            <textarea id="analizador" class="w-full h-40 bg-black border border-red-900 text-red-100 p-4 focus:outline-none focus:border-red-500 rounded text-sm" 
-                      placeholder="Inyecta desafíos de negocio o URL para diagnóstico..."></textarea>
-            <div class="grid grid-cols-2 gap-4 mt-4">
-                <button onclick="ejecutarAuditoria()" class="bg-red-800 hover:bg-red-600 text-white font-bold py-3 px-6 rounded transition uppercase text-xs">
+            <textarea id="analizador" class="w-full h-44 bg-black border border-red-950 text-red-100 p-5 focus:outline-none focus:border-red-500 rounded text-sm leading-relaxed" 
+                      placeholder="Pegue la descripción de su negocio o URL para iniciar diagnóstico por red neuronal..."></textarea>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
+                <button onclick="ejecutarAuditoria()" class="bg-red-900 hover:bg-red-600 text-white font-bold py-4 px-8 rounded transition-all uppercase text-xs tracking-widest shadow-lg">
                     Ejecutar Auditoría
                 </button>
-                <button id="btn-pdf" disabled class="border border-red-800 text-red-500 font-bold py-3 px-6 rounded opacity-30 cursor-not-allowed uppercase text-xs">
-                    Descargar PDF
+                <button id="btn-pdf" disabled class="border border-red-900 text-red-500 font-bold py-4 px-8 rounded opacity-20 cursor-not-allowed uppercase text-xs tracking-widest">
+                    Descargar Activo PDF
                 </button>
             </div>
         </div>
 
-        <div class="lg:col-span-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            <div class="neon-border p-5 rounded-lg service-card cursor-help">
-                <h3 class="text-red-500 font-bold text-sm uppercase">Auditoría Estratégica</h3>
-                <p class="details">Análisis profundo de 360° que detecta ineficiencias críticas en la estructura digital y financiera de tu modelo de negocio.</p>
+        <div class="lg:col-span-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+            <div class="neon-border p-6 rounded-lg service-card cursor-crosshair">
+                <h3 class="text-red-500 font-bold text-sm uppercase mb-1">Auditoría Estratégica</h3>
+                <div class="w-full h-[1px] bg-red-900/30 my-2"></div>
+                <p class="details">Análisis de 360 grados procesado por IA que identifica fugas de capital y cuellos de botella operativos en su ecosistema digital.</p>
             </div>
-            <div class="neon-border p-5 rounded-lg service-card cursor-help">
-                <h3 class="text-red-500 font-bold text-sm uppercase">Optimización CRO</h3>
-                <p class="details">Ingeniería de embudos de venta diseñada para maximizar la conversión por cada clic, eliminando fugas de capital en el checkout.</p>
+            <div class="neon-border p-6 rounded-lg service-card cursor-crosshair">
+                <h3 class="text-red-500 font-bold text-sm uppercase mb-1">Optimización CRO</h3>
+                <div class="w-full h-[1px] bg-red-900/30 my-2"></div>
+                <p class="details">Ingeniería de flujos de usuario diseñada por redes neuronales para maximizar el valor por cada visita y optimizar el margen neto.</p>
             </div>
-            <div class="neon-border p-5 rounded-lg service-card cursor-help">
-                <h3 class="text-red-500 font-bold text-sm uppercase">SEO Alta Precisión</h3>
-                <p class="details">Dominio de algoritmos de búsqueda mediante arquitectura técnica avanzada y análisis de intención de compra real.</p>
+            <div class="neon-border p-6 rounded-lg service-card cursor-crosshair">
+                <h3 class="text-red-500 font-bold text-sm uppercase mb-1">SEO Alta Precisión</h3>
+                <div class="w-full h-[1px] bg-red-900/30 my-2"></div>
+                <p class="details">Dominio de algoritmos de búsqueda mediante posicionamiento técnico y análisis de brecha de autoridad competitiva.</p>
             </div>
-            <div class="neon-border p-5 rounded-lg service-card cursor-help">
-                <h3 class="text-red-500 font-bold text-sm uppercase">Growth & SEM</h3>
-                <p class="details">Escalado inteligente de pauta publicitaria con proyecciones de ROI calculadas por redes neuronales para evitar desperdicio de presupuesto.</p>
+            <div class="neon-border p-6 rounded-lg service-card cursor-crosshair">
+                <h3 class="text-red-500 font-bold text-sm uppercase mb-1">Growth & SEM</h3>
+                <div class="w-full h-[1px] bg-red-900/30 my-2"></div>
+                <p class="details">Escalado de pauta publicitaria con proyecciones de retorno directo, minimizando el costo de adquisición de cliente (CAC).</p>
             </div>
-            <div class="neon-border p-5 rounded-lg service-card cursor-help">
-                <h3 class="text-red-500 font-bold text-sm uppercase">Arquitectura E-commerce</h3>
-                <p class="details">Construcción y optimización de infraestructura técnica para soportar operaciones de alto volumen de ventas sin caídas de rendimiento.</p>
+            <div class="neon-border p-6 rounded-lg service-card cursor-crosshair">
+                <h3 class="text-red-500 font-bold text-sm uppercase mb-1">Arquitectura E-commerce</h3>
+                <div class="w-full h-[1px] bg-red-900/30 my-2"></div>
+                <p class="details">Robustez técnica y escalabilidad de infraestructura para manejar picos de demanda masiva sin pérdida de rendimiento.</p>
             </div>
-            <div class="neon-border p-5 rounded-lg service-card cursor-help">
-                <h3 class="text-red-500 font-bold text-sm uppercase">Consultoría Transf.</h3>
-                <p class="details">Implementación de agentes de IA y automatización de procesos operativos para reducir costos y escalar la capacidad de respuesta.</p>
+            <div class="neon-border p-6 rounded-lg service-card cursor-crosshair">
+                <h3 class="text-red-500 font-bold text-sm uppercase mb-1">Consultoría Transf.</h3>
+                <div class="w-full h-[1px] bg-red-900/30 my-2"></div>
+                <p class="details">Implementación de agentes inteligentes y flujos de trabajo automatizados para delegar la operatividad a sistemas de IA.</p>
             </div>
         </div>
 
-        <div class="lg:col-span-4 manifesto-box p-6 mt-10 rounded-lg text-center">
-            <h2 class="neon-text text-sm mb-2 uppercase">Manifiesto RON3IA: Inteligencia Pura</h2>
-            <p class="text-[11px] text-gray-400 tracking-wider leading-relaxed">
-                ESTA PLATAFORMA OPERA BAJO UN PROTOCOLO DE <span class="text-red-500 font-bold">CERO INTERVENCIÓN HUMANA</span>. 
-                CADA AUDITORÍA ES PROCESADA EXCLUSIVAMENTE POR REDES NEURONALES AVANZADAS PARA ELIMINAR EL SESGO SUBJETIVO, 
-                EL ERROR MANUAL Y LAS INEFICIENCIAS DEL JUICIO HUMANO. RESULTADOS 100% BASADOS EN DATOS, PRECISIÓN ESTRATÉGICA 
-                Y LÓGICA FINANCIERA PURA PARA EVITAR RIESGOS EN TU OPERACIÓN DIGITAL.
+        <div class="lg:col-span-4 manifesto-rect p-8 mt-12 rounded-lg text-center">
+            <h2 class="neon-text text-sm mb-4 uppercase tracking-[0.2em]">Manifiesto de Inteligencia Pura</h2>
+            <p class="text-[11px] text-gray-400 tracking-widest leading-relaxed max-w-4xl mx-auto">
+                RON3IA OPERA BAJO UN ESTRICTO PROTOCOLO DE <span class="text-red-500 font-bold">CERO INTERVENCIÓN HUMANA</span>. 
+                CADA DIAGNÓSTICO ES PRODUCTO DE LÓGICA COMPUTACIONAL PURA, ELIMINANDO EL SESGO SUBJETIVO Y EL ERROR MANUAL. 
+                RESULTADOS BASADOS EN DATOS DUROS PARA DECISIONES FINANCIERAS DE ALTO RIESGO.
             </p>
         </div>
     </main>
 
-    <footer class="mt-12 text-center text-gray-600 text-[10px] uppercase">
-        RonRodrigo3.com © 2026 | Digital Intelligence War Room
+    <footer class="mt-16 text-center text-gray-600 text-[9px] uppercase tracking-widest">
+        RonRodrigo3.com © 2026 | Operando bajo protocolos de Seguridad IA
     </footer>
 
     <script>
-        // ... (Tu código JavaScript para conectar con la API se mantiene igual)
+        const API_BASE_URL = "https://ron3ia-api-819648047297.southamerica-west1.run.app";
+        let currentAuditId = null;
+
+        async function ejecutarAuditoria() {
+            const input = document.getElementById('analizador');
+            const btn = document.querySelector('button[onclick]');
+            const scoreNum = document.getElementById('score-number');
+            const scoreStatus = document.getElementById('score-status');
+            const gauge = document.querySelector('.score-gauge');
+            const btnPdf = document.getElementById('btn-pdf');
+
+            if (!input.value.trim()) {
+                alert("CRÍTICO: Inyecte parámetros para iniciar escaneo.");
+                return;
+            }
+
+            btn.innerText = "PROCESANDO LÓGICA...";
+            btn.disabled = true;
+            scoreStatus.innerText = "ESCANEO EN PROGRESO...";
+            scoreStatus.classList.add('animate-pulse', 'text-red-500');
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/analizar-sitio`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ descripcion: input.value })
+                });
+                const data = await response.json();
+                if (data.status === "success") {
+                    currentAuditId = data.audit_id;
+                    gauge.style.setProperty('--percentage', `${data.health_score.score}%`);
+                    scoreNum.innerText = `${data.health_score.score}/100`;
+                    scoreStatus.innerText = data.health_score.classification.toUpperCase();
+                    scoreStatus.classList.remove('animate-pulse', 'text-red-500');
+                    scoreStatus.classList.add('text-red-600');
+                    btnPdf.disabled = false;
+                    btnPdf.classList.remove('opacity-20', 'cursor-not-allowed');
+                    btnPdf.onclick = () => window.open(`${API_BASE_URL}/descargar-reporte/${currentAuditId}`, '_blank');
+                }
+            } catch (e) {
+                alert("ERROR DE CONEXIÓN: Motor de IA inaccesible.");
+            } finally {
+                btn.innerText = "EJECUTAR AUDITORÍA";
+                btn.disabled = false;
+            }
+        }
     </script>
 </body>
 </html>
