@@ -1,74 +1,30 @@
-<script>
-
-async function ejecutarAuditoria() {
-
-    const email = document.getElementById('email').value;
-    const url = document.getElementById('url').value;
-
-    const btn = document.getElementById('BTN-auditoria');
-    const btnText = document.getElementById('BTN-text');
-    const brillo = document.getElementById('BTN-glow');
-
-    const scoreNum = document.getElementById('numero-de-puntuacion');
-    const gauge = document.querySelector('.score-gauge');
-    const btnPdf = document.getElementById('BTN-PDF');
-
-    if (!email || !url) {
-        return alert("CRÍTICO: Email y URL requeridos.");
-    }
-
-    btn.disabled = true;
-    btnText.innerText = "PROCESANDO...";
-    brillo.style.width = "0%";
-
-    let progreso = 0;
-
-    const intervalo = setInterval(() => {
-        if (progreso < 90) {
-            progreso += 4;
-            brillo.style.width = progreso + "%";
-        }
-    }, 80);
-
-    try {
-
-        const response = await fetch(`${API_BASE_URL}/analizar-sitio`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, url })
-        });
-
-        const data = await response.json();
-
-        clearInterval(intervalo);
-        brillo.style.width = "100%";
-
-        if (data.status === "success") {
-
-            gauge.style.setProperty("--percentage", `${data.health_score.score}%`);
-            scoreNum.innerText = `${data.health_score.score}/100`;
-
-            btnPdf.disabled = false;
-            btnPdf.classList.remove("opacity-20", "cursor-not-allowed");
-
-            btnText.innerText = "ANÁLISIS COMPLETADO";
-        }
-
-    } catch (e) {
-        clearInterval(intervalo);
-        brillo.style.width = "0%";
-        btnText.innerText = "ERROR";
-        alert("Motor inaccesible.");
-    }
-
-    setTimeout(() => {
-        brillo.style.width = "0%";
-        btnText.innerText = "INICIAR AUDITORÍA";
-        btn.disabled = false;
-    }, 1500);
+.neon-button {
+    background: #7a1515;
+    border: 2px solid #ff3131;
+    color: white;
+    font-weight: bold;
+    position: relative;
+    transition: 0.3s ease;
+    box-shadow: 0 0 8px #ff3131;
 }
 
-</script>
+.neon-button:hover {
+    box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
+}
 
-</body>
-</html>
+#BTN-glow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, rgba(255,0,0,0.7), rgba(255,0,0,0.1));
+    box-shadow: 0 0 20px #ff0000;
+    transition: width 0.2s linear;
+    z-index: 0;
+}
+
+#BTN-text {
+    position: relative;
+    z-index: 1;
+}
