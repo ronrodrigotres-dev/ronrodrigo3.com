@@ -1,60 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RON3IA | Sistema Autónomo</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #050505;
+            font-family: 'JetBrains Mono', monospace;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .card {
+            border: 2px solid #ff3131;
+            box-shadow: 0 0 20px #ff0000;
+            padding: 30px;
+            margin: auto;
+            max-width: 600px;
+            background: #0a0a0a;
+            border-radius: 8px;
+        }
+
+        .score-container {
+            margin: 30px auto;
+        }
+
+        .score-gauge {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: conic-gradient(#ff3131 0%, #1a1a1a 0%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            transition: background 1.2s ease-out;
+        }
+
+        .score-inner {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #score-number {
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .label {
+            font-size: 10px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            background: black;
+            border: 1px solid #ff3131;
+            color: white;
+            text-align: center;
+        }
+
+        .neon-button {
+            position: relative;
+            width: 100%;
+            padding: 16px;
+            margin-top: 20px;
+            border: 2px solid #ff3131;
+            background: #4a0000;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 0 15px #ff3131;
+            transition: 0.3s ease;
+        }
+
+        .neon-button:hover {
+            background: #7a1515;
+            box-shadow: 0 0 30px #ff0000;
+        }
+
+        #btn-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        #BTN-glow {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0%;
+            background: rgba(255, 0, 0, 0.4);
+            box-shadow: 0 0 25px #ff0000;
+            z-index: 1;
+            transition: width 0.2s linear;
+        }
+
+        .results {
+            margin-top: 20px;
+            font-size: 12px;
+            text-align: left;
+            border-top: 1px solid #333;
+            padding-top: 15px;
+            display: none;
+        }
+
+        .status-tag {
+            color: #00ff00;
+            font-size: 10px;
+            margin-bottom: 10px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h1 style="font-size: 18px; color: #ff3131;">RON3IA CORE</h1>
+        <p style="font-size: 11px; color: #888;">SISTEMA AUTÓNOMO DE AUDITORÍA ESTRATÉGICA</p>
+
+        <div class="score-container">
+            <div class="score-gauge" id="gauge">
+                <div class="score-inner">
+                    <span id="score-number">--</span>
+                    <span class="label">SCORE</span>
+                </div>
+            </div>
+        </div>
+
+        <input type="email" id="email" placeholder="EMAIL CORPORATIVO">
+        <input type="text" id="url" placeholder="URL DEL SITIO (ej: empresa.com)">
+
+        <button class="neon-button" onclick="ejecutarAuditoria()">
+            <div id="BTN-glow"></div>
+            <span id="btn-text">INICIAR DIAGNÓSTICO</span>
+        </button>
+
+        <div id="results-box" class="results">
+            <span class="status-tag">● RESULTADOS:</span>
+            <div id="metrics-content"></div>
+        </div>
+    </div>
+
 <script>
-async function ejecutarAuditoria(){
+
+async function ejecutarAuditoria() {
+
     const email = document.getElementById('email').value;
     const url = document.getElementById('url').value;
     const btnGlow = document.getElementById('BTN-glow');
     const btnText = document.getElementById('btn-text');
-    const scoreNum = document.getElementById('score-number');
-    const gauge = document.getElementById('gauge');
-
-    if(!email || !url){
-        alert("Email y URL requeridos.");
-        return;
-    }
-
-    // Estado de Carga
-    btnText.innerText = "SISTEMA PROCESANDO...";
-    btnGlow.style.transition = "width 2s linear";
-    btnGlow.style.width = "90%";
-
-    try {
-        const response = await fetch("https://ron3ia-api-819648047297.southamerica-west1.run.app/analizar-sitio", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({email: email, url: url})
-        });
-
-        const data = await response.json();
-
-        // --- CORRECCIÓN AQUÍ ---
-        if(data.status === "success") {
-            const finalScore = data.health_score.score;
-            
-            // Éxito Visual
-            btnGlow.style.transition = "width 0.3s ease";
-            btnGlow.style.width = "100%";
-            btnText.innerText = "DIAGNÓSTICO FINALIZADO";
-            
-            // Animación del Gauge Neón
-            gauge.style.background = `conic-gradient(#ff3131 ${finalScore}%, #1a1a1a 0%)`;
-            scoreNum.innerText = finalScore;
-
-            console.log("Auditoría exitosa ID:", data.audit_id);
-        } else {
-            throw new Error("Error en respuesta de API");
-        }
-
-    } catch(error) {
-        console.error("Fallo en el núcleo:", error);
-        btnText.innerText = "ERROR DE CONEXIÓN";
-        btnGlow.style.background = "rgba(255, 255, 0, 0.3)"; // Amarillo de advertencia
-    }
-
-    // Reset tras 3 segundos para permitir nueva consulta
-    setTimeout(() => {
-        btnText.innerText = "INICIAR DIAGNÓSTICO";
-        btnGlow.style.width = "0%";
-        btnGlow.style.background = "rgba(255,0,0,0.5)";
-    }, 4000);
-}
-</script>
+    con
