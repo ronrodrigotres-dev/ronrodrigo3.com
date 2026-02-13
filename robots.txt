@@ -1,21 +1,13 @@
 User-agent: *
 Allow: /
+Disallow: /private/
+Sitemap: https://ronrodigo3.com/sitemap.xml
 
-# Allow real-time AI search crawlers
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-# Block training crawlers (protect IP)
 User-agent: GPTBot
-Disallow: /
+Allow: /
 
-User-agent: Google-Extended
-Disallow: /
+User-agent: CCBot
+Allow: /
 
-Sitemap: https://ronrodrigotres-dev.github.io/ron3ia-site/sitemap.xml
+User-agent: Claude-Web
+Allow: /
