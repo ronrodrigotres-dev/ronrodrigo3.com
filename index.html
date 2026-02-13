@@ -3,31 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Improved Digital Panel</title>
+    <title>RON3IA - Digital Services</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #282c34;
-            color: white;
-            text-align: center;
+            background-color: #000;
+            color: #fff;
+        }
+        .digital-panel {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #fff;
+            overflow: hidden;
         }
         .scan-line {
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            background-size: 200% 100%;
-            animation: scan 1.5s linear infinite;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                rgba(255, 255, 255, 0.1) 0,
+                rgba(255, 255, 255, 0.1) 1px,
+                rgba(0, 0, 0, 0.5) 1px,
+                rgba(0, 0, 0, 0.5) 20px
+            );
+            animation: scan 0.5s linear infinite;
         }
         @keyframes scan {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(100%);
+            }
+        }
+        .service-card {
+            display: inline-block;
+            width: 30%;
+            margin: 1.5%;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .service-card.active {
+            border: 2px solid #fff;
         }
     </style>
 </head>
 <body>
-    <div class="scan-line">
-        <h2>Welcome to the Improved Digital Panel!</h2>
-        <p>This digital panel features a scan-line effect for an enhanced visual experience, alongside an informative description.</p>
+    <h1>Welcome to RON3IA</h1>
+    <div class="digital-panel">
+        <div class="scan-line"></div>
+        <div id="panel-description">Select a service to see the description here.</div>
     </div>
+    <div class="services">
+        <div class="service-card" data-title="Service 1" data-description="Description of Service 1" onclick="showDescription(this)">
+            <h2>Service 1</h2>
+        </div>
+        <div class="service-card" data-title="Service 2" data-description="Description of Service 2" onclick="showDescription(this)">
+            <h2>Service 2</h2>
+        </div>
+        <div class="service-card" data-title="Service 3" data-description="Description of Service 3" onclick="showDescription(this)">
+            <h2>Service 3</h2>
+        </div>
+        <div class="service-card" data-title="Service 4" data-description="Description of Service 4" onclick="showDescription(this)">
+            <h2>Service 4</h2>
+        </div>
+        <div class="service-card" data-title="Service 5" data-description="Description of Service 5" onclick="showDescription(this)">
+            <h2>Service 5</h2>
+        </div>
+        <div class="service-card" data-title="Service 6" data-description="Description of Service 6" onclick="showDescription(this)">
+            <h2>Service 6</h2>
+        </div>
+    </div>
+    <script>
+        function showDescription(card) {
+            const description = card.getAttribute('data-description');
+            const activeCard = document.querySelector('.service-card.active');
+            if (activeCard) {
+                activeCard.classList.remove('active');
+            }
+            card.classList.add('active');
+            document.getElementById('panel-description').innerText = description;
+        }
+    </script>
 </body>
 </html>
