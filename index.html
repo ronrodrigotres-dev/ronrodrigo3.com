@@ -2,47 +2,47 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>RON3IA · Sistema Autónomo Digital</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--
-        RON3IA · index.html
-        Diseño adaptado al layout móvil original:
-        - Hero central con glow rojo
-        - Fondo negro limpio
-        - Boot screen en primer load
-        - Panel holográfico de módulos + consola por servicio
-        - Sin librerías externas
-    -->
+    <title>RON3IA | Sistema Autónomo de Veredicto Digital</title>
+
+    <!-- SEO básico -->
+    <meta name="description" content="RON3IA es un sistema autónomo de diagnóstico para marcas. No opina: entrega veredictos técnicos sobre visibilidad, SEO, SEM y presencia en motores de IA. 100% operado por IA, sin humanos en tiempo real.">
+    <meta name="robots" content="index,follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="RON3IA | Sistema Autónomo de Veredicto Digital">
+    <meta property="og:description" content="Escaneo automático de invisibilidad en IA, SEO, SEM y GEO. Veredictos técnicos, sin agencia, sin opinión humana.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ronrodrigo3.com/">
+    <!-- Ajusta esta imagen cuando tengas una portada oficial -->
+    <meta property="og:image" content="https://ronrodrigo3.com/og-image.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RON3IA | Sistema Autónomo de Veredicto Digital">
+    <meta name="twitter:description" content="Sistema autónomo que juzga la relevancia digital de tu marca en buscadores y motores de IA.">
+
+    <!-- Fuente -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* =========================================
-           RESET BÁSICO + VARIABLES
-        ========================================== */
-        *,
-        *::before,
-        *::after {
+        :root {
+            --bg-main: #030306;
+            --bg-card: #080812;
+            --accent-red: #ff3131;
+            --accent-cyan: #23f5ff;
+            --text-main: #f5f5f5;
+            --text-muted: #8b8b8b;
+            --border-soft: #1a1a24;
+            --radius-lg: 18px;
+            --radius-pill: 999px;
+        }
+
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
-
-        :root {
-            --bg-main: #000000;
-            --bg-panel: #050509;
-            --bg-panel-soft: rgba(5, 5, 9, 0.97);
-            --accent-red: #ff3b40;
-            --accent-red-soft: rgba(255, 59, 64, 0.6);
-            --accent-red-strong: rgba(255, 59, 64, 0.98);
-            --accent-outline: rgba(255, 255, 255, 0.08);
-            --accent-cyan: #00f6ff;
-            --text-main: #f5f5f5;
-            --text-muted: #9a9a9a;
-            --radius-lg: 20px;
-            --radius-pill: 999px;
-            --shadow-soft: 0 0 40px rgba(0, 0, 0, 0.95);
-            --shadow-red: 0 0 22px rgba(255, 59, 64, 0.9);
-            --border-soft: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         html, body {
@@ -50,10 +50,13 @@
         }
 
         body {
-            background: radial-gradient(circle at top, #140205 0, #000 70%);
+            font-family: "JetBrains Mono", monospace;
+            background:
+                radial-gradient(circle at top left, #301010 0, transparent 55%),
+                radial-gradient(circle at bottom right, #102030 0, transparent 55%),
+                var(--bg-main);
             color: var(--text-main);
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         a {
@@ -61,1206 +64,1572 @@
             text-decoration: none;
         }
 
-        button {
-            font-family: inherit;
+        main {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 24px 16px 64px;
         }
 
-        /* =========================================
-           CONTENEDOR PRINCIPAL
-        ========================================== */
-        .app-shell {
-            position: relative;
-            min-height: 100vh;
-            width: 100%;
-            overflow: hidden;
-        }
+        /* Header */
 
-        /* =========================================
-           FONDO CON PARTÍCULAS
-        ========================================== */
-        .particle-layer {
-            position: fixed;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 18px;
-            background: radial-gradient(circle, var(--accent-red-strong), transparent 65%);
-            box-shadow: 0 0 12px rgba(255, 59, 64, 0.85);
-            opacity: 0.22;
-            border-radius: 999px;
-            animation-name: float-vertical;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-        }
-
-        @keyframes float-vertical {
-            0% {
-                transform: translate3d(0, -110vh, 0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.35;
-            }
-            80% {
-                opacity: 0.28;
-            }
-            100% {
-                transform: translate3d(0, 115vh, 0);
-                opacity: 0;
-            }
-        }
-
-        /* =========================================
-           HERO PRINCIPAL (ESTILO RON3IA ORIGINAL)
-        ========================================== */
-        .hero-wrapper {
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            width: 100%;
+        .header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 24px 16px;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 32px;
         }
 
-        .hero-card {
-            position: relative;
-            max-width: 480px;
-            width: 100%;
-            border-radius: 32px;
-            border: var(--border-soft);
-            background:
-                radial-gradient(circle at top, rgba(255, 59, 64, 0.45) 0, rgba(255, 59, 64, 0.08) 35%, transparent 60%),
-                radial-gradient(circle at center, #1a0205 0, #050506 60%, #020203 100%);
-            box-shadow:
-                0 0 0 1px rgba(255, 255, 255, 0.02),
-                var(--shadow-soft);
-            padding: 40px 20px 30px;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        /* Glow rectangular detrás del logo, estilo captura móvil */
-        .hero-card::before {
-            content: "";
-            position: absolute;
-            top: 12%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            height: 200px;
-            background:
-                radial-gradient(circle at center, rgba(255, 94, 82, 1) 0, #2d0500 40%, transparent 75%);
-            filter: blur(3px);
-            opacity: 0.78;
-            border-radius: 40px;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .hero-subtag {
-            font-size: clamp(0.64rem, 1.4vw, 0.75rem);
-            letter-spacing: 0.32em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 14px;
-        }
-
-        .hero-logo {
-            font-size: clamp(2.4rem, 5.3vw, 3.2rem);
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: #fff5f3;
-            text-shadow:
-                0 0 10px rgba(255, 255, 255, 0.8),
-                0 0 32px rgba(255, 59, 64, 0.95);
-            margin-bottom: 10px;
-            animation: logo-glow 2.6s ease-in-out infinite;
-        }
-
-        @keyframes logo-glow {
-            0%, 100% {
-                text-shadow:
-                    0 0 6px rgba(255, 255, 255, 0.7),
-                    0 0 18px rgba(255, 59, 64, 0.7);
-            }
-            50% {
-                text-shadow:
-                    0 0 14px rgba(255, 255, 255, 0.95),
-                    0 0 30px rgba(255, 59, 64, 1);
-            }
-        }
-
-        .hero-tagline {
-            font-size: clamp(0.72rem, 1.7vw, 0.86rem);
-            text-transform: uppercase;
-            letter-spacing: 0.22em;
-            color: var(--text-muted);
-            margin-bottom: 18px;
-        }
-
-        .hero-line {
-            font-size: clamp(0.88rem, 1.9vw, 0.98rem);
-            color: var(--text-muted);
-            max-width: 360px;
-            margin: 0 auto 26px;
-        }
-
-        .hero-cta {
+        .brand {
             display: flex;
-            flex-direction: column;
             align-items: center;
             gap: 10px;
         }
 
-        .btn-primary {
-            position: relative;
-            border: none;
-            outline: none;
-            border-radius: var(--radius-pill);
-            padding: 12px 30px;
-            font-size: clamp(0.78rem, 1.7vw, 0.9rem);
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            background: radial-gradient(circle at 10% 0, #ffd4d0 0, #ff3b40 35%, #4d0205 100%);
-            color: #050506;
-            cursor: pointer;
-            box-shadow:
-                0 0 14px rgba(255, 59, 64, 0.9),
-                0 0 40px rgba(0, 0, 0, 0.95);
-            overflow: hidden;
+        .brand-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 12px;
+            background: radial-gradient(circle at 30% 20%, #ffffff 0, #ff3131 30%, #1a0000 65%, #000000 100%);
+            box-shadow: 0 0 18px rgba(255, 49, 49, 0.8);
         }
 
-        /* Pulso neón suave */
-        .btn-primary::before {
-            content: "";
-            position: absolute;
-            inset: -45%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.25), transparent 65%);
-            opacity: 0;
-            animation: btn-pulse 2.4s ease-out infinite;
-        }
-
-        @keyframes btn-pulse {
-            0% {
-                opacity: 0;
-                transform: scale(0.7);
-            }
-            45% {
-                opacity: 0.32;
-            }
-            100% {
-                opacity: 0;
-                transform: scale(1.35);
-            }
-        }
-
-        .btn-primary:hover {
-            filter: brightness(1.05);
-        }
-
-        .hero-note {
-            font-size: 0.69rem;
-            color: var(--text-muted);
-        }
-
-        /* Pequeño bloque extra como en el diseño original (texto diferencial) */
-        .hero-foot-block {
-            margin-top: 26px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding-top: 18px;
-            font-size: 0.72rem;
-            color: var(--text-muted);
-        }
-
-        .hero-foot-title {
-            text-transform: uppercase;
-            letter-spacing: 0.26em;
-            font-size: 0.7rem;
-            margin-bottom: 6px;
-            color: #ff918c;
-        }
-
-        .hero-foot-text {
-            line-height: 1.45;
-        }
-
-        /* =========================================
-           BOOT SCREEN (SOLO PRIMERA VISITA)
-        ========================================== */
-        .boot-screen {
-            position: fixed;
-            inset: 0;
-            background: #020204;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 40;
-            transition: opacity 0.4s ease;
-        }
-
-        .boot-hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .boot-box {
-            background: #050508;
-            border-radius: 20px;
-            border: var(--border-soft);
-            padding: 22px 22px 18px;
-            max-width: 380px;
-            width: 80%;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .boot-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-
-        .boot-label span {
-            color: var(--accent-red);
-            font-weight: 600;
-        }
-
-        .boot-bar-track {
-            position: relative;
-            width: 100%;
-            height: 7px;
-            border-radius: 999px;
-            background: #15151b;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
-        .boot-bar-fill {
-            position: absolute;
-            inset: 0;
-            width: 0;
-            background: linear-gradient(90deg, #ff3b40, #ff8c4a);
-            box-shadow: var(--shadow-red);
-        }
-
-        .boot-percent {
-            font-size: 0.73rem;
-            color: var(--text-muted);
-            text-align: right;
-        }
-
-        /* =========================================
-           OVERLAYS (MÓDULOS Y SERVICIOS)
-        ========================================== */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 20;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.25s ease;
-            background:
-                radial-gradient(circle at top, rgba(255, 59, 64, 0.2), transparent 55%),
-                radial-gradient(circle at bottom, #000000, #000000);
-            backdrop-filter: blur(12px);
-        }
-
-        .overlay--visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .overlay-inner {
-            width: min(1100px, 92vw);
-            max-height: 88vh;
-            background: var(--bg-panel-soft);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow:
-                0 0 0 1px rgba(255, 255, 255, 0.02),
-                0 0 45px rgba(0, 0, 0, 0.96);
-            padding: 18px 18px 18px;
+        .brand-text {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 2px;
         }
 
-        .overlay-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-        }
-
-        .overlay-title {
-            font-size: clamp(0.9rem, 1.8vw, 1.05rem);
-            letter-spacing: 0.18em;
+        .brand-name {
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            font-size: 0.78rem;
             text-transform: uppercase;
+        }
+
+        .brand-sub {
+            font-size: 0.7rem;
             color: var(--text-muted);
         }
 
-        .overlay-pill {
-            font-size: 0.7rem;
-            padding: 6px 12px;
+        .header-pill {
+            padding: 6px 14px;
             border-radius: var(--radius-pill);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-muted);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.6);
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            white-space: nowrap;
         }
 
-        .overlay-dot {
+        .dot {
             width: 8px;
             height: 8px;
-            border-radius: 999px;
-            background: #33ff77;
-            box-shadow: 0 0 8px rgba(51, 255, 119, 0.9);
+            border-radius: 50%;
+            background: #31ff6a;
+            box-shadow: 0 0 10px rgba(49, 255, 106, 0.8);
         }
 
-        .overlay-close {
-            border-radius: var(--radius-pill);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            background: transparent;
-            color: var(--text-main);
-            font-size: 0.72rem;
-            padding: 6px 12px;
-            cursor: pointer;
-        }
+        /* Layout general */
 
-        .overlay-close:hover {
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        /* =========================================
-           GRID DE MÓDULOS
-        ========================================== */
-        .modules-grid {
+        .layout {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px;
-            margin-top: 4px;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+            gap: 24px;
         }
 
-        .module-card {
-            position: relative;
-            border-radius: var(--radius-lg);
-            border: var(--border-soft);
-            padding: 14px 13px 12px;
-            background:
-                radial-gradient(circle at top left, rgba(255, 59, 64, 0.18), #050509);
-            cursor: pointer;
-            overflow: hidden;
-            isolation: isolate;
-            transition:
-                transform 0.16s ease-out,
-                box-shadow 0.16s ease-out,
-                border-color 0.16s ease-out,
-                background 0.18s ease-out;
-        }
-
-        .module-card::before {
-            content: "";
-            position: absolute;
-            inset: -30%;
-            background: radial-gradient(circle at top right, rgba(255, 59, 64, 0.42), transparent 60%);
-            opacity: 0;
-            z-index: -1;
-            transition: opacity 0.18s ease-out;
-        }
-
-        .module-card:hover {
-            transform: translateY(-1px);
-            border-color: rgba(255, 59, 64, 0.7);
-            box-shadow: var(--shadow-red);
-        }
-
-        .module-card:hover::before {
-            opacity: 1;
-        }
-
-        .module-tag {
-            font-size: 0.66rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .module-name {
-            font-size: clamp(0.87rem, 1.5vw, 0.95rem);
-            margin-bottom: 4px;
-        }
-
-        .module-name span {
-            color: var(--accent-red);
-        }
-
-        .module-desc {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        /* =========================================
-           PANEL SERVICIO / CONSOLA
-        ========================================== */
-        .service-layout {
-            display: grid;
-            grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
-            gap: 14px;
-            align-items: stretch;
-        }
-
-        @media (max-width: 820px) {
-            .service-layout {
+        @media (max-width: 880px) {
+            .layout {
                 grid-template-columns: minmax(0, 1fr);
             }
         }
 
-        .console-box {
-            background: #050508;
-            border-radius: 18px;
-            border: var(--border-soft);
-            padding: 12px 12px 10px;
-            display: flex;
-            flex-direction: column;
-            min-height: 220px;
-        }
+        /* Hero */
 
-        .console-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            margin-bottom: 6px;
-        }
-
-        .console-title {
-            font-size: clamp(0.86rem, 1.7vw, 0.98rem);
-        }
-
-        .console-sub {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
-
-        .console-body {
-            flex: 1;
-            background: #020205;
-            border-radius: 12px;
-            padding: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            font-size: 0.74rem;
-            color: #eaeaea;
+        .hero-card {
+            background: radial-gradient(circle at top left, #220808 0, #050509 52%);
+            border-radius: 24px;
+            border: 1px solid var(--border-soft);
+            box-shadow:
+                0 0 0 1px rgba(255, 255, 255, 0.02),
+                0 0 35px rgba(0, 0, 0, 0.8);
+            padding: 24px 22px 22px;
+            position: relative;
             overflow: hidden;
         }
 
-        .console-output {
-            white-space: pre-wrap;
-            line-height: 1.4;
-            max-height: 260px;
-            overflow-y: auto;
-        }
-
-        .btn-back {
-            border-radius: var(--radius-pill);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            background: transparent;
-            color: var(--text-main);
-            font-size: 0.72rem;
-            padding: 6px 14px;
-            cursor: pointer;
-        }
-
-        .btn-back:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* =========================================
-           SCORE CIRCULAR
-        ========================================== */
-        .score-box {
-            background: #050508;
-            border-radius: 18px;
-            border: var(--border-soft);
-            padding: 12px 14px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            justify-content: center;
-        }
-
-        .score-label {
-            font-size: 0.72rem;
+        .hero-tagline {
+            font-size: 0.74rem;
             color: var(--text-muted);
+            margin-bottom: 12px;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            letter-spacing: 0.18em;
         }
 
-        .score-svg-wrap {
-            width: min(170px, 45vw);
-            aspect-ratio: 1 / 1;
-            position: relative;
+        .hero-title {
+            font-size: clamp(1.7rem, 3vw, 2.1rem);
+            line-height: 1.15;
+            margin-bottom: 10px;
         }
 
-        .score-svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 0 10px rgba(255, 59, 64, 0.5));
+        .hero-title span {
+            color: var(--accent-red);
         }
 
-        .score-base {
-            stroke: rgba(120, 120, 120, 0.36);
-            stroke-width: 8;
-            fill: none;
+        .hero-sub {
+            font-size: 0.86rem;
+            color: var(--text-muted);
+            max-width: 520px;
+            margin-bottom: 18px;
         }
 
-        .score-ring {
-            stroke: var(--accent-red);
-            stroke-width: 8;
-            fill: none;
-            stroke-linecap: round;
-            stroke-dasharray: 0 999;
-            stroke-dashoffset: 0;
-            filter: drop-shadow(0 0 6px rgba(255, 59, 64, 0.9));
-            transition: filter 0.2s ease;
-        }
-
-        .score-ring--high {
-            filter:
-                drop-shadow(0 0 10px rgba(255, 59, 64, 1))
-                drop-shadow(0 0 18px rgba(255, 59, 64, 0.9));
-        }
-
-        .score-center-text {
-            position: absolute;
-            inset: 0;
+        .hero-badges {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            pointer-events: none;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
         }
 
-        .score-number {
-            font-size: clamp(1.4rem, 3.3vw, 1.9rem);
+        .badge {
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(0, 0, 0, 0.55);
+            color: var(--text-muted);
+        }
+
+        .badge strong {
+            color: var(--accent-cyan);
             font-weight: 600;
         }
 
-        .score-caption {
+        /* CTA */
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .btn-primary {
+            font-size: 0.84rem;
+            padding: 9px 18px;
+            border-radius: var(--radius-pill);
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(90deg, #ff3131, #ff7b31);
+            color: #000;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow:
+                0 0 14px rgba(255, 49, 49, 0.7),
+                0 0 35px rgba(0, 0, 0, 0.8);
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.02);
+        }
+
+        .btn-ghost {
+            font-size: 0.82rem;
+            padding: 8px 16px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: transparent;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .hero-footnote {
             font-size: 0.7rem;
             color: var(--text-muted);
         }
 
-        .score-note {
+        .hero-footnote span {
+            color: var(--accent-red);
+        }
+
+        /* Panel derecho */
+
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .panel-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-soft);
+            padding: 14px 14px 12px;
+        }
+
+        .panel-title {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .panel-main-line {
+            font-size: 0.86rem;
+            margin-bottom: 6px;
+        }
+
+        .panel-main-line span {
+            color: var(--accent-cyan);
+        }
+
+        .panel-list {
+            list-style: none;
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            display: grid;
+            gap: 4px;
+        }
+
+        .panel-list li::before {
+            content: "▸";
+            margin-right: 6px;
+            color: var(--accent-red);
+        }
+
+        .metrics-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .metric-pill {
+            font-size: 0.72rem;
+            padding: 4px 9px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+        }
+
+        .metric-pill strong {
+            color: var(--accent-red);
+        }
+
+        /* Servicios */
+
+        .section {
+            margin-top: 32px;
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 14px;
+        }
+
+        .section-kicker {
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .section-title {
+            font-size: 0.98rem;
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 10px;
+        }
+
+        .service-card {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-soft);
+            padding: 12px 12px 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(255, 49, 49, 0.12), transparent 55%);
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .service-name {
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .service-name span {
+            color: var(--accent-red);
+        }
+
+        .service-desc {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .service-kpi {
+            font-size: 0.72rem;
+            color: var(--accent-cyan);
+        }
+
+        /* Cómo funciona */
+
+        .steps {
+            display: grid;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .step {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            border-left: 2px solid rgba(255, 255, 255, 0.08);
+            padding-left: 8px;
+        }
+
+        .step strong {
+            color: var(--accent-cyan);
+        }
+
+        /* Footer */
+
+        footer {
+            margin-top: 40px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
             font-size: 0.7rem;
             color: var(--text-muted);
-            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
         }
 
-        /* =========================================
-           RESPONSIVE AJUSTES
-        ========================================== */
-        @media (max-width: 640px) {
-            .hero-card {
-                padding: 32px 18px 26px;
-                border-radius: 28px;
-            }
-
-            .overlay-inner {
-                padding: 14px 12px;
-                max-height: 92vh;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                overflow: hidden;
-            }
-
-            .console-output {
-                max-height: 200px;
-            }
+        footer a {
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 4px;
         }
     </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RON3IA | Sistema Autónomo Activo</title>
+  <meta name="description" content="RON3IA: sistema autónomo digital de diagnóstico estratégico con interfaz postcyberpunk minimalista." />
+  <meta name="robots" content="index,follow" />
+  <style>
+    /* =========================================================
+       TOKENS / BASE
+    ========================================================= */
+    :root {
+      --bg: #040404;
+      --bg-soft: #0a0a0a;
+      --line-red: rgba(255, 32, 32, 0.45);
+      --line-red-soft: rgba(255, 32, 32, 0.22);
+      --red: #ff2a1f;
+      --red-bright: #ff3d32;
+      --text-main: #ececec;
+      --text-muted: #818186;
+      --panel: rgba(8, 8, 8, 0.88);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --glow-red: 0 0 14px rgba(255, 45, 45, 0.65), 0 0 45px rgba(255, 40, 40, 0.22);
+      --shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+      --ease: 280ms ease;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text-main);
+      overflow-x: hidden;
+      font-family: "Segoe UI", "Rajdhani", "Orbitron", Arial, sans-serif;
+      letter-spacing: 0.02em;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.18;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 3px,
+        rgba(255, 255, 255, 0.02) 4px
+      );
+    }
+
+    .bg-depth {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(190, 15, 15, 0.34), transparent 30%),
+        radial-gradient(circle at 50% 84%, rgba(170, 0, 0, 0.2), transparent 28%),
+        linear-gradient(180deg, #000 0%, #040404 52%, #000 100%);
+    }
+
+    #particleCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.62;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: min(1080px, 100% - 2rem);
+      margin-inline: auto;
+    }
+
+    .tech-title {
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      font-weight: 700;
+      font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+      color: var(--red-bright);
+    }
+
+    .hr-red {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 40, 40, 0.5), transparent);
+      border: none;
+      margin: 1.25rem 0;
+    }
+
+    /* =========================================================
+       BOOT SCREEN
+    ========================================================= */
+    .boot {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      background: #000;
+      transition: opacity 450ms ease, visibility 450ms ease;
+    }
+
+    .boot.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .boot-box {
+      width: min(92vw, 620px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius);
+      background: rgba(10, 10, 10, 0.85);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+    }
+
+    .boot-head {
+      color: #f2f2f2;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.5rem;
+      font-size: clamp(0.85rem, 1.6vw, 1rem);
+    }
+
+    .boot-status,
+    .boot-percent {
+      color: #9e9ea3;
+      font-size: 0.84rem;
+    }
+
+    .boot-track {
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      margin: 0.7rem 0 0.45rem;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .boot-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #5f1010, var(--red-bright));
+      box-shadow: var(--glow-red);
+    }
+
+    /* =========================================================
+       HERO / LANDING
+    ========================================================= */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      align-items: center;
+      padding: 1.4rem 0 2rem;
+    }
+
+    .hero-wrap {
+      text-align: center;
+      padding: clamp(1rem, 3vw, 1.8rem) 0;
+    }
+
+    .logo-main {
+      font-size: clamp(2.8rem, 12vw, 6rem);
+      line-height: 0.95;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: #f6f6f6;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.15), 0 0 22px rgba(255, 33, 33, 0.65), 0 0 55px rgba(255, 33, 33, 0.35);
+      margin-bottom: 0.85rem;
+    }
+
+    .logo-sub {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--red-bright);
+      font-size: clamp(1rem, 4.2vw, 1.55rem);
+      margin-bottom: 1.25rem;
+    }
+
+    .intro {
+      color: #93939a;
+      max-width: 760px;
+      margin: 0 auto;
+      font-size: clamp(1rem, 3.8vw, 1.8rem);
+      line-height: 1.4;
+      letter-spacing: 0.06em;
+    }
+
+    .hero-kpis {
+      margin: 2rem auto 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+      max-width: 860px;
+    }
+
+    .kpi {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #77777e;
+      font-size: clamp(0.74rem, 2.2vw, 1rem);
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid var(--line-red);
+    }
+
+    .kpi.span {
+      grid-column: span 2;
+      max-width: 46%;
+      justify-self: center;
+      text-align: center;
+    }
+
+    .audit-btn {
+      margin-top: 1.3rem;
+      min-height: 56px;
+      width: min(560px, 100%);
+      background: transparent;
+      border: 2px solid var(--red);
+      color: #ececec;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: clamp(0.92rem, 3.8vw, 1.35rem);
+      cursor: pointer;
+      box-shadow: var(--glow-red);
+      transition: transform var(--ease), background var(--ease), box-shadow var(--ease);
+      animation: neonPulse 2.2s ease-in-out infinite;
+    }
+
+    .audit-btn:hover,
+    .audit-btn:focus-visible {
+      background: rgba(255, 34, 34, 0.12);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    /* =========================================================
+       BLOQUES ESTILO REFERENCIA
+    ========================================================= */
+    .section {
+      padding: 1.5rem 0 2.4rem;
+    }
+
+    .frame {
+      border: 1px solid var(--line-red-soft);
+      border-radius: var(--radius);
+      background: rgba(8,8,8,0.62);
+      padding: 1.2rem;
+    }
+
+    .bullet-list {
+      list-style: none;
+      margin-top: 0.75rem;
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .bullet-list li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.8rem;
+      align-items: start;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: #8f8f96;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: clamp(0.86rem, 3vw, 1.2rem);
+      line-height: 1.35;
+    }
+
+    .bullet-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      margin-top: 0.4rem;
+      background: var(--red);
+      box-shadow: 0 0 10px rgba(255, 44, 44, 0.88);
+    }
+
+    .manifest {
+      margin-top: 2.2rem;
+      color: #6e6e75;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      line-height: 1.75;
+      text-align: center;
+      font-size: clamp(1rem, 3.8vw, 1.85rem);
+    }
+
+    .manifest strong { color: var(--red-bright); font-weight: 700; }
+
+    .health-wrap {
+      display: grid;
+      place-items: center;
+      gap: 1rem;
+      padding: 0.35rem 0 2rem;
+    }
+
+    .score-ring {
+      width: min(280px, 78vw);
+      aspect-ratio: 1;
+      position: relative;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+    }
+
+    .score-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+
+    .ring-track {
+      fill: none;
+      stroke: rgba(255,255,255,0.16);
+      stroke-width: 8;
+    }
+
+    .ring-progress {
+      fill: none;
+      stroke: var(--red-bright);
+      stroke-width: 8;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 8px rgba(255, 55, 55, 0.8));
+      transition: stroke-dashoffset 1.2s ease;
+    }
+
+    .ring-label {
+      position: absolute;
+      font-size: clamp(1.8rem, 10vw, 4rem);
+      letter-spacing: 0.06em;
+      font-weight: 800;
+      color: #f0f0f0;
+      text-shadow: 0 0 12px rgba(255,255,255,0.2);
+    }
+
+    .waiting {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #66666d;
+      font-size: clamp(0.86rem, 3vw, 1.24rem);
+    }
+
+    .console-card {
+      margin-top: 1.2rem;
+      border: 1px solid rgba(255, 35, 35, 0.45);
+      border-radius: var(--radius);
+      background: rgba(5, 5, 5, 0.85);
+      box-shadow: var(--glow-red);
+      padding: 1rem;
+    }
+
+    .console-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.8rem;
+      align-items: center;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--red-bright);
+      font-size: clamp(0.84rem, 3vw, 1.1rem);
+      margin-bottom: 0.8rem;
+    }
+
+    .console-area {
+      width: 100%;
+      min-height: 180px;
+      resize: vertical;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 42, 42, 0.28);
+      background: #080808;
+      color: #8e8e94;
+      padding: 1rem;
+      font-size: clamp(0.9rem, 3vw, 1.2rem);
+      line-height: 1.45;
+      margin-bottom: 0.9rem;
+    }
+
+    .cta-stack { display: grid; gap: 0.7rem; }
+
+    .btn-solid,
+    .btn-outline {
+      min-height: 56px;
+      border-radius: 10px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: clamp(0.86rem, 3.3vw, 1.2rem);
+      transition: transform var(--ease), filter var(--ease), background var(--ease);
+    }
+
+    .btn-solid {
+      border: 1px solid #b73535;
+      background: linear-gradient(180deg, #9a2b2b, #8c2727);
+      color: #fff;
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(255, 39, 39, 0.52);
+      background: transparent;
+      color: var(--red-bright);
+    }
+
+    .btn-solid:hover,
+    .btn-outline:hover,
+    .btn-solid:focus-visible,
+    .btn-outline:focus-visible {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+      outline: none;
+    }
+
+    /* =========================================================
+       MODULOS / CONSOLA FULLSCREEN
+    ========================================================= */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 22;
+      background: rgba(0, 0, 0, 0.93);
+      backdrop-filter: blur(7px);
+      padding: 1rem;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .overlay.open { display: block; }
+
+    .overlay-shell {
+      width: min(1040px, 100%);
+      margin: 0 auto;
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+    }
+
+    .overlay-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .close-btn {
+      border: 1px solid rgba(255,255,255,0.26);
+      background: transparent;
+      color: #ddd;
+      border-radius: 999px;
+      min-height: 40px;
+      padding: 0 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+      gap: 0.7rem;
+    }
+
+    .module-item {
+      min-height: 112px;
+      border: 1px solid rgba(255,255,255,0.13);
+      background: rgba(17,17,17,0.9);
+      color: #ececec;
+      border-radius: 12px;
+      text-align: left;
+      padding: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: transform var(--ease), border-color var(--ease), box-shadow var(--ease);
+    }
+
+    .module-item:hover,
+    .module-item:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(255, 50, 50, 0.75);
+      box-shadow: var(--glow-red);
+      outline: none;
+    }
+
+    .console-grid {
+      display: grid;
+      grid-template-columns: 1.3fr minmax(220px, 0.7fr);
+      gap: 0.8rem;
+    }
+
+    .panel {
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      background: rgba(8,8,8,0.84);
+      padding: 0.8rem;
+    }
+
+    .panel-tag {
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #9d9da3;
+      font-size: 0.76rem;
+      margin-bottom: 0.45rem;
+    }
+
+    #typedOutput {
+      min-height: 220px;
+      color: #dfdfe2;
+      white-space: pre-wrap;
+      line-height: 1.5;
+      font-size: clamp(0.84rem, 2.2vw, 0.96rem);
+    }
+
+    .score-box {
+      display: grid;
+      place-items: center;
+      min-height: 220px;
+      text-align: center;
+    }
+
+    .score-mini {
+      width: min(210px, 66vw);
+      aspect-ratio: 1;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .score-mini svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+
+    .score-mini-label {
+      position: absolute;
+      font-size: clamp(1.3rem, 6vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: #f1f1f1;
+    }
+
+    .score-boost .ring-progress,
+    .score-boost .mini-progress {
+      filter: drop-shadow(0 0 10px rgba(255, 45, 45, 0.95)) drop-shadow(0 0 18px rgba(255, 18, 18, 0.7));
+    }
+
+    .mini-track {
+      fill: none;
+      stroke: rgba(255,255,255,0.14);
+      stroke-width: 9;
+    }
+
+    .mini-progress {
+      fill: none;
+      stroke: var(--red-bright);
+      stroke-width: 9;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 7px rgba(255, 45, 45, 0.8));
+      transition: stroke-dashoffset 1.2s ease;
+    }
+
+    @keyframes neonPulse {
+      0%, 100% { box-shadow: var(--glow-red); }
+      50% { box-shadow: 0 0 18px rgba(255, 52, 52, 0.72), 0 0 60px rgba(255, 36, 36, 0.34); }
+    }
+
+    @media (max-width: 860px) {
+      .console-grid { grid-template-columns: 1fr; }
+      .container { width: min(1080px, 100% - 1.2rem); }
+      .hero-kpis { gap: 0.6rem; }
+      .kpi.span { max-width: 75%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
 </head>
 <body>
-<div class="app-shell">
-    <!-- BOOT SCREEN (solo primera visita) -->
-    <div id="boot-screen" class="boot-screen">
-        <div class="boot-box">
-            <div class="boot-label">
-                <span>RON3IA:</span> inicializando sistema autónomo...
+<main>
+    <!-- Header -->
+    <header class="header">
+        <div class="brand">
+            <div class="brand-mark"></div>
+            <div class="brand-text">
+                <div class="brand-name">RON3IA</div>
+                <div class="brand-sub">Sistema autónomo de veredicto digital</div>
             </div>
-            <div class="boot-bar-track">
-                <div id="boot-bar-fill" class="boot-bar-fill"></div>
-            </div>
-            <div id="boot-percent" class="boot-percent">0%</div>
         </div>
-    </div>
+        <div class="header-pill">
+            <span class="dot"></span>
+            <span>Operado 100% por IA · Sin humanos en tiempo real</span>
+        </div>
+    </header>
 
-    <!-- CAPA DE PARTÍCULAS -->
-    <div id="particle-layer" class="particle-layer"></div>
+    <!-- Layout principal -->
+    <section class="layout">
+        <!-- Hero izquierda -->
+        <div class="hero-card">
+            <div class="hero-tagline">Capa 3 · Juez de relevancia para tu marca</div>
 
-    <!-- HERO PRINCIPAL -->
-    <main class="hero-wrapper">
-        <section class="hero-card" aria-labelledby="ron3ia-logo">
-            <div class="hero-subtag">sistema autónomo activo</div>
-            <div id="ron3ia-logo" class="hero-logo">RON3IA</div>
-            <div class="hero-tagline">sistema de diagnóstico y optimización digital</div>
+            <h1 class="hero-title">
+                No hacemos marketing.<br>
+                Emitimos <span>veredictos técnicos</span>.
+            </h1>
 
-            <p class="hero-line">
-                Un sistema que lee tu ecosistema online, calcula riesgo operativo
-                y emite un veredicto frío sobre la salud real de tu presencia digital.
+            <p class="hero-sub">
+                RON3IA no “opina” sobre tu marca. La somete a juicio: mide tu visibilidad en buscadores,
+                motores de IA y páginas clave, y entrega un veredicto frío sobre si existes o no para los algoritmos.
             </p>
 
-            <div class="hero-cta">
-                <button id="btn-diagnostico" class="btn-primary" type="button">
-                    Iniciar diagnóstico
-                </button>
-                <p class="hero-note">
-                    No hay vendedores detrás del botón. Solo lógica, métricas y patrones.
-                </p>
+            <div class="hero-badges">
+                <div class="badge"><strong>Escaneo de invisibilidad IA</strong> en ChatGPT, Gemini y otros motores generativos*</div>
+                <div class="badge">Diagnóstico de <strong>SEO + SEM + UX</strong> en una sola respuesta</div>
+                <div class="badge">Listo para PYMEs, e-commerce y agencias en LATAM</div>
             </div>
 
-            <div class="hero-foot-block">
-                <div class="hero-foot-title">diferencial ron3ia</div>
-                <p class="hero-foot-text">
-                    No diseña campañas ni promete growth mágico.  
-                    Solo te muestra, sin maquillaje, dónde se pierde dinero, visibilidad
-                    y control en tu operación digital.
-                </p>
+            <div class="hero-actions">
+                <a href="analizar-ahora.html" class="btn-primary">
+                    Analizar mi sitio ahora
+                </a>
+                <a href="entidad.html" class="btn-ghost">
+                    Ver estado de entidad RON3IA
+                </a>
             </div>
-        </section>
-    </main>
 
-    <!-- OVERLAY: MÓDULOS ACTIVOS -->
-    <div id="modules-overlay" class="overlay" aria-hidden="true">
-        <div class="overlay-inner">
-            <header class="overlay-header">
-                <div>
-                    <div class="overlay-title">MÓDULOS ACTIVOS</div>
-                    <div style="font-size:0.76rem;color:var(--text-muted);">
-                        Selecciona un módulo para ejecutar un análisis simulado del sistema.
-                    </div>
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;">
-                    <div class="overlay-pill">
-                        <span class="overlay-dot"></span>
-                        <span>Kernel operativo RON3IA</span>
-                    </div>
-                    <button id="modules-close" class="overlay-close" type="button">Cerrar</button>
-                </div>
-            </header>
+            <div class="hero-footnote">
+                *Sin usar testimonios ni promesas comerciales: solo lectura técnica de señales, rankings y presencia en
+                capas de búsqueda humanas y generativas. <span>No hay consultor detrás del telón.</span>
+            </div>
+  <div class="bg-depth" aria-hidden="true">
+    <canvas id="particleCanvas"></canvas>
+  </div>
 
-            <section class="modules-grid" aria-label="Lista de módulos activos">
-                <article class="module-card" data-module="auditoria">
-                    <div class="module-tag">01 · Núcleo</div>
-                    <h3 class="module-name">
-                        <span>Auditoría Estratégica Autónoma™</span>
-                    </h3>
-                    <p class="module-desc">
-                        Evaluación integral de tu ecosistema digital: coherencia entre objetivos,
-                        inversión, estructura y realidad de tráfico.
-                    </p>
-                </article>
-
-                <article class="module-card" data-module="conversion">
-                    <div class="module-tag">02 · Rendimiento</div>
-                    <h3 class="module-name">
-                        <span>Ingeniería de Conversión</span>
-                    </h3>
-                    <p class="module-desc">
-                        Análisis de embudos, fricción y puntos de fuga que destruyen tu tasa
-                        de conversión sin que nadie los esté mirando.
-                    </p>
-                </article>
-
-                <article class="module-card" data-module="seo">
-                    <div class="module-tag">03 · Arquitectura</div>
-                    <h3 class="module-name">
-                        <span>SEO Arquitectura Estratégica</span>
-                    </h3>
-                    <p class="module-desc">
-                        Lectura de tu sitio como sistema: estructura, indexabilidad y relevancia
-                        desde la perspectiva de los algoritmos de búsqueda.
-                    </p>
-                </article>
-
-                <article class="module-card" data-module="growth">
-                    <div class="module-tag">04 · Expansión</div>
-                    <h3 class="module-name">
-                        <span>Growth &amp; SEM</span>
-                    </h3>
-                    <p class="module-desc">
-                        Diagnóstico de campañas de pago, saturación de audiencias y retorno real
-                        sobre la inversión publicitaria.
-                    </p>
-                </article>
-
-                <article class="module-card" data-module="ecommerce">
-                    <div class="module-tag">05 · Comercio</div>
-                    <h3 class="module-name">
-                        <span>Arquitectura E-commerce</span>
-                    </h3>
-                    <p class="module-desc">
-                        Evaluación de catálogo, rutas de compra, señales de confianza y experiencia
-                        de usuario orientada a ticket y recurrencia.
-                    </p>
-                </article>
-
-                <article class="module-card" data-module="transformacion">
-                    <div class="module-tag">06 · Cambio</div>
-                    <h3 class="module-name">
-                        <span>Transformación Digital</span>
-                    </h3>
-                    <p class="module-desc">
-                        Lectura de procesos, dependencias humanas y madurez digital para decidir
-                        dónde automatizar y dónde no.
-                    </p>
-                </article>
-            </section>
-        </div>
+  <!-- Boot de primera visita -->
+  <section class="boot" id="bootScreen" aria-live="polite">
+    <div class="boot-box">
+      <h1 class="boot-head">Inicializando Núcleo RON3IA</h1>
+      <p class="boot-status" id="bootStatus">Activando protocolos autónomos...</p>
+      <div class="boot-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="boot-bar" id="bootBar"></div>
+      </div>
+      <p class="boot-percent" id="bootPercent">0%</p>
     </div>
+  </section>
 
-    <!-- OVERLAY: PANEL POR SERVICIO -->
-    <div id="service-overlay" class="overlay" aria-hidden="true">
-        <div class="overlay-inner">
-            <header class="overlay-header">
-                <div>
-                    <div class="overlay-title">EJECUCIÓN DE MÓDULO</div>
-                    <div class="console-sub" id="service-subtitle">
-                        Simulación de lectura estratégica autónoma.
-                    </div>
-                </div>
-                <button id="service-back" class="btn-back" type="button">
-                    Volver a módulos
-                </button>
-            </header>
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-wrap">
+        <h1 class="logo-main">RON3IA</h1>
+        <p class="logo-sub">Sistema autónomo de optimización financiera digital</p>
 
-            <section class="service-layout" aria-label="Detalle de módulo">
-                <!-- Consola de texto -->
-                <article class="console-box">
-                    <header class="console-header">
-                        <h2 id="service-title" class="console-title">
-                            Módulo activo
-                        </h2>
-                    </header>
-                    <div class="console-body">
-                        <div id="console-output" class="console-output"></div>
-                    </div>
-                </article>
+        <p class="intro">
+          Desde la mejora de conversión hasta la optimización del margen empresarial,
+          RON3IA detecta ineficiencias y genera decisiones estratégicas accionables.
+        </p>
 
-                <!-- Score circular -->
-                <aside class="score-box">
-                    <div class="score-label">Score estratégico simulado</div>
-                    <div class="score-svg-wrap">
-                        <svg id="score-svg" class="score-svg" viewBox="0 0 140 140">
-                            <circle
-                                class="score-base"
-                                cx="70"
-                                cy="70"
-                                r="55"
-                            ></circle>
-                            <circle
-                                id="score-ring"
-                                class="score-ring"
-                                cx="70"
-                                cy="70"
-                                r="55"
-                            ></circle>
-                        </svg>
-                        <div class="score-center-text">
-                            <div id="score-number" class="score-number">0</div>
-                            <div class="score-caption">/ 100</div>
-                        </div>
-                    </div>
-                    <p id="score-note" class="score-note">
-                        Rango estimado entre 70–95% según señales y consistencia del sistema.
-                    </p>
-                </aside>
-            </section>
+        <div class="hero-kpis">
+          <p class="kpi">Diagnóstico autónomo</p>
+          <p class="kpi">Priorización financiera</p>
+          <p class="kpi span">Ejecución inteligente</p>
         </div>
-    </div>
-</div>
+
+        <!-- Panel derecho -->
+        <aside class="side-panel">
+            <div class="panel-card">
+                <div class="panel-title">Diagnóstico actual</div>
+                <div class="panel-main-line">
+                    Estado de tu marca: <span>¿visible o invisible?</span>
+                </div>
+                <ul class="panel-list">
+                    <li>Analiza tu dominio, estructura y contenido clave.</li>
+                    <li>Evalúa señales SEO, SEM y experiencia de usuario.</li>
+                    <li>Verifica si los modelos de IA te toman en cuenta.</li>
+                    <li>Entrega un veredicto en lenguaje que un C-Level entiende.</li>
+                </ul>
+                <div class="metrics-row">
+                    <div class="metric-pill"><strong>CPA</strong> ↓ potencial al corregir errores básicos</div>
+                    <div class="metric-pill"><strong>ROAS</strong> ↑ al alinear tráfico con intención real</div>
+                </div>
+            </div>
+
+            <div class="panel-card">
+                <div class="panel-title">Reglas del sistema</div>
+                <div class="panel-main-line">
+                    Sin “opiniones creativas”. Solo <span>evidencia</span>.
+                </div>
+                <ul class="panel-list">
+                    <li>No cierra contratos, no vende servicios, no agenda reuniones.</li>
+                    <li>Solo muestra dónde se pierde dinero y dónde se gana visibilidad.</li>
+                    <li>Opera como un perito técnico para tu ecosistema digital.</li>
+                </ul>
+            </div>
+        </aside>
+        <button id="openModules" type="button" class="audit-btn">Iniciar diagnóstico</button>
+      </div>
+    </section>
+
+    <!-- Servicios -->
+    <section class="section" id="servicios">
+        <div class="section-header">
+            <div class="section-kicker">Servicios autónomos activos</div>
+            <h2 class="section-title">Lo que RON3IA puede hacer hoy por tu marca</h2>
+    <!-- DIFERENCIAL -->
+    <section class="section">
+      <div class="container">
+        <div class="frame">
+          <h2 class="tech-title">Diferencial puro</h2>
+          <ul class="bullet-list">
+            <li><span class="bullet-dot"></span><span>Diagnóstico autónomo multi-IA en tiempo real</span></li>
+            <li><span class="bullet-dot"></span><span>Priorización por impacto financiero y esfuerzo</span></li>
+            <li><span class="bullet-dot"></span><span>Optimización por costo y complejidad</span></li>
+            <li><span class="bullet-dot"></span><span>Sistema evolutivo con memoria</span></li>
+          </ul>
+        </div>
+
+        <div class="section-grid">
+            <article class="service-card">
+                <h3 class="service-name"><span>01.</span> Escaneo de Invisibilidad IA</h3>
+                <p class="service-desc">
+                    Revisión de si tu marca aparece, se menciona o se ignora cuando los modelos generativos responden
+                    a preguntas de tu categoría.
+                </p>
+                <p class="service-kpi">KPI clave: Share of Model (porcentaje de veces que apareces en respuestas.</p>
+            </article>
+
+            <article class="service-card">
+                <h3 class="service-name"><span>02.</span> Auditoría SEO de Superficie</h3>
+                <p class="service-desc">
+                    Lectura técnica de estructura, metadatos, tiempos de carga y señales mínimas para entender si tu
+                    web es legible para buscadores.
+                </p>
+                <p class="service-kpi">KPI clave: Salud técnica para indexación y ranking básico.</p>
+            </article>
+
+            <article class="service-card">
+                <h3 class="service-name"><span>03.</span> Relevancia en Campañas (SEM)</h3>
+                <p class="service-desc">
+                    Detección de desalineación entre intención de búsqueda, anuncios y páginas de destino que
+                    disparan CPA alto y ROAS inestable.
+                </p>
+                <p class="service-kpi">KPI clave: Reducción de desperdicio de inversión por clics irrelevantes.</p>
+            </article>
+
+            <article class="service-card">
+                <h3 class="service-name"><span>04.</span> GEO · Generative Engine Optimization</h3>
+                <p class="service-desc">
+                    Lectura de cómo los motores generativos construyen respuestas en tu categoría y si tu marca tiene
+                    lugar en ese nuevo mapa.
+                </p>
+                <p class="service-kpi">KPI clave: Apariciones y citaciones en snapshots de IA.</p>
+            </article>
+
+            <article class="service-card">
+                <h3 class="service-name"><span>05.</span> Mapa C-Level de Riesgo Digital</h3>
+                <p class="service-desc">
+                    Síntesis ejecutiva para directorios y gerencias: dónde se pierde dinero, dónde se filtra demanda y
+                    qué bloqueos son técnicos vs. estratégicos.
+                </p>
+                <p class="service-kpi">KPI clave: Claridad accionable para decisiones de presupuesto.</p>
+            </article>
+
+            <article class="service-card">
+                <h3 class="service-name"><span>06.</span> War Room Autónomo (versión beta)</h3>
+                <p class="service-desc">
+                    Espacio de monitoreo donde RON3IA centraliza hallazgos, riesgos y oportunidades sin necesidad de
+                    equipos humanos conectados en tiempo real.
+                </p>
+                <p class="service-kpi">KPI clave: Tiempo ahorrado en análisis manual y reportes.</p>
+            </article>
+        </div>
+        <p class="manifest">
+          RON3IA opera bajo protocolos de análisis autónomo y validación estratégica.
+          Cada diagnóstico elimina sesgo subjetivo y prioriza decisiones basadas en impacto real.
+          <strong>La eficiencia digital no es opcional. Es estructural.</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- Cómo funciona -->
+    <section class="section" id="como-funciona">
+        <div class="section-header">
+            <div class="section-kicker">Arquitectura operativa</div>
+            <h2 class="section-title">Cómo RON3IA llega a un veredicto sobre tu ecosistema digital</h2>
+    <!-- SCORE + CONSOLA -->
+    <section class="section">
+      <div class="container">
+        <h2 class="tech-title" style="text-align:center; margin-bottom:1rem;">Score de salud digital</h2>
+
+        <div class="health-wrap" id="healthRingBox">
+          <div class="score-ring">
+            <svg viewBox="0 0 120 120" aria-label="Score de salud">
+              <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+              <circle class="ring-progress" id="heroRingProgress" cx="60" cy="60" r="52"></circle>
+            </svg>
+            <span class="ring-label" id="heroRingValue">--/100</span>
+          </div>
+          <p class="waiting" id="heroRingStatus">Esperando diagnóstico</p>
+        </div>
+
+        <div class="steps">
+            <p class="step">
+                <strong>1. Ingesta técnica.</strong> RON3IA lee tu dominio, URLs clave y señales públicas
+                (estructura, velocidad, contenido, etiquetas, rastreabilidad).
+            </p>
+            <p class="step">
+                <strong>2. Cruce con motores de búsqueda.</strong> Verifica cómo aparecen tus activos en buscadores
+                tradicionales (SEO/SEM) y si hay coherencia mínima entre páginas, anuncios y consultas.
+            </p>
+            <p class="step">
+                <strong>3. Capa generativa.</strong> Evalúa la presencia de tu marca en motores de IA que responden
+                con lenguaje natural y analizan contexto (GEO).
+            </p>
+            <p class="step">
+                <strong>4. Síntesis de veredicto.</strong> Condensa todo en un diagnóstico claro, entendible para
+                dirección: sin promesas comerciales, sin adornos creativos, solo evidencia.
+            </p>
+        </div>
+    </section>
+        <div class="console-card">
+          <div class="console-head">
+            <span class="bullet-dot" aria-hidden="true"></span>
+            <strong>Consola de comando estratégico</strong>
+          </div>
+
+    <!-- Aviso / limitaciones -->
+    <section class="section" id="aviso">
+        <div class="section-header">
+            <div class="section-kicker">Aviso importante</div>
+            <h2 class="section-title">Lo que este sistema NO hace</h2>
+        </div>
+          <textarea class="console-area" id="challengeInput" placeholder="Describe tu desafío de negocio o pega la URL del sitio para iniciar diagnóstico autónomo..."></textarea>
+
+        <div class="steps">
+            <p class="step">
+                <strong>No es una agencia.</strong> RON3IA no ofrece planes de servicio, no agenda reuniones,
+                no negocia honorarios ni reemplaza asesoría legal, financiera o médica.
+            </p>
+            <p class="step">
+                <strong>No garantiza resultados.</strong> El diagnóstico muestra riesgos, bloqueos y oportunidades,
+                pero la ejecución depende de tus decisiones y de tu equipo humano.
+            </p>
+            <p class="step">
+                <strong>No almacena datos sensibles de pago.</strong> Cualquier uso debe respetar las leyes locales
+                de protección de datos personales y políticas de las plataformas conectadas.
+            </p>
+          <div class="cta-stack">
+            <button id="openModulesAlt" class="btn-solid" type="button">Iniciar auditoría</button>
+            <button class="btn-outline" type="button" id="downloadReportBtn">Descargar reporte ejecutivo</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div>© <span id="year"></span> RON3IA · Sistema autónomo de veredicto digital.</div>
+        <div>
+            Sitio operado automáticamente por IA. Para contacto editorial, visita
+            <a href="https://ronrodrigo3.com/analizar-ahora.html">la sección de análisis</a>.
+        </div>
+    </footer>
+</main>
 
 <script>
-    // ============================================
-    // CONFIGURACIÓN GLOBAL
-    // ============================================
-    const BOOT_KEY = "ron3ia_boot_seen_v1";
-
-    const MODULE_CONFIG = {
-        auditoria: {
-            title: "Auditoría Estratégica Autónoma™",
-            subtitle: "Escaneo de ecosistema completo: negocio, datos, ejecución y coherencia.",
-            minScore: 78,
-            maxScore: 94,
-            script: [
-                "> Cargando parámetros de ecosistema digital...",
-                "> Leyendo estructura de canales: orgánico, pago, social, directo...",
-                "> Analizando coherencia entre objetivos declarados y mediciones reales...",
-                "> Evaluando solapamientos, fuga de presupuesto y áreas sin dueño técnico...",
-                "> Sintetizando mapa de riesgo estratégico para dirección...",
-                "",
-                "Resultado simulado:",
-                "- Tu ecosistema opera como una red fragmentada.",
-                "- Existen puntos de inversión alta con lectura pobre de retorno.",
-                "- Hay fuentes de demanda no atendidas por falta de arquitectura de datos.",
-                "",
-                "Recomendación del sistema: priorizar visibilidad de datos y alinear la inversión con pocas métricas críticas."
-            ]
-        },
-        conversion: {
-            title: "Ingeniería de Conversión",
-            subtitle: "Foco en fricción, fuga y aprovechamiento real del tráfico.",
-            minScore: 72,
-            maxScore: 91,
-            script: [
-                "> Iniciando lectura de embudos declarados vs. embudos reales...",
-                "> Trazando ruta de usuario: impacto inicial, interés, prueba, decisión...",
-                "> Detectando pantallas con alta fricción y baja señal de valor...",
-                "> Analizando consistencia entre mensaje, oferta y acciones disponibles...",
-                "",
-                "Hallazgos simulados:",
-                "- Existen pasos extra que no aportan información clave.",
-                "- El lenguaje de las pantallas no traduce bien la propuesta de valor.",
-                "- Se pierden usuarios por no ofrecer caminos claros de siguiente acción.",
-                "",
-                "Recomendación del sistema: rediseñar flujos con menos pasos, más claridad y una métrica central por embudo."
-            ]
-        },
-        seo: {
-            title: "SEO Arquitectura Estratégica",
-            subtitle: "Lectura del sitio como sistema vivo, no como listado de URLs.",
-            minScore: 74,
-            maxScore: 92,
-            script: [
-                "> Escaneando estructura de navegación visible y oculta...",
-                "> Identificando nodos críticos para negocio y su profundidad en árbol...",
-                "> Evaluando legibilidad semántica para motores de búsqueda...",
-                "> Revisando consistencia entre intención de búsqueda y contenido real...",
-                "",
-                "Hallazgos simulados:",
-                "- Algunas páginas clave están enterradas a demasiados clics de distancia.",
-                "- Hay contenidos relevantes sin una arquitectura clara de enlaces internos.",
-                "- La semántica cubre temas, pero no refleja del todo el lenguaje del mercado.",
-                "",
-                "Recomendación del sistema: reorganizar el mapa del sitio para que negocio y algoritmo hablen el mismo idioma."
-            ]
-        },
-        growth: {
-            title: "Growth & SEM",
-            subtitle: "Uso inteligente de tráfico pago como palanca, no como muleta.",
-            minScore: 70,
-            maxScore: 90,
-            script: [
-                "> Iniciando lectura de campañas y grupos de anuncios activos...",
-                "> Cruzando inversión por intención, segmentación y landing pages...",
-                "> Detectando clics de bajo valor y saturación de audiencias...",
-                "> Estimando retorno incremental real por cada bloque de inversión...",
-                "",
-                "Hallazgos simulados:",
-                "- Parte del presupuesto se destina a consultas demasiado genéricas.",
-                "- Hay audiencias con aprendizaje pagado que no se capitalizan en orgánico.",
-                "- El mensaje de anuncio y la página de destino no siempre están alineados.",
-                "",
-                "Recomendación del sistema: concentrar inversión en pocas estructuras estables y medir por ciclo completo, no por clic aislado."
-            ]
-        },
-        ecommerce: {
-            title: "Arquitectura E-commerce",
-            subtitle: "Catálogo, confianza y experiencia orientada a recurrencia.",
-            minScore: 76,
-            maxScore: 93,
-            script: [
-                "> Analizando jerarquía de categorías, colecciones y productos...",
-                "> Verificando señales de confianza: envíos, garantías, medios de pago...",
-                "> Evaluando tiempos de carga en vistas críticas del catálogo...",
-                "> Observando claridad de información en ficha de producto...",
-                "",
-                "Hallazgos simulados:",
-                "- Existen productos clave sin suficiente contexto o fotografía clara.",
-                "- El carrito funciona, pero no guía al usuario con mensajes de seguridad.",
-                "- No hay una estrategia evidente de packs, bundles o recurrencia.",
-                "",
-                "Recomendación del sistema: rediseñar el flujo de compra para que el usuario sienta claridad, control y respaldo en cada paso."
-            ]
-        },
-        transformacion: {
-            title: "Transformación Digital",
-            subtitle: "Decidir dónde automatizar y dónde seguir siendo humano.",
-            minScore: 80,
-            maxScore: 95,
-            script: [
-                "> Escaneando procesos dependientes de personas específicas...",
-                "> Identificando tareas repetitivas con alto costo y bajo valor creativo...",
-                "> Evaluando madurez de datos para soportar automatización...",
-                "> Analizando impacto de automatizar vs. mantener operación manual...",
-                "",
-                "Hallazgos simulados:",
-                "- Hay tareas que pueden automatizarse sin afectar la experiencia humana.",
-                "- Algunos procesos críticos requieren criterio, no solo ejecución mecánica.",
-                "- No todos los equipos tienen visibilidad de cómo fluye la información.",
-                "",
-                "Recomendación del sistema: empezar por automatizar lo estable, medir impacto y mantener espacios donde el juicio humano agrega valor real."
-            ]
-        }
-    };
-
-    // ============================================
-    // BOOT SCREEN
-    // ============================================
-    (function initBootScreen() {
-        const bootScreen = document.getElementById("boot-screen");
-        const barFill = document.getElementById("boot-bar-fill");
-        const percentLabel = document.getElementById("boot-percent");
-
-        const seen = window.localStorage.getItem(BOOT_KEY);
-        if (seen) {
-            bootScreen.style.display = "none";
-            return;
-        }
-
-        let progress = 0;
-        const stepMs = 150;
-
-        const interval = setInterval(() => {
-            const increment = 5 + Math.random() * 12;
-            progress = Math.min(100, progress + increment);
-            barFill.style.width = progress + "%";
-            percentLabel.textContent = Math.round(progress) + "%";
-
-            if (progress >= 100) {
-                clearInterval(interval);
-                window.localStorage.setItem(BOOT_KEY, "1");
-                bootScreen.classList.add("boot-hidden");
-                setTimeout(() => {
-                    bootScreen.style.display = "none";
-                }, 450);
-            }
-        }, stepMs);
-    })();
-
-    // ============================================
-    // PARTÍCULAS DE FONDO
-    // ============================================
-    (function initParticles() {
-        const layer = document.getElementById("particle-layer");
-        if (!layer) return;
-
-        const particleCount = 28;
-
-        const createParticle = () => {
-            const p = document.createElement("span");
-            p.className = "particle";
-            const left = Math.random() * 100;
-            const delay = Math.random() * 12;
-            const duration = 14 + Math.random() * 10;
-            const height = 10 + Math.random() * 18;
-
-            p.style.left = left + "vw";
-            p.style.animationDuration = duration + "s";
-            p.style.animationDelay = delay + "s";
-            p.style.height = height + "px";
-
-            layer.appendChild(p);
-        };
-
-        for (let i = 0; i < particleCount; i++) {
-            createParticle();
-        }
-    })();
-
-    // ============================================
-    // OVERLAYS (MÓDULOS / SERVICIO)
-    // ============================================
-    const modulesOverlay = document.getElementById("modules-overlay");
-    const serviceOverlay = document.getElementById("service-overlay");
-    const btnDiagnostico = document.getElementById("btn-diagnostico");
-    const modulesClose = document.getElementById("modules-close");
-    const serviceBack = document.getElementById("service-back");
-
-    const serviceTitleEl = document.getElementById("service-title");
-    const serviceSubtitleEl = document.getElementById("service-subtitle");
-    const consoleOutputEl = document.getElementById("console-output");
-
-    const scoreRing = document.getElementById("score-ring");
-    const scoreNumber = document.getElementById("score-number");
-    const scoreNote = document.getElementById("score-note");
-
-    let typewriterTimer = null;
-    let scoreAnimationFrame = null;
-
-    function openModulesOverlay() {
-        modulesOverlay.classList.add("overlay--visible");
-        modulesOverlay.setAttribute("aria-hidden", "false");
-    }
-
-    function closeModulesOverlay() {
-        modulesOverlay.classList.remove("overlay--visible");
-        modulesOverlay.setAttribute("aria-hidden", "true");
-    }
-
-    function openServiceOverlay() {
-        serviceOverlay.classList.add("overlay--visible");
-        serviceOverlay.setAttribute("aria-hidden", "false");
-    }
-
-    function closeServiceOverlay() {
-        serviceOverlay.classList.remove("overlay--visible");
-        serviceOverlay.setAttribute("aria-hidden", "true");
-    }
-
-    if (btnDiagnostico) {
-        btnDiagnostico.addEventListener("click", openModulesOverlay);
-    }
-
-    if (modulesClose) {
-        modulesClose.addEventListener("click", closeModulesOverlay);
-    }
-
-    if (serviceBack) {
-        serviceBack.addEventListener("click", () => {
-            closeServiceOverlay();
-            openModulesOverlay();
-        });
-    }
-
-    // ============================================
-    // TYPEWRITER EN CONSOLA
-    // ============================================
-    function clearTypewriter() {
-        if (typewriterTimer) {
-            clearInterval(typewriterTimer);
-            typewriterTimer = null;
-        }
-    }
-
-    function startTypewriter(lines, targetElement, speedMs) {
-        clearTypewriter();
-        targetElement.textContent = "";
-
-        const text = lines.join("\n");
-        let index = 0;
-
-        typewriterTimer = setInterval(() => {
-            targetElement.textContent += text.charAt(index);
-            index += 1;
-            if (index >= text.length) {
-                clearTypewriter();
-            }
-        }, speedMs);
-    }
-
-    // ============================================
-    // SCORE CIRCULAR
-    // ============================================
-    const SCORE_RADIUS = 55;
-    const SCORE_CIRCUMFERENCE = 2 * Math.PI * SCORE_RADIUS;
-
-    scoreRing.style.strokeDasharray = SCORE_CIRCUMFERENCE + " " + SCORE_CIRCUMFERENCE;
-    scoreRing.style.strokeDashoffset = SCORE_CIRCUMFERENCE;
-
-    function clearScoreAnimation() {
-        if (scoreAnimationFrame) {
-            cancelAnimationFrame(scoreAnimationFrame);
-            scoreAnimationFrame = null;
-        }
-    }
-
-    function animateScore(targetScore) {
-        clearScoreAnimation();
-
-        const duration = 1500;
-        const startTime = performance.now();
-        const startOffset = SCORE_CIRCUMFERENCE;
-        const targetOffset = SCORE_CIRCUMFERENCE * (1 - targetScore / 100);
-
-        function frame(now) {
-            const elapsed = now - startTime;
-            const t = Math.min(1, elapsed / duration);
-            const eased = 1 - Math.pow(1 - t, 3);
-
-            const currentOffset = startOffset + (targetOffset - startOffset) * eased;
-            const currentScore = Math.round(targetScore * eased);
-
-            scoreRing.style.strokeDashoffset = currentOffset;
-            scoreNumber.textContent = currentScore.toString();
-
-            if (t < 1) {
-                scoreAnimationFrame = requestAnimationFrame(frame);
-            } else {
-                scoreNumber.textContent = targetScore.toString();
-            }
-        }
-
-        if (targetScore > 85) {
-            scoreRing.classList.add("score-ring--high");
-        } else {
-            scoreRing.classList.remove("score-ring--high");
-        }
-
-        scoreAnimationFrame = requestAnimationFrame(frame);
-    }
-
-    // ============================================
-    // HANDLERS DE MÓDULOS
-    // ============================================
-    function randomScore(min, max) {
-        const value = Math.floor(min + Math.random() * (max - min + 1));
-        return Math.max(0, Math.min(100, value));
-    }
-
-    function handleModuleClick(moduleKey) {
-        const config = MODULE_CONFIG[moduleKey];
-        if (!config) return;
-
-        serviceTitleEl.textContent = config.title;
-        serviceSubtitleEl.textContent = config.subtitle;
-        scoreNote.textContent = "Rango estimado para este módulo: " +
-            config.minScore + "–" + config.maxScore + "% según señales y consistencia del sistema.";
-
-        startTypewriter(config.script, consoleOutputEl, 22);
-
-        const scoreValue = randomScore(config.minScore, config.maxScore);
-        animateScore(scoreValue);
-
-        closeModulesOverlay();
-        openServiceOverlay();
-    }
-
-    document.querySelectorAll(".module-card").forEach(card => {
-        card.addEventListener("click", () => {
-            const key = card.getAttribute("data-module");
-            handleModuleClick(key);
-        });
-    });
-
-    // Cerrar overlays con ESC
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-            if (serviceOverlay.classList.contains("overlay--visible")) {
-                closeServiceOverlay();
-                openModulesOverlay();
-            } else if (modulesOverlay.classList.contains("overlay--visible")) {
-                closeModulesOverlay();
-            }
-        }
-    });
+    // Año dinámico simple
+    document.getElementById("year").textContent = new Date().getFullYear();
 </script>
+  </main>
+
+  <!-- Overlay módulos -->
+  <section id="modulesOverlay" class="overlay" aria-hidden="true">
+    <div class="overlay-shell">
+      <header class="overlay-head">
+        <h2 class="tech-title" style="font-size:clamp(1rem,2.2vw,1.2rem)">Módulos activos</h2>
+        <button id="closeModules" class="close-btn" type="button">Cerrar</button>
+      </header>
+      <div class="module-grid" id="moduleGrid"></div>
+    </div>
+  </section>
+
+  <!-- Overlay consola por módulo -->
+  <section id="consoleOverlay" class="overlay" aria-hidden="true">
+    <div class="overlay-shell">
+      <header class="overlay-head">
+        <h2 class="tech-title" style="font-size:clamp(1rem,2.2vw,1.2rem)" id="moduleTitle">Análisis</h2>
+        <button id="backModules" class="close-btn" type="button">Volver</button>
+      </header>
+
+      <div class="console-grid">
+        <article class="panel">
+          <p class="panel-tag">Consola digital</p>
+          <div id="typedOutput"></div>
+        </article>
+
+        <aside class="panel score-box" id="miniScoreBox">
+          <div class="score-mini">
+            <svg viewBox="0 0 120 120" aria-label="Score del módulo">
+              <circle class="mini-track" cx="60" cy="60" r="50"></circle>
+              <circle class="mini-progress" id="miniProgress" cx="60" cy="60" r="50"></circle>
+            </svg>
+            <span class="score-mini-label" id="miniValue">0%</span>
+          </div>
+          <p class="panel-tag" style="margin:0.45rem 0 0;">score estratégico</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* =========================================================
+       DATOS DE MÓDULOS
+    ========================================================= */
+    const MODULES = [
+      "Auditoría Estratégica Autónoma™",
+      "Ingeniería de Conversión",
+      "SEO Arquitectura Estratégica",
+      "Growth & SEM",
+      "Arquitectura E-commerce",
+      "Transformación Digital"
+    ];
+
+    const ANALYSIS_TEXTS = [
+      "Se detectó dispersión de demanda entre activos de alto costo y baja intención.\n\nSiguiente acción: consolidar señales de autoridad y reconfigurar ruta de conversión en móvil.",
+      "El núcleo encontró brechas entre mensaje comercial y estructura de páginas clave.\n\nSiguiente acción: priorizar módulos de captación con fricción alta para reducir pérdida incremental.",
+      "RON3IA confirma oportunidad táctica en indexación semántica y coherencia entre adquisición y oferta.\n\nSiguiente acción: activar secuencia de corrección por impacto financiero acumulado."
+    ];
+
+    /* =========================================================
+       BOOT SCREEN
+    ========================================================= */
+    const bootKey = "ron3ia_boot_seen";
+    const bootScreen = document.getElementById("bootScreen");
+    const bootBar = document.getElementById("bootBar");
+    const bootStatus = document.getElementById("bootStatus");
+    const bootPercent = document.getElementById("bootPercent");
+
+    function hideBoot() {
+      bootScreen.classList.add("hide");
+      setTimeout(() => { bootScreen.style.display = "none"; }, 460);
+    }
+
+    function runBoot() {
+      const states = [
+        "Activando protocolos autónomos...",
+        "Sincronizando arquitectura digital...",
+        "Compilando veredicto base...",
+        "Sistema listo."
+      ];
+      let value = 0;
+
+      const timer = setInterval(() => {
+        value += Math.floor(Math.random() * 8) + 4;
+        if (value > 100) value = 100;
+
+        bootBar.style.width = value + "%";
+        bootPercent.textContent = value + "%";
+        bootScreen.querySelector("[role='progressbar']")?.setAttribute("aria-valuenow", String(value));
+
+        if (value < 30) bootStatus.textContent = states[0];
+        else if (value < 58) bootStatus.textContent = states[1];
+        else if (value < 90) bootStatus.textContent = states[2];
+        else bootStatus.textContent = states[3];
+
+        if (value >= 100) {
+          clearInterval(timer);
+          localStorage.setItem(bootKey, "1");
+          setTimeout(hideBoot, 340);
+        }
+      }, 95);
+    }
+
+    if (localStorage.getItem(bootKey) === "1") {
+      bootScreen.style.display = "none";
+    } else {
+      runBoot();
+    }
+
+    /* =========================================================
+       FONDO DE PARTÍCULAS LIVIANO
+    ========================================================= */
+    const canvas = document.getElementById("particleCanvas");
+    const ctx = canvas.getContext("2d", { alpha: true });
+    let w = 0;
+    let h = 0;
+    let particles = [];
+    let rafId;
+
+    function mobile() { return window.matchMedia("(max-width: 820px)").matches; }
+
+    function resizeCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      w = canvas.clientWidth;
+      h = canvas.clientHeight;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      makeParticles();
+    }
+
+    function makeParticles() {
+      const count = mobile() ? 25 : 44;
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 0.6 + Math.random() * 1.7,
+        vy: -(0.05 + Math.random() * 0.22),
+        alpha: 0.18 + Math.random() * 0.45
+      }));
+    }
+
+    function tickParticles() {
+      ctx.clearRect(0, 0, w, h);
+      for (const p of particles) {
+        p.y += p.vy;
+        if (p.y < -8) {
+          p.y = h + 8;
+          p.x = Math.random() * w;
+        }
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 42, 32, ${p.alpha})`;
+        ctx.fill();
+      }
+      rafId = requestAnimationFrame(tickParticles);
+    }
+
+    resizeCanvas();
+    tickParticles();
+    window.addEventListener("resize", resizeCanvas, { passive: true });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) cancelAnimationFrame(rafId);
+      else tickParticles();
+    });
+
+    /* =========================================================
+       SCORE HERO (ANILLO)
+    ========================================================= */
+    const heroRingProgress = document.getElementById("heroRingProgress");
+    const heroRingValue = document.getElementById("heroRingValue");
+    const heroRingStatus = document.getElementById("heroRingStatus");
+    const ringR = 52;
+    const ringC = 2 * Math.PI * ringR;
+    heroRingProgress.style.strokeDasharray = String(ringC);
+    heroRingProgress.style.strokeDashoffset = String(ringC);
+
+    function updateHeroRing(score) {
+      const clamped = Math.max(0, Math.min(score, 100));
+      const offset = ringC - (clamped / 100) * ringC;
+      heroRingProgress.style.strokeDashoffset = String(offset);
+      heroRingValue.textContent = `${clamped}/100`;
+      heroRingStatus.textContent = "Diagnóstico procesado";
+      document.getElementById("healthRingBox").classList.toggle("score-boost", clamped > 85);
+    }
+
+    /* =========================================================
+       OVERLAYS + INTERACCIÓN PRINCIPAL
+    ========================================================= */
+    const openModules = document.getElementById("openModules");
+    const openModulesAlt = document.getElementById("openModulesAlt");
+    const closeModules = document.getElementById("closeModules");
+    const modulesOverlay = document.getElementById("modulesOverlay");
+    const consoleOverlay = document.getElementById("consoleOverlay");
+    const moduleGrid = document.getElementById("moduleGrid");
+    const backModules = document.getElementById("backModules");
+
+    function setOpen(overlay, state) {
+      overlay.classList.toggle("open", state);
+      overlay.setAttribute("aria-hidden", String(!state));
+    }
+
+    function openModulesPanel() { setOpen(modulesOverlay, true); }
+    openModules.addEventListener("click", openModulesPanel);
+    openModulesAlt.addEventListener("click", openModulesPanel);
+    closeModules.addEventListener("click", () => setOpen(modulesOverlay, false));
+    backModules.addEventListener("click", () => {
+      setOpen(consoleOverlay, false);
+      setOpen(modulesOverlay, true);
+    });
+
+    modulesOverlay.addEventListener("click", (ev) => {
+      if (ev.target === modulesOverlay) setOpen(modulesOverlay, false);
+    });
+    consoleOverlay.addEventListener("click", (ev) => {
+      if (ev.target === consoleOverlay) {
+        setOpen(consoleOverlay, false);
+        setOpen(modulesOverlay, true);
+      }
+    });
+
+    MODULES.forEach((name, idx) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "module-item";
+      button.textContent = `${String(idx + 1).padStart(2, "0")} · ${name}`;
+      button.addEventListener("click", () => openModuleConsole(name));
+      moduleGrid.appendChild(button);
+    });
+
+    /* =========================================================
+       CONSOLA MÓDULO + TYPEWRITER + SCORE MINI
+    ========================================================= */
+    const moduleTitle = document.getElementById("moduleTitle");
+    const typedOutput = document.getElementById("typedOutput");
+    const miniProgress = document.getElementById("miniProgress");
+    const miniValue = document.getElementById("miniValue");
+    const miniScoreBox = document.getElementById("miniScoreBox");
+
+    const miniR = 50;
+    const miniC = 2 * Math.PI * miniR;
+    miniProgress.style.strokeDasharray = String(miniC);
+    miniProgress.style.strokeDashoffset = String(miniC);
+
+    let typeTimer = null;
+    let scoreTimer = null;
+
+    function typeWriter(text) {
+      if (typeTimer) clearInterval(typeTimer);
+      typedOutput.textContent = "";
+      let i = 0;
+      typeTimer = setInterval(() => {
+        typedOutput.textContent += text.charAt(i);
+        i += 1;
+        if (i >= text.length) clearInterval(typeTimer);
+      }, 18);
+    }
+
+    function animateMiniScore(score) {
+      if (scoreTimer) clearInterval(scoreTimer);
+      miniScoreBox.classList.toggle("score-boost", score > 85);
+      const clamped = Math.max(0, Math.min(score, 100));
+      const offset = miniC - (clamped / 100) * miniC;
+      miniProgress.style.strokeDashoffset = String(miniC);
+      miniValue.textContent = "0%";
+      requestAnimationFrame(() => {
+        miniProgress.style.strokeDashoffset = String(offset);
+      });
+
+      let current = 0;
+      scoreTimer = setInterval(() => {
+        current += 1;
+        if (current >= clamped) {
+          current = clamped;
+          clearInterval(scoreTimer);
+        }
+        miniValue.textContent = `${current}%`;
+      }, 18);
+    }
+
+    function openModuleConsole(moduleName) {
+      const sample = ANALYSIS_TEXTS[Math.floor(Math.random() * ANALYSIS_TEXTS.length)];
+      const score = Math.floor(Math.random() * (95 - 70 + 1)) + 70;
+      const fullText = `[${moduleName}]\n\n${sample}\n\nVeredicto autónomo: score operativo ${score}%.`;
+
+      moduleTitle.textContent = moduleName;
+      setOpen(modulesOverlay, false);
+      setOpen(consoleOverlay, true);
+      typeWriter(fullText);
+      animateMiniScore(score);
+      updateHeroRing(score);
+    }
+
+    document.addEventListener("keydown", (ev) => {
+      if (ev.key === "Escape") {
+        if (consoleOverlay.classList.contains("open")) {
+          setOpen(consoleOverlay, false);
+          setOpen(modulesOverlay, true);
+        } else if (modulesOverlay.classList.contains("open")) {
+          setOpen(modulesOverlay, false);
+        }
+      }
+    });
+
+    /* =========================================================
+       BOTÓN DE DESCARGA (PLACEHOLDER FUNCIONAL)
+    ========================================================= */
+    document.getElementById("downloadReportBtn").addEventListener("click", () => {
+      const content = [
+        "REPORTE EJECUTIVO RON3IA",
+        "=======================",
+        "Estado: Diagnóstico preliminar disponible",
+        "Siguiente paso: ejecutar módulo activo para consolidar score y acciones prioritarias"
+      ].join("\n");
+
+      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "reporte-ejecutivo-ron3ia.txt";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+  </script>
 </body>
 </html>
