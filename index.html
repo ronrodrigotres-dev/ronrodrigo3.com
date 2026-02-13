@@ -1,43 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RON3IA - Sistema Autónomo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
 <style>
-   ... CSS AQUÍ ...
-</style>
-<audio id="tronSound" loop>
-    <source src="tron-ambient.mp3" type="audio/mpeg">
-</audio>
+*{margin:0;padding:0;box-sizing:border-box}
 
-<script>
-const audio = document.getElementById("tronSound");
-
-function activateSound() {
-    audio.volume = 0.3; // volumen bajo elegante
-    audio.play();
-    document.removeEventListener("click", activateSound);
+body{
+    background:#000;
+    font-family:'Orbitron',sans-serif;
+    color:#fff;
+    overflow-x:hidden;
 }
 
-document.addEventListener("click", activateSound);
-</script>
-<audio id="logoPulseSound">
-    <source src="pulse.mp3" type="audio/mpeg">
-</audio>
+/* BOOT */
 
-<script>
-const logo = document.querySelector(".logo");
-const pulseSound = document.getElementById("logoPulseSound");
+.boot-screen{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
 
-logo.addEventListener("mouseenter", () => {
-    pulseSound.currentTime = 0;
-    pulseSound.volume = 0.4;
-    pulseSound.play();
-});
-</script>
+.progress-bar{
+    width:260px;
+    height:4px;
+    background:#111;
+    border:1px solid #ff0000;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:#ff0000;
+    box-shadow:0 0 15px #ff0000;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    opacity:0;
+    transition:opacity 1s ease;
+    padding:20px;
+}
+
+.logo{
+    font-size:clamp(42px,8vw,72px);
+    font-weight:900;
+    animation:glow 6s infinite;
+}
+
+@keyframes glow{
+    0%{text-shadow:0 0 20px #ff0000}
+    50%{text-shadow:0 0 60px #ff0000}
+    100%{text-shadow:0 0 20px #ff0000}
+}
+
+.subtitle{
+    margin-top:20px;
+    letter-spacing:2px;
+    color:#ff2a2a;
+}
+
+.cta-core{
+    margin-top:40px;
+    padding:15px 40px;
+    border:2px solid #ff0000;
+    color:#ff0000;
+    background:transparent;
+    letter-spacing:2px;
+    cursor:pointer;
+    animation:pulse 2s infinite;
+    transition:.3s;
+}
+
+@keyframes pulse{
+    0%{box-shadow:0 0 15px #ff0000}
+    50%{box-shadow:0 0 50px #ff0000}
+    100%{box-shadow:0 0 15px #ff0000}
+}
+
+.cta-core:hover{
+    background:#ff0000;
+    color:#000;
+    transform:scale(1.08);
+}
+
+/* HOLO */
+
+.holo-screen{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.96);
+    display:none;
+    flex-direction:column;
+    padding:20px;
+    overflow-y:auto;
+    z-index:9998;
+}
+
+.holo-header{
+    text-align:center;
+    margin-bottom:20px;
+    color:#ff0000;
+    letter-spacing:3px;
+}
+
+.holo-close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    cursor:pointer;
+    font-size:20px;
+}
+
+.services-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.service-card{
+    border:1px solid rgba(255,0,0,.4);
+    padding:15px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.service-card:hover{
+    box-shadow:0 0 25px #ff0000;
+}
+
+/* SUB PANEL */
+
+.sub-panel{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:none;
+    flex-direction:column;
+    padding:20px;
+    overflow-y:auto;
+    z-index:10000;
+}
+
+.console-text{
+    font-family:monospace;
+    color:#ff0000;
+    font-size:14px;
+    white-space:pre-wrap;
+    line-height:1.6;
+}
+
+/* SCORE */
+
+.score-container{
+    margin-top:30px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.score-circle{
+    transform:rotate(-90deg);
+    filter:drop-shadow(0 0 15px #ff0000);
+}
+
+.score-text{
+    margin-top:-115px;
+    font-size:22px;
+    color:#ff0000;
+    text-shadow:0 0 15px #ff0000;
+}
+
+.score-text.high{
+    animation:superGlow 1s infinite alternate;
+}
+
+@keyframes superGlow{
+    from{text-shadow:0 0 15px #ff0000}
+    to{text-shadow:0 0 40px #ff0000}
+}
+
+.back-btn{
+    margin-top:30px;
+    border:1px solid #ff0000;
+    background:transparent;
+    color:#ff0000;
+    padding:10px;
+    cursor:pointer;
+}
+
+/* PARTICLES */
+
+.particle{
+    position:fixed;
+    width:2px;
+    height:2px;
+    background:#ff0000;
+    box-shadow:0 0 8px #ff0000;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    from{transform:translateY(100vh)}
+    to{transform:translateY(-10vh)}
+}
+
+</style>
+</head>
 
 <body>
 
-   ... HTML AQUÍ ...
+<div class="boot-screen" id="bootScreen">
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+</div>
+
+<section class="hero" id="hero">
+    <div class="logo">RON3IA</div>
+    <div class="subtitle">SISTEMA AUTÓNOMO ACTIVO</div>
+    <button class="cta-core" id="diagnosticBtn">INICIAR DIAGNÓSTICO</button>
+</section>
+
+<div class="holo-screen" id="holoScreen">
+    <div class="holo-close" id="closeHolo">✕</div>
+    <div class="holo-header">MÓDULOS ACTIVOS</div>
+
+    <div class="services-grid">
+        <div class="service-card" data-service="auditoria">Auditoría Estratégica Autónoma™</div>
+        <div class="service-card" data-service="cro">Ingeniería de Conversión</div>
+        <div class="service-card" data-service="seo">SEO Arquitectura Estratégica</div>
+        <div class="service-card" data-service="growth">Growth & SEM</div>
+        <div class="service-card" data-service="ecommerce">Arquitectura E-commerce</div>
+        <div class="service-card" data-service="transformacion">Transformación Digital</div>
+    </div>
+</div>
+
+<div class="sub-panel" id="subPanel">
+    <div class="console-text" id="consoleText"></div>
+
+    <div class="score-container">
+        <svg class="score-circle" width="160" height="160">
+            <circle cx="80" cy="80" r="70" stroke="#330000" stroke-width="8" fill="none"/>
+            <circle cx="80" cy="80" r="70" stroke="#ff0000" stroke-width="8"
+                fill="none"
+                stroke-dasharray="440"
+                stroke-dashoffset="440"
+                id="scoreProgress"/>
+        </svg>
+        <div class="score-text" id="scoreText">0%</div>
+    </div>
+
+    <button class="back-btn" id="backBtn">VOLVER</button>
+</div>
 
 <script>
-   ... JAVASCRIPT AQUÍ ...
+
+/* BOOT */
+
+const boot = document.getElementById("bootScreen");
+const hero = document.getElementById("hero");
+
+if(!localStorage.getItem("booted")){
+    let p=0;
+    const fill=document.getElementById("progressFill");
+    const int=setInterval(()=>{
+        p+=3;
+        fill.style.width=p+"%";
+        if(p>=100){
+            clearInterval(int);
+            boot.style.display="none";
+            hero.style.opacity="1";
+            localStorage.setItem("booted","true");
+        }
+    },40);
+}else{
+    boot.style.display="none";
+    hero.style.opacity="1";
+}
+
+/* HOLO */
+
+const holo=document.getElementById("holoScreen");
+const sub=document.getElementById("subPanel");
+const consoleText=document.getElementById("consoleText");
+const scoreText=document.getElementById("scoreText");
+const scoreCircle=document.getElementById("scoreProgress");
+
+document.getElementById("diagnosticBtn").onclick=()=> holo.style.display="flex";
+document.getElementById("closeHolo").onclick=()=> holo.style.display="none";
+
+const services={
+    auditoria:{text:"Escaneando SEO...\nDetectando fricciones...\nDiagnóstico listo.",score:78},
+    cro:{text:"Optimizando arquitectura...\nReduciendo fricción...\nConversión mejorada.",score:84},
+    seo:{text:"Mapeando intención...\nDominio orgánico preparado.",score:72},
+    growth:{text:"Reasignando presupuesto...\nROI optimizado.",score:88},
+    ecommerce:{text:"Simplificando checkout...\nSistema escalable activo.",score:81},
+    transformacion:{text:"Reestructurando modelo...\nTransformación completada.",score:90}
+};
+
+document.querySelectorAll(".service-card").forEach(card=>{
+    card.onclick=()=>{
+        holo.style.display="none";
+        sub.style.display="flex";
+        const data=services[card.dataset.service];
+        typeEffect(data.text);
+        setTimeout(()=>animateScore(data.score),1000);
+    }
+});
+
+document.getElementById("backBtn").onclick=()=>{
+    sub.style.display="none";
+    holo.style.display="flex";
+};
+
+/* TYPE */
+
+function typeEffect(text){
+    consoleText.innerHTML="";
+    let i=0;
+    const int=setInterval(()=>{
+        consoleText.innerHTML+=text[i];
+        i++;
+        if(i>=text.length) clearInterval(int);
+    },25);
+}
+
+/* SCORE */
+
+function animateScore(value){
+    const radius=70;
+    const circumference=2*Math.PI*radius;
+    scoreCircle.style.strokeDasharray=circumference;
+    let current=0;
+    const int=setInterval(()=>{
+        current++;
+        scoreText.innerText=current+"%";
+        const offset=circumference-(current/100)*circumference;
+        scoreCircle.style.strokeDashoffset=offset;
+        if(current>=value){
+            clearInterval(int);
+            if(value>85) scoreText.classList.add("high");
+        }
+    },20);
+}
+
+/* PARTICLES */
+
+function createParticle(){
+    const p=document.createElement("div");
+    p.classList.add("particle");
+    p.style.left=Math.random()*window.innerWidth+"px";
+    p.style.animationDuration=(4+Math.random()*6)+"s";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),6000);
+}
+setInterval(createParticle,150);
+
 </script>
 
 </body>
+</html>
 
