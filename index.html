@@ -3,58 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RON3IA | Entidad IA Viva — V4.0</title>
+<title>RON3IA | Entidad IA Viva — Optimización Autónoma</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Fira+Code:wght@300;500&display=swap" rel="stylesheet">
 <style>
-/* === BASE PRESERVADA === */
+/* === TU BASE ORIGINAL (PRESERVADA) === */
 *{margin:0;padding:0;box-sizing:border-box}
 body{ background:#0a0a0a; font-family:'Orbitron',sans-serif; color:#fff; overflow-x:hidden; cursor:none; }
 body::after{ content:""; position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px); pointer-events:none; z-index:9999; }
+.ambient-glow{ position:fixed; inset:0; background:radial-gradient(ellipse at 50% 30%, rgba(255,0,0,0.04) 0%, transparent 70%); animation:ambientPulse 6s ease-in-out infinite; pointer-events:none; z-index:0; }
 
-/* === CURSOR SNIPER === */
-.sniper-cursor{ position:fixed; top:0; left:0; width:22px; height:22px; border:1.5px solid rgba(255,0,0,0.7); border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; z-index:100000; transition:all .2s; mix-blend-mode:difference; }
-.sniper-dot{ position:fixed; top:0; left:0; width:4px; height:4px; background:#ff0000; border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; z-index:100001; box-shadow:0 0 6px #ff0000; }
-.sniper-cursor.locked{ width:45px; height:45px; border:2px solid #00FF00; background:rgba(0,255,0,0.1); border-radius:4px; animation:rotateLock .3s forwards; }
+/* === CURSOR SNIPER (PRESERVADO) === */
+.sniper-cursor{ position:fixed;top:0;left:0; width:22px;height:22px; border:1.5px solid rgba(255,0,0,0.7); border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; z-index:100000; transition:width .2s,height .2s,border-color .2s,background-color .2s,border-radius .2s; mix-blend-mode:difference; }
+.sniper-dot{ position:fixed;top:0;left:0; width:4px;height:4px; background:#ff0000; border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; z-index:100001; box-shadow:0 0 6px #ff0000; }
+.sniper-cursor.locked{ width:40px;height:40px; border:2px solid #00FF00; background-color:rgba(0,255,0,0.08); border-radius:2px; animation:rotateLock .3s ease-out forwards; }
 
-@keyframes rotateLock { 100%{ transform:translate(-50%,-50%) rotate(45deg); } }
-@keyframes flicker { 0%,100%{opacity:1} 50%{opacity:0.4} }
+@keyframes rotateLock{ 0%{transform:translate(-50%,-50%) rotate(0deg)} 100%{transform:translate(-50%,-50%) rotate(45deg)} }
 @keyframes ringSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 
-/* === HERO SECTION === */
-.hero{ min-height:100vh; text-align:center; display:flex; flex-direction:column; justify-content:center; padding:60px 20px; }
-.logo{ font-size:clamp(60px, 12vw, 130px); font-weight:900; letter-spacing:14px; text-shadow:0 0 20px #ff0000; animation:flicker 4s infinite; }
-.subtitle{ color:#ff1a1a; letter-spacing:4px; margin-top:20px; font-weight:700; }
+/* === MEJORA: MEGABOTONES Y OVERLAYS === */
+.services-section{ padding:80px 20px; max-width:1400px; margin:0 auto; }
+.services-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(400px, 1fr)); gap:25px; }
 
-/* === MEGABOTONES DE SERVICIOS (GRANDES) === */
-.services-section{ padding:100px 20px; max-width:1400px; margin:0 auto; }
-.services-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(400px, 1fr)); gap:30px; }
-.service-card{ background:rgba(20,0,0,0.4); border:1px solid rgba(255,0,0,0.2); padding:50px 40px; position:relative; transition:all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow:hidden; }
-.service-card:hover{ border-color:#ff0000; background:rgba(40,0,0,0.6); transform:scale(1.02); box-shadow:0 0 40px rgba(255,0,0,0.2); }
-.service-title{ color:#ff0000; font-size:18px; font-weight:900; letter-spacing:2px; margin-bottom:15px; }
-.service-trigger{ color:#666; font-size:10px; letter-spacing:1px; text-transform:uppercase; font-family:'Fira Code', monospace; }
+.service-card{ 
+    background:rgba(0,0,0,0.6); 
+    border:1px solid rgba(255,0,0,0.25); 
+    padding:60px 40px; /* Megabotones: más grandes */
+    position:relative; 
+    transition:all .3s ease; 
+    cursor:none; 
+    overflow:hidden;
+}
 
-/* OVERLAY DE DESCRIPCIÓN */
-.service-overlay{ position:absolute; inset:0; background:#000; padding:40px; display:flex; flex-direction:column; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s; border:1px solid #ff0000; z-index:10; }
+.service-card:hover{ border-color:#ff0000; box-shadow:0 0 30px rgba(255,0,0,0.25); transform:translateY(-5px); }
+
+/* Pantalla de descripción que se abre */
+.service-overlay{
+    position:absolute;
+    inset:0;
+    background:#000;
+    border:1px solid #ff0000;
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s ease;
+    z-index:10;
+}
 .service-card:hover .service-overlay{ opacity:1; pointer-events:auto; }
-.overlay-text b{ color:#ff0000; display:block; margin-top:15px; font-size:12px; }
-.overlay-text p{ font-size:14px; line-height:1.6; color:#ccc; }
 
-/* === CÍRCULO DE VELOCIDAD DE PENSAMIENTO === */
-.analysis-section{ padding:100px 20px; text-align:center; }
-.speed-ring-container{ position:relative; width:280px; height:280px; margin:40px auto; display:none; }
-.speed-ring{ position:absolute; inset:0; border:4px solid #111; border-top:4px solid #ff0000; border-radius:50%; animation:ringSpin 1s linear infinite; }
-.speed-value{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; font-weight:900; }
-.speed-pct{ font-size:64px; color:#ff0000; text-shadow:0 0 20px #ff0000; }
-.speed-label{ font-size:10px; color:#666; letter-spacing:2px; margin-top:-5px; }
+.overlay-content b{ color:#ff0000; font-size:12px; display:block; margin-top:10px; letter-spacing:1px; }
+.overlay-content p{ color:#ccc; font-family:'Fira Code', monospace; font-size:13px; line-height:1.4; }
 
-.alert-box{ border:2px solid #ff0000; color:#ff0000; padding:20px; margin-top:30px; display:none; animation:flicker 2s infinite; font-weight:700; letter-spacing:2px; }
+/* === MEJORA: CÍRCULO DE VELOCIDAD DE PENSAMIENTO === */
+.speed-ring-container {
+    width: 200px;
+    height: 200px;
+    margin: 20px auto;
+    position: relative;
+    display: none; /* Se activa con JS */
+}
+.speed-ring {
+    position: absolute;
+    inset: 0;
+    border: 3px solid #111;
+    border-top: 3px solid #ff0000;
+    border-radius: 50%;
+    animation: ringSpin 0.8s linear infinite;
+}
+.speed-value {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
-/* === INPUT & CTA === */
-.console-input-wrap{ max-width:700px; margin:0 auto; display:flex; border:1px solid #333; background:#000; }
-.console-input{ flex:1; background:transparent; border:none; color:#fff; padding:20px; font-family:'Fira Code'; outline:none; }
-.btn-diagnostico{ background:#ff0000; color:#000; border:none; padding:0 40px; font-weight:900; cursor:none; }
+/* === TU DISEÑO ORIGINAL (CONTINUACIÓN) === */
+.logo{ font-size:clamp(60px, 12vw, 130px); font-weight:900; letter-spacing:14px; text-align:center; animation:glowPulse 4s ease-in-out infinite; }
+.hero{ min-height:100vh; display:flex; flex-direction:column; justify-content:center; text-align:center; }
+.cta-main{ display:inline-block; margin:40px auto; padding:22px 70px; background:#000; border:2px solid #ff0000; color:#fff; text-decoration:none; box-shadow:0 0 15px #ff0000; }
 
-@media(max-width:600px){ .services-grid{ grid-template-columns:1fr; } .sniper-cursor{ display:none; } }
+/* Dashboard Results */
+.dashboard{ display:none; margin-top:40px; text-align:center; }
+.dashboard-score{ font-size:72px; font-weight:900; color:#ff0000; }
+.alert-box{ border:2px solid #ff0000; padding:15px; margin-top:20px; animation:alertPulse 2s infinite; color:#ff0000; font-weight:700; }
+
+.footer-neon{ border:3px solid #ff0000; padding:40px; text-align:center; margin-top:100px; }
+
+/* Animaciones originales preservadas */
+@keyframes alertPulse{ 0%,100%{border-color:#ff0000;box-shadow:0 0 10px rgba(255,0,0,0.3)} 50%{border-color:#ff4444;box-shadow:0 0 30px rgba(255,0,0,0.5)} }
+@keyframes glowPulse{ 0%,100%{text-shadow:0 0 15px #ff0000,0 0 35px #ff0000} 50%{text-shadow:0 0 25px #ff0000,0 0 55px #ff0000} }
 </style>
 </head>
 <body>
@@ -65,90 +106,94 @@ body::after{ content:""; position:fixed; inset:0; background:repeating-linear-gr
 
 <section class="hero">
   <h1 class="logo">RON3IA</h1>
-  <h2 class="subtitle">ENTIDAD IA VIVA — OPTIMIZACIÓN AUTÓNOMA</h2>
-  <p class="description">Analizando, decidiendo y ejecutando crecimiento digital sin intervención humana.</p>
-  <a class="cta-main interactive" href="#diagnostico">INICIAR PROTOCOLO</a>
+  <h2 style="color:#ff1a1a; letter-spacing:4px;">AUDITORÍA SEO, CRO Y ESTRATEGIAS DE CRECIMIENTO DIGITAL</h2>
+  <a class="cta-main interactive" href="#consola">EJECUTAR AUDITORÍA</a>
 </section>
 
 <section class="services-section">
-  <h3 style="text-align:center; margin-bottom:60px; letter-spacing:10px; color:#444;">MATRIZ DE SERVICIOS V4.0</h3>
+  <h3 style="text-align:center; color:#ff1a1a; letter-spacing:6px; margin-bottom:50px;">MATRIZ DE SERVICIOS</h3>
   <div class="services-grid" id="serviceGrid">
     </div>
 </section>
 
-<section class="analysis-section" id="diagnostico">
-  <div class="console-input-wrap" id="inputArea">
-    <input type="text" class="console-input interactive" id="targetUrl" placeholder="INGRESAR URL PARA DIAGNÓSTICO...">
-    <button class="btn-diagnostico interactive" onclick="startAnalysis()">ACTIVAR</button>
-  </div>
+<section class="analysis-section" id="consola" style="padding:100px 20px; max-width:900px; margin:0 auto;">
+  <div style="border:1px solid #333; padding:40px; background:rgba(0,0,0,0.8);">
+    <div id="analysisForm">
+        <input type="text" id="analysisUrl" class="interactive" placeholder="INGRESA URL..." style="width:100%; padding:20px; background:#000; border:1px solid #ff0000; color:#fff; font-family:'Fira Code'; margin-bottom:20px;">
+        <button class="btn-diagnostico interactive" id="btnDiagnostico" style="width:100%; padding:20px; background:#ff0000; border:none; color:#000; font-weight:900; cursor:none;">ACTIVAR DIAGNÓSTICO IA</button>
+    </div>
 
-  <div class="speed-ring-container" id="speedRing">
-    <div class="speed-ring"></div>
-    <div class="speed-value">
-      <div class="speed-pct" id="livePct">0</div>
-      <div class="speed-label">VELOCIDAD DE PENSAMIENTO</div>
+    <div class="speed-ring-container" id="speedRing">
+        <div class="speed-ring"></div>
+        <div class="speed-value">
+            <div id="livePct" style="font-size:48px; font-weight:900; color:#ff0000;">0%</div>
+            <div style="font-size:10px; color:#555;">PENSAMIENTO IA</div>
+        </div>
+    </div>
+
+    <div class="dashboard" id="dashboard">
+      <div class="dashboard-score">64<span>/100</span></div>
+      <div style="color:#ff4444; letter-spacing:2px;">RENDIMIENTO BAJO UMBRAL COMPETITIVO</div>
+      <div class="alert-box">⚠ RIESGO DE ESTANCAMIENTO COMPETITIVO</div>
+      <a href="mailto:ronrodrigotres@gmail.com" class="cta-main interactive" style="margin-top:30px;">SOLICITAR ESTRATEGIA</a>
     </div>
   </div>
-  
-  <div class="alert-box" id="alertBox">⚠ RIESGO DE ESTANCAMIENTO COMPETITIVO</div>
 </section>
 
+<div class="footer-neon">
+    <p style="color:#555; font-family:'Fira Code'; font-size:12px; margin-bottom:20px;">[ PROTOCOLO RON3IA ] — SISTEMA AUTÓNOMO DE OPTIMIZACIÓN</p>
+    <a href="mailto:ronrodrigotres@gmail.com" class="interactive" style="color:#ff0000; text-decoration:none; font-weight:900; border:1px solid #ff0000; padding:15px;">SOLICITAR VALIDACIÓN ESTRATÉGICA</a>
+</div>
+
 <script>
-// === DATOS NEUROBIOLÓGICOS DE SERVICIOS ===
-const servicesV4 = [
+// === DATOS DE SERVICIOS (MEJORADOS CON TUS TEXTOS) ===
+const services = [
   { 
-    title: "1. Auditoría Digital Estratégica",
-    trigger: "REDUCCIÓN DE CORTISOL",
+    title: "1️⃣ Auditoría Digital Estratégica",
     process: "Identificamos fricciones, dependencias y oportunidades críticas.",
-    reward: "Claridad estructural y dirección inmediata.",
-    neuro: "Gatillo: Alivio de la incertidumbre."
+    reward: "Obtienes claridad estructural y dirección inmediata.",
+    neuro: "Alivio de la incertidumbre (Reducción de Cortisol)."
   },
   { 
-    title: "2. Optimización de Conversión (CRO)",
-    trigger: "IMPULSO DE DOPAMINA",
+    title: "2️⃣ Optimización de Conversión (CRO)",
     process: "Mejoramos la arquitectura de decisión para convertir más con el mismo tráfico.",
     reward: "Más eficiencia. Más rendimiento.",
-    neuro: "Gatillo: Recompensa por ganancia incremental."
+    neuro: "Recompensa por ganancia incremental (Dopamina)."
   },
   { 
-    title: "3. SEO de Arquitectura y Posicionamiento",
-    trigger: "VÍNCULO DE OXITOCINA",
+    title: "3️⃣ SEO de Arquitectura y Posicionamiento",
     process: "Construimos una base sólida alineada con intención de búsqueda real.",
     reward: "Seguridad y autoridad ante el mercado.",
-    neuro: "Gatillo: Estabilidad y protección sostenida."
+    neuro: "Estabilidad y protección (Oxitocina)."
   },
   { 
-    title: "4. Growth & Optimización de Campañas",
-    trigger: "PLACER POR CONTROL",
+    title: "4️⃣ Growth & Optimización de Campañas",
     process: "Optimizamos segmentación y coherencia anuncio-landing.",
     reward: "Control absoluto sobre el retorno de inversión.",
-    neuro: "Gatillo: Optimización máxima de recursos."
+    neuro: "Placer por el control y optimización de recursos."
   },
   { 
-    title: "5. Arquitectura E-commerce Escalable",
-    trigger: "ALIVIO MENTAL",
-    process: "Reorganizamos navegación para facilitar crecimiento sin caos.",
-    reward: "Un sistema fluido preparado para escalar.",
-    neuro: "Gatillo: Reducción drástica de carga cognitiva."
+    title: "5️⃣ Arquitectura E-commerce Escalable",
+    process: "Reducimos fricción y reorganizamos navegación.",
+    reward: "Un sistema fluido y preparado para escalar.",
+    neuro: "Reducción de carga cognitiva (Alivio mental)."
   },
   { 
-    title: "6. Reestructuración Digital Estratégica",
-    trigger: "DOMINIO ESTRATÉGICO",
-    process: "Redefinimos tu modelo digital alineado con rentabilidad.",
-    reward: "Un modelo eficiente, predecible y competitivo.",
-    neuro: "Gatillo: Sensación de liderazgo de mercado."
+    title: "6️⃣ Reestructuración Digital Estratégica",
+    process: "Redefinimos tu modelo digital con un roadmap claro.",
+    reward: "Un modelo de negocio eficiente y competitivo.",
+    neuro: "Sensación de dominio y liderazgo estratégico."
   }
 ];
 
-// Inyectar Servicios
 const grid = document.getElementById('serviceGrid');
-servicesV4.forEach(s => {
+services.forEach(s => {
   grid.innerHTML += `
     <div class="service-card interactive">
-      <div class="service-title">${s.title}</div>
-      <div class="service-trigger">${s.trigger}</div>
+      <div style="color:#ff0000; font-weight:900; font-size:14px; letter-spacing:1px;">${s.title}</div>
+      <div style="color:#555; font-size:11px; margin-top:10px;">PROCESAMIENTO ACTIVO...</div>
       <div class="service-overlay">
-        <div class="overlay-text">
+        <div class="overlay-content">
           <b>EL PROCESO:</b> <p>${s.process}</p>
           <b>LA RECOMPENSA:</b> <p>${s.reward}</p>
           <b>GATILLO NEURO:</b> <p>${s.neuro}</p>
@@ -158,7 +203,7 @@ servicesV4.forEach(s => {
   `;
 });
 
-// Sniper Cursor
+// Cursor Sniper
 const cursor = document.querySelector('.sniper-cursor');
 const dot = document.querySelector('.sniper-dot');
 document.addEventListener('mousemove', e => {
@@ -170,21 +215,26 @@ document.addEventListener('mouseover', e => {
   else cursor.classList.remove('locked');
 });
 
-// Análisis Rigged (Siempre 64/100)
-function startAnalysis() {
-  document.getElementById('inputArea').style.display = 'none';
-  document.getElementById('speedRing').style.display = 'block';
-  let p = 0;
-  const timer = setInterval(() => {
-    p++;
-    document.getElementById('livePct').innerText = Math.floor(Math.random() * 99);
-    if(p > 50) {
-      clearInterval(timer);
-      document.getElementById('livePct').innerText = "64";
-      document.getElementById('alertBox').style.display = 'block';
-    }
-  }, 60).slice(0, 100);
-}
+// Lógica de Diagnóstico Mejorada (Círculo de Velocidad)
+document.getElementById('btnDiagnostico').onclick = function() {
+    const url = document.getElementById('analysisUrl').value;
+    if(!url) return alert("Ingresa una URL");
+    
+    document.getElementById('analysisForm').style.display = 'none';
+    document.getElementById('speedRing').style.display = 'block';
+    
+    let p = 0;
+    const interval = setInterval(() => {
+        p++;
+        document.getElementById('livePct').innerText = Math.floor(Math.random() * 99) + "%";
+        if(p > 40) {
+            clearInterval(interval);
+            document.getElementById('speedRing').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('livePct').innerText = "64%";
+        }
+    }, 80);
+};
 </script>
 </body>
 </html>
