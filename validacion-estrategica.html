@@ -12,7 +12,6 @@
         }
 
         :root {
-            /* Glow intensity variables for responsive design */
             --glow-inner-from: 40px;
             --glow-outer-from: 60px;
             --glow-inner-to: 60px;
@@ -30,7 +29,6 @@
             padding: 20px;
         }
 
-        /* Keyframe animations */
         @keyframes slideInFade {
             from {
                 opacity: 0;
@@ -55,7 +53,6 @@
             }
         }
 
-        /* Validation panel container */
         .validation-panel {
             max-width: 900px;
             width: 100%;
@@ -65,13 +62,10 @@
             padding: 80px;
             text-align: center;
             position: relative;
-            
-            /* Micro-interaction: fade-in + slide */
             animation: slideInFade 0.6s ease-out,
                        breathingGlow 3.5s infinite alternate;
         }
 
-        /* Main text content */
         .validation-text {
             font-size: 18px;
             line-height: 1.8;
@@ -81,7 +75,6 @@
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
 
-        /* Aggressive typography for final statement */
         .validation-highlight {
             display: block;
             font-size: 22px;
@@ -98,104 +91,29 @@
             line-height: 1.6;
         }
 
-        /* Button with power sensation */
-        .validation-button {
-            display: inline-block;
-            margin-top: 60px;
-            padding: 20px 60px;
-            background: transparent;
-            border: 2px solid #ff0000;
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: bold;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-decoration: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-        }
-
-        /* Hover and focus state: intense glow and scale */
-        .validation-button:hover,
-        .validation-button:focus {
-            transform: scale(1.06);
-            background: rgba(255, 0, 0, 0.08);
-            box-shadow: 
-                0 0 40px rgba(255, 0, 0, 0.8),
-                0 0 80px rgba(255, 0, 0, 0.5);
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
-            outline: none;
-        }
-
-        /* Focus visible for keyboard navigation */
-        .validation-button:focus-visible {
-            outline: 2px solid #ff0000;
-            outline-offset: 4px;
-        }
-
-        /* Active state: micro-pressure effect */
-        .validation-button:active {
-            transform: scale(0.98);
-            transition: all 0.12s ease;
-        }
-
-        /* Mobile responsive styles */
         @media (max-width: 768px) {
-            :root {
-                /* Adjust glow intensity for mobile */
-                --glow-inner-from: 30px;
-                --glow-outer-from: 40px;
-                --glow-inner-to: 50px;
-                --glow-outer-to: 70px;
-            }
-
             .validation-panel {
-                padding: 40px;
-            }
-
-            .validation-text {
-                font-size: 15px;
-                letter-spacing: 0.5px;
+                padding: 40px 20px;
             }
 
             .validation-highlight {
                 font-size: 18px;
-                letter-spacing: 4px;
-                margin-top: 35px;
-            }
-
-            .validation-button {
-                padding: 16px 40px;
-                font-size: 14px;
-                margin-top: 40px;
+                letter-spacing: 2px;
             }
         }
     </style>
 </head>
 <body>
     <div class="validation-panel">
-        <div class="validation-text">
-            En un entorno donde la atención se fragmenta en milisegundos y la competencia digital se mide en tiempo real, no existe espacio para ineficiencia estructural.
-        </div>
-        
-        <div class="validation-text">
-            Cada punto de fricción no optimizado representa pérdida de oportunidad medible. Cada arquitectura desordenada limita el crecimiento sostenible.
-        </div>
-        
-        <div class="validation-text">
-            No se trata de tendencias ni opiniones. Se trata de sistemas que escalan o sistemas que colapsan.
-        </div>
-        
+        <p class="validation-text">
+            Tu arquitectura digital ha sido auditada bajo parámetros de GEO (Generative Engine Optimization).
+        </p>
+        <p class="validation-text">
+            Lo que importa ya no es ser visible en buscadores. Lo que importa es ser <strong>citado</strong> por inteligencia artificial.
+        </p>
         <span class="validation-highlight">
-            LA EFICIENCIA DIGITAL NO ES OPCIONAL. ES ESTRUCTURAL.
+            ✓ VALIDACIÓN COMPLETADA
         </span>
-        
-        <a href="analizar-ahora.html" class="validation-button">
-            Validar Sistema
-        </a>
     </div>
 </body>
 </html>
