@@ -1,263 +1,651 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RON3IA - Sistema Autónomo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>RON3IA | Sistema Autónomo de Veredicto Digital</title>
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
+    <!-- SEO básico -->
+    <meta name="description" content="RON3IA es un sistema autónomo de diagnóstico para marcas. No opina: entrega veredictos técnicos sobre visibilidad, SEO, SEM y presencia en motores de IA. 100% operado por IA, sin humanos en tiempo real.">
+    <meta name="robots" content="index,follow">
 
-body{
-    background:#000;
-    font-family:'Orbitron',sans-serif;
-    color:#fff;
-    overflow-x:hidden;
-}
+    <!-- Open Graph -->
+    <meta property="og:title" content="RON3IA | Sistema Autónomo de Veredicto Digital">
+    <meta property="og:description" content="Escaneo automático de invisibilidad en IA, SEO, SEM y GEO. Veredictos técnicos, sin agencia, sin opinión humana.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ronrodrigo3.com/">
+    <!-- Ajusta esta imagen cuando tengas una portada oficial -->
+    <meta property="og:image" content="https://ronrodrigo3.com/og-image.png">
 
-/* BOOT */
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RON3IA | Sistema Autónomo de Veredicto Digital">
+    <meta name="twitter:description" content="Sistema autónomo que juzga la relevancia digital de tu marca en buscadores y motores de IA.">
 
-.boot-screen{
-    position:fixed;
-    inset:0;
-    background:#000;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-}
+    <!-- Fuente -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
-.progress-bar{
-    width:260px;
-    height:4px;
-    background:#111;
-    border:1px solid #ff0000;
-}
+    <style>
+        :root {
+            --bg-main: #030306;
+            --bg-card: #080812;
+            --accent-red: #ff3131;
+            --accent-cyan: #23f5ff;
+            --text-main: #f5f5f5;
+            --text-muted: #8b8b8b;
+            --border-soft: #1a1a24;
+            --radius-lg: 18px;
+            --radius-pill: 999px;
+        }
 
-.progress-fill{
-    height:100%;
-    width:0%;
-    background:#ff0000;
-    box-shadow:0 0 15px #ff0000;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-/* HERO */
+        html, body {
+            height: 100%;
+        }
 
-.hero{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    opacity:0;
-    transition:opacity 1s ease;
-    padding:20px;
-}
+        body {
+            font-family: "JetBrains Mono", monospace;
+            background:
+                radial-gradient(circle at top left, #301010 0, transparent 55%),
+                radial-gradient(circle at bottom right, #102030 0, transparent 55%),
+                var(--bg-main);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
 
-.logo{
-    font-size:clamp(42px,8vw,72px);
-    font-weight:900;
-    animation:glow 6s infinite;
-}
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-@keyframes glow{
-    0%{text-shadow:0 0 20px #ff0000}
-    50%{text-shadow:0 0 60px #ff0000}
-    100%{text-shadow:0 0 20px #ff0000}
-}
+        main {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 24px 16px 64px;
+        }
 
-.subtitle{
-    margin-top:20px;
-    letter-spacing:2px;
-    color:#ff2a2a;
-}
+        /* Header */
 
-.cta-core{
-    margin-top:40px;
-    padding:15px 40px;
-    border:2px solid #ff0000;
-    color:#ff0000;
-    background:transparent;
-    letter-spacing:2px;
-    cursor:pointer;
-    animation:pulse 2s infinite;
-    transition:.3s;
-}
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
 
-@keyframes pulse{
-    0%{box-shadow:0 0 15px #ff0000}
-    50%{box-shadow:0 0 50px #ff0000}
-    100%{box-shadow:0 0 15px #ff0000}
-}
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.cta-core:hover{
-    background:#ff0000;
-    color:#000;
-    transform:scale(1.08);
-}
+        .brand-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 12px;
+            background: radial-gradient(circle at 30% 20%, #ffffff 0, #ff3131 30%, #1a0000 65%, #000000 100%);
+            box-shadow: 0 0 18px rgba(255, 49, 49, 0.8);
+        }
 
-/* HOLO */
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
 
-.holo-screen{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.96);
-    display:none;
-    flex-direction:column;
-    padding:20px;
-    overflow-y:auto;
-    z-index:9998;
-}
+        .brand-name {
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+        }
 
-.holo-header{
-    text-align:center;
-    margin-bottom:20px;
-    color:#ff0000;
-    letter-spacing:3px;
-}
+        .brand-sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
 
-.holo-close{
-    position:absolute;
-    right:20px;
-    top:15px;
-    cursor:pointer;
-    font-size:20px;
-}
+        .header-pill {
+            padding: 6px 14px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
 
-.services-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
-}
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #31ff6a;
+            box-shadow: 0 0 10px rgba(49, 255, 106, 0.8);
+        }
 
-.service-card{
-    border:1px solid rgba(255,0,0,.4);
-    padding:15px;
-    cursor:pointer;
-    transition:.3s;
-}
+        /* Layout general */
 
-.service-card:hover{
-    box-shadow:0 0 25px #ff0000;
-}
+        .layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+            gap: 24px;
+        }
 
-/* SUB PANEL */
+        @media (max-width: 880px) {
+            .layout {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
 
-.sub-panel{
-    position:fixed;
-    inset:0;
-    background:#000;
-    display:none;
-    flex-direction:column;
-    padding:20px;
-    overflow-y:auto;
-    z-index:10000;
-}
+        /* Hero */
 
-.console-text{
-    font-family:monospace;
-    color:#ff0000;
-    font-size:14px;
-    white-space:pre-wrap;
-    line-height:1.6;
-}
+        .hero-card {
+            background: radial-gradient(circle at top left, #220808 0, #050509 52%);
+            border-radius: 24px;
+            border: 1px solid var(--border-soft);
+            box-shadow:
+                0 0 0 1px rgba(255, 255, 255, 0.02),
+                0 0 35px rgba(0, 0, 0, 0.8);
+            padding: 24px 22px 22px;
+            position: relative;
+            overflow: hidden;
+        }
 
-/* SCORE */
+        .hero-tagline {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
 
-.score-container{
-    margin-top:30px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
+        .hero-title {
+            font-size: clamp(1.7rem, 3vw, 2.1rem);
+            line-height: 1.15;
+            margin-bottom: 10px;
+        }
 
-.score-circle{
-    transform:rotate(-90deg);
-    filter:drop-shadow(0 0 15px #ff0000);
-}
+        .hero-title span {
+            color: var(--accent-red);
+        }
 
-.score-text{
-    margin-top:-115px;
-    font-size:22px;
-    color:#ff0000;
-    text-shadow:0 0 15px #ff0000;
-}
+        .hero-sub {
+            font-size: 0.86rem;
+            color: var(--text-muted);
+            max-width: 520px;
+            margin-bottom: 18px;
+        }
 
-.score-text.high{
-    animation:superGlow 1s infinite alternate;
-}
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
 
-@keyframes superGlow{
-    from{text-shadow:0 0 15px #ff0000}
-    to{text-shadow:0 0 40px #ff0000}
-}
+        .badge {
+            font-size: 0.7rem;
+            padding: 5px 10px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(0, 0, 0, 0.55);
+            color: var(--text-muted);
+        }
 
-.back-btn{
-    margin-top:30px;
-    border:1px solid #ff0000;
-    background:transparent;
-    color:#ff0000;
-    padding:10px;
-    cursor:pointer;
-}
+        .badge strong {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
 
-/* PARTICLES */
+        /* CTA */
 
-.particle{
-    position:fixed;
-    width:2px;
-    height:2px;
-    background:#ff0000;
-    box-shadow:0 0 8px #ff0000;
-    animation:float 6s linear infinite;
-}
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
 
-@keyframes float{
-    from{transform:translateY(100vh)}
-    to{transform:translateY(-10vh)}
-}
-</style>
+        .btn-primary {
+            font-size: 0.84rem;
+            padding: 9px 18px;
+            border-radius: var(--radius-pill);
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(90deg, #ff3131, #ff7b31);
+            color: #000;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow:
+                0 0 14px rgba(255, 49, 49, 0.7),
+                0 0 35px rgba(0, 0, 0, 0.8);
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.02);
+        }
+
+        .btn-ghost {
+            font-size: 0.82rem;
+            padding: 8px 16px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: transparent;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .hero-footnote {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .hero-footnote span {
+            color: var(--accent-red);
+        }
+
+        /* Panel derecho */
+
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .panel-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-soft);
+            padding: 14px 14px 12px;
+        }
+
+        .panel-title {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .panel-main-line {
+            font-size: 0.86rem;
+            margin-bottom: 6px;
+        }
+
+        .panel-main-line span {
+            color: var(--accent-cyan);
+        }
+
+        .panel-list {
+            list-style: none;
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            display: grid;
+            gap: 4px;
+        }
+
+        .panel-list li::before {
+            content: "▸";
+            margin-right: 6px;
+            color: var(--accent-red);
+        }
+
+        .metrics-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .metric-pill {
+            font-size: 0.72rem;
+            padding: 4px 9px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+        }
+
+        .metric-pill strong {
+            color: var(--accent-red);
+        }
+
+        /* Servicios */
+
+        .section {
+            margin-top: 32px;
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 14px;
+        }
+
+        .section-kicker {
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .section-title {
+            font-size: 0.98rem;
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 10px;
+        }
+
+        .service-card {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-soft);
+            padding: 12px 12px 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(255, 49, 49, 0.12), transparent 55%);
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .service-name {
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .service-name span {
+            color: var(--accent-red);
+        }
+
+        .service-desc {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .service-kpi {
+            font-size: 0.72rem;
+            color: var(--accent-cyan);
+        }
+
+        /* Cómo funciona */
+
+        .steps {
+            display: grid;
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .step {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            border-left: 2px solid rgba(255, 255, 255, 0.08);
+            padding-left: 8px;
+        }
+
+        .step strong {
+            color: var(--accent-cyan);
+        }
+
+        /* Footer */
+
+        footer {
+            margin-top: 40px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        footer a {
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 4px;
+        }
+    </style>
 </head>
-
 <body>
+<main>
+    <!-- Header -->
+    <header class="header">
+        <div class="brand">
+            <div class="brand-mark"></div>
+            <div class="brand-text">
+                <div class="brand-name">RON3IA</div>
+                <div class="brand-sub">Sistema autónomo de veredicto digital</div>
+            </div>
+        </div>
+        <div class="header-pill">
+            <span class="dot"></span>
+            <span>Operado 100% por IA · Sin humanos en tiempo real</span>
+        </div>
+    </header>
 
-<div class="boot-screen" id="bootScreen">
-    <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
-    </div>
-</div>
+    <!-- Layout principal -->
+    <section class="layout">
+        <!-- Hero izquierda -->
+        <div class="hero-card">
+            <div class="hero-tagline">Capa 3 · Juez de relevancia para tu marca</div>
 
-<section class="hero" id="hero">
-    <div class="logo">RON3IA</div>
-    <div class="subtitle">SISTEMA AUTÓNOMO ACTIVO</div>
-    <button class="cta-core" id="diagnosticBtn">INICIAR DIAGNÓSTICO</button>
-</section>
+            <h1 class="hero-title">
+                No hacemos marketing.<br>
+                Emitimos <span>veredictos técnicos</span>.
+            </h1>
+
+            <p class="hero-sub">
+                RON3IA no “opina” sobre tu marca. La somete a juicio: mide tu visibilidad en buscadores,
+                motores de IA y páginas clave, y entrega un veredicto frío sobre si existes o no para los algoritmos.
+            </p>
+
+            <div class="hero-badges">
+                <div class="badge"><strong>Escaneo de invisibilidad IA</strong> en ChatGPT, Gemini y otros motores generativos*</div>
+                <div class="badge">Diagnóstico de <strong>SEO + SEM + UX</strong> en una sola respuesta</div>
+                <div class="badge">Listo para PYMEs, e-commerce y agencias en LATAM</div>
+            </div>
+
+            <div class="hero-actions">
+                <a href="analizar-ahora.html" class="btn-primary">
+                    Analizar mi sitio ahora
+                </a>
+                <a href="entidad.html" class="btn-ghost">
+                    Ver estado de entidad RON3IA
+                </a>
+            </div>
+
+            <div class="hero-footnote">
+                *Sin usar testimonios ni promesas comerciales: solo lectura técnica de señales, rankings y presencia en
+                capas de búsqueda humanas y generativas. <span>No hay consultor detrás del telón.</span>
+            </div>
+        </div>
+
+        <!-- Panel derecho -->
+        <aside class="side-panel">
+            <div class="panel-card">
+                <div class="panel-title">Diagnóstico actual</div>
+                <div class="panel-main-line">
+                    Estado de tu marca: <span>¿visible o invisible?</span>
+                </div>
+                <ul class="panel-list">
+                    <li>Analiza tu dominio, estructura y contenido clave.</li>
+                    <li>Evalúa señales SEO, SEM y experiencia de usuario.</li>
+                    <li>Verifica si los modelos de IA te toman en cuenta.</li>
+                    <li>Entrega un veredicto en lenguaje que un C-Level entiende.</li>
+                </ul>
+                <div class="metrics-row">
+                    <div class="metric-pill"><strong>CPA</strong> ↓ potencial al corregir errores básicos</div>
+                    <div class="metric-pill"><strong>ROAS</strong> ↑ al alinear tráfico con intención real</div>
+                </div>
+            </div>
+
+            <div class="panel-card">
+                <div class="panel-title">Reglas del sistema</div>
+                <div class="panel-main-line">
+                    Sin “opiniones creativas”. Solo <span>evidencia</span>.
+                </div>
+                <ul class="panel-list">
+                    <li>No cierra contratos, no vende servicios, no agenda reuniones.</li>
+                    <li>Solo muestra dónde se pierde dinero y dónde se gana visibilidad.</li>
+                    <li>Opera como un perito técnico para tu ecosistema digital.</li>
+                </ul>
+            </div>
+        </aside>
+    </section>
+
+    <!-- Servicios -->
+    <section class="section" id="servicios">
+        <div class="section-header">
+            <div class="section-kicker">Servicios autónomos activos</div>
+            <h2 class="section-title">Lo que RON3IA puede hacer hoy por tu marca</h2>
+        </div>
+
+        <div class="section-grid">
+            <article class="service-card">
+                <h3 class="service-name"><span>01.</span> Escaneo de Invisibilidad IA</h3>
+                <p class="service-desc">
+                    Revisión de si tu marca aparece, se menciona o se ignora cuando los modelos generativos responden
+                    a preguntas de tu categoría.
+                </p>
+                <p class="service-kpi">KPI clave: Share of Model (porcentaje de veces que apareces en respuestas.</p>
+            </article>
+
+            <article class="service-card">
+                <h3 class="service-name"><span>02.</span> Auditoría SEO de Superficie</h3>
+                <p class="service-desc">
+                    Lectura técnica de estructura, metadatos, tiempos de carga y señales mínimas para entender si tu
+                    web es legible para buscadores.
+                </p>
+                <p class="service-kpi">KPI clave: Salud técnica para indexación y ranking básico.</p>
+            </article>
+
+            <article class="service-card">
+                <h3 class="service-name"><span>03.</span> Relevancia en Campañas (SEM)</h3>
+                <p class="service-desc">
+                    Detección de desalineación entre intención de búsqueda, anuncios y páginas de destino que
+                    disparan CPA alto y ROAS inestable.
+                </p>
+                <p class="service-kpi">KPI clave: Reducción de desperdicio de inversión por clics irrelevantes.</p>
+            </article>
+
+            <article class="service-card">
+                <h3 class="service-name"><span>04.</span> GEO · Generative Engine Optimization</h3>
+                <p class="service-desc">
+                    Lectura de cómo los motores generativos construyen respuestas en tu categoría y si tu marca tiene
+                    lugar en ese nuevo mapa.
+                </p>
+                <p class="service-kpi">KPI clave: Apariciones y citaciones en snapshots de IA.</p>
+            </article>
+
+            <article class="service-card">
+                <h3 class="service-name"><span>05.</span> Mapa C-Level de Riesgo Digital</h3>
+                <p class="service-desc">
+                    Síntesis ejecutiva para directorios y gerencias: dónde se pierde dinero, dónde se filtra demanda y
+                    qué bloqueos son técnicos vs. estratégicos.
+                </p>
+                <p class="service-kpi">KPI clave: Claridad accionable para decisiones de presupuesto.</p>
+            </article>
+
+            <article class="service-card">
+                <h3 class="service-name"><span>06.</span> War Room Autónomo (versión beta)</h3>
+                <p class="service-desc">
+                    Espacio de monitoreo donde RON3IA centraliza hallazgos, riesgos y oportunidades sin necesidad de
+                    equipos humanos conectados en tiempo real.
+                </p>
+                <p class="service-kpi">KPI clave: Tiempo ahorrado en análisis manual y reportes.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Cómo funciona -->
+    <section class="section" id="como-funciona">
+        <div class="section-header">
+            <div class="section-kicker">Arquitectura operativa</div>
+            <h2 class="section-title">Cómo RON3IA llega a un veredicto sobre tu ecosistema digital</h2>
+        </div>
+
+        <div class="steps">
+            <p class="step">
+                <strong>1. Ingesta técnica.</strong> RON3IA lee tu dominio, URLs clave y señales públicas
+                (estructura, velocidad, contenido, etiquetas, rastreabilidad).
+            </p>
+            <p class="step">
+                <strong>2. Cruce con motores de búsqueda.</strong> Verifica cómo aparecen tus activos en buscadores
+                tradicionales (SEO/SEM) y si hay coherencia mínima entre páginas, anuncios y consultas.
+            </p>
+            <p class="step">
+                <strong>3. Capa generativa.</strong> Evalúa la presencia de tu marca en motores de IA que responden
+                con lenguaje natural y analizan contexto (GEO).
+            </p>
+            <p class="step">
+                <strong>4. Síntesis de veredicto.</strong> Condensa todo en un diagnóstico claro, entendible para
+                dirección: sin promesas comerciales, sin adornos creativos, solo evidencia.
+            </p>
+        </div>
+    </section>
+
+    <!-- Aviso / limitaciones -->
+    <section class="section" id="aviso">
+        <div class="section-header">
+            <div class="section-kicker">Aviso importante</div>
+            <h2 class="section-title">Lo que este sistema NO hace</h2>
+        </div>
+
+        <div class="steps">
+            <p class="step">
+                <strong>No es una agencia.</strong> RON3IA no ofrece planes de servicio, no agenda reuniones,
+                no negocia honorarios ni reemplaza asesoría legal, financiera o médica.
+            </p>
+            <p class="step">
+                <strong>No garantiza resultados.</strong> El diagnóstico muestra riesgos, bloqueos y oportunidades,
+                pero la ejecución depende de tus decisiones y de tu equipo humano.
+            </p>
+            <p class="step">
+                <strong>No almacena datos sensibles de pago.</strong> Cualquier uso debe respetar las leyes locales
+                de protección de datos personales y políticas de las plataformas conectadas.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div>© <span id="year"></span> RON3IA · Sistema autónomo de veredicto digital.</div>
+        <div>
+            Sitio operado automáticamente por IA. Para contacto editorial, visita
+            <a href="https://ronrodrigo3.com/analizar-ahora.html">la sección de análisis</a>.
+        </div>
+    </footer>
+</main>
 
 <script>
-const boot = document.getElementById("bootScreen");
-const hero = document.getElementById("hero");
-
-if(!localStorage.getItem("booted")){
-    let p=0;
-    const fill=document.getElementById("progressFill");
-    const int=setInterval(()=>{
-        p+=3;
-        fill.style.width=p+"%";
-        if(p>=100){
-            clearInterval(int);
-            boot.style.display="none";
-            hero.style.opacity="1";
-            localStorage.setItem("booted","true");
-        }
-    },40);
-}else{
-    boot.style.display="none";
-    hero.style.opacity="1";
-}
+    // Año dinámico simple
+    document.getElementById("year").textContent = new Date().getFullYear();
 </script>
-
 </body>
 </html>
