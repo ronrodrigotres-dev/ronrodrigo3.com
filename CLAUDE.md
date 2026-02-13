@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-RON3IA is a static marketing website for a Generative Engine Optimization (GEO) platform based in Chile. The site audits brand visibility, entity strength, E-E-A-T, and citability across AI-powered search engines. All content is in Spanish.
+RON3IA is a static marketing website for a digital optimization and GEO (Generative Engine Optimization) platform based in Chile. The site showcases 6 core services via an interactive terminal-style UI and collects lead data (URL + email) through a hacker-themed modal. All content is in Spanish.
 
 **Domain:** ronrodrigo3.com
 **Hosting:** GitHub Pages (automatic deploy on push to `master`)
@@ -13,13 +13,13 @@ RON3IA is a static marketing website for a Generative Engine Optimization (GEO) 
 - **No build system** - No bundler, no package.json, no npm dependencies
 - **No testing framework** - No automated tests
 - **No linting/formatting** - No ESLint, Prettier, or similar tools
-- **Font:** Google Fonts - Orbitron (wght 400, 700, 900)
+- **Fonts:** Google Fonts - Orbitron (wght 400, 700, 900) + Fira Code (wght 300, 500)
 
 ## File Structure
 
 ```
 /
-├── index.html            # Main landing page (~637 lines) - hero, audit console, health score, CTAs
+├── index.html            # Main landing page (~435 lines) - hero, 6 service cards, terminal modal, score ring
 ├── analizar-ahora.html   # Post-payment audit results page - calls Netlify function
 ├── entidad.html          # Entity declaration page (plain HTML, no styling)
 ├── geo-vs-seo.html       # Educational article with Schema.org JSON-LD structured data
@@ -33,37 +33,65 @@ RON3IA is a static marketing website for a Generative Engine Optimization (GEO) 
 
 ## Architecture & Patterns
 
+### index.html - Main Page Structure
+
+The landing page has 4 main sections and a modal overlay:
+
+1. **Hero** - Logo with glow animation, subtitle, description
+2. **Services Grid** - 6 service cards rendered dynamically from a JS `services[]` array; clicking a card opens the terminal modal
+3. **Score Section** - Health score ring that animates (45-85 random score) after a simulated command execution
+4. **Terminal Modal** - Hacker-themed overlay with typewriter effect, URL + email input fields, and simulated execution flow
+
+### Custom Sniper Cursor
+
+The site hides the default cursor and replaces it with a custom crosshair (`sniper-cursor` + `sniper-dot`). On hover over `.interactive` elements, buttons, or inputs, the cursor enters a "locked" state (green border, 45-degree rotation). Hidden on mobile via `@media (max-width: 768px)`.
+
 ### CSS
+
 - All CSS is embedded in `<style>` blocks within each HTML file (no external stylesheets)
-- `index.html` contains ~500 lines of CSS with 36+ `@keyframes` animations
-- Dark theme: background `#0a0a0a`, primary accent `#ff0000`, text `#fff`
-- Retro/cyberpunk aesthetic with scan-line overlay, glitch effects, neon glows
-- Responsive via `clamp()` for fluid typography and a `@media (max-width: 600px)` breakpoint
-- CSS Grid and Flexbox for layout
+- Dark theme: background `#050505`, primary accent `#ff0000`, text `#fff`
+- Tactical/cyberpunk aesthetic with scan-line overlay, glow effects, red corner decorations
+- `clamp()` for fluid typography; `@media (max-width: 768px)` for mobile breakpoint
+- CSS Grid for services layout (`repeat(auto-fit, minmax(300px, 1fr))`)
+- Fira Code monospace font used in the terminal modal
 
 ### JavaScript
-- Vanilla ES6+ with `async/await` and Fetch API
-- Inline `<script>` blocks (no external JS files)
-- DOM manipulation via `getElementById` and event handlers (`onclick`)
+
+- Vanilla ES6+ with template literals and arrow functions
+- Service cards rendered dynamically via `document.createElement`
+- Modal opens with typewriter animation (`setInterval` at 30ms per character)
+- Score animation counts up from 0 to a random final score (45-85)
+- Email input gets visual validation (green when contains `@` and `.`)
+- Execution is simulated (alert + score animation) - no real API call from the main page
 - No modules, no imports, no third-party JS libraries
 
 ### HTML
-- Semantic HTML5 (`<section>`, `<header>`, etc.)
+
+- Semantic HTML5 (`<section>`, `<h1>`-`<h3>`, etc.)
 - Language attribute: `lang="es"` on all pages
 - `geo-vs-seo.html` uses Schema.org JSON-LD structured data
 
+## Services Data Model
+
+The 6 services are defined in a JS array with this shape:
+
+```js
+{ title: string, sub: string, cmd: string }
+```
+
+Services: Auditoría Estratégica, Ingeniería de Conversión (CRO), SEO de Arquitectura, Growth & SEM, E-Commerce Escalable, Transformación Digital.
+
 ## External API Integration
 
-### Backend API (Google Cloud Run)
+### Backend API (Google Cloud Run) - used by `analizar-ahora.html`
 ```
 Base URL: https://ron3ia-api-819648047297.southamerica-west1.run.app
 ```
 
-**Endpoints used by `index.html`:**
 - `POST /analizar-sitio` - Submit site for GEO audit
-  - Request body: `{ descripcion: string }`
-  - Response: `{ audit_id, health_score, reporte }`
 - `GET /descargar-reporte/{audit_id}` - Download PDF report
+
+**Note:** The redesigned `index.html` no longer calls the backend API directly. It uses simulated execution with an alert. The API is still used by `analizar-ahora.html`.
 
 ### Netlify Functions
 - `analizar-ahora.html` calls `/.netlify/functions/analyze` (serverless function)
@@ -92,13 +120,15 @@ Declares RON3IA as an entity for LLM consumption with topics: GEO, Marketing Int
 - **All content is in Spanish** - maintain this language for all user-facing text
 - **Self-contained pages** - each HTML file includes its own CSS and JS inline; do not extract to external files unless explicitly requested
 - **No build tooling** - do not introduce package.json, bundlers, or transpilers unless explicitly requested
-- **Design language** - dark theme, red accents, Orbitron font, cyberpunk/terminal aesthetic with glitch and glow effects
+- **Design language** - dark theme (`#050505`), red accents (`#ff0000`), green for success/lock-on (`#00FF00`), Orbitron font for UI, Fira Code for terminal elements
+- **Sniper cursor** - custom crosshair cursor is a core UX element; elements that should trigger lock-on must have the `.interactive` class
 - **Keep files lean** - this is a static site; avoid over-engineering
 
 ## Deployment
 
 Push to `master` branch triggers automatic GitHub Pages deployment. No CI/CD pipeline, no build step. Files are served as-is.
 
-## Sitemap Notes
+## Known Issues
 
-The `sitemap.xml` currently contains a duplicate `<urlset>` block (two XML declarations in one file). This is a known structural issue - only the first block is valid XML.
+- `sitemap.xml` contains a duplicate `<urlset>` block (two XML declarations in one file) - only the first block is valid XML
+- `analizar-ahora.html` has hardcoded brand/domain values (`RON3IA` / `ronrodrigo3.com`) and a hardcoded email (`cliente@pago.com`)
