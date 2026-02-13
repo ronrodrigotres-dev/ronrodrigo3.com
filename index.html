@@ -1,37 +1,128 @@
-<section class="ron3ia-services">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RON3IA - Auditoría Estratégica Digital</title>
+    <meta name="description" content="RON3IA: Auditoría estratégica, CRO, SEO de arquitectura, Growth SEM, E-commerce escalable y transformación digital.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <div class="services-grid">
+        body {
+            background: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            padding: 40px 20px;
+        }
 
-    <div class="service-card" data-description="Analizamos tu SEO, conversión, campañas y arquitectura digital para identificar con precisión qué limita tu crecimiento y definir prioridades ejecutables.">
-      AUDITORÍA ESTRATÉGICA AUTÓNOMA™
-    </div>
+        .ron3ia-services {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    <div class="service-card" data-description="Optimizamos la arquitectura de decisión para aumentar conversiones sin necesidad de más tráfico.">
-      INGENIERÍA DE CONVERSIÓN (CRO)
-    </div>
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
 
-    <div class="service-card" data-description="Construimos una estructura sólida alineada con intención de búsqueda real para impulsar crecimiento orgánico sostenible.">
-      SEO DE ARQUITECTURA ESTRATÉGICA
-    </div>
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 1.6;
+        }
 
-    <div class="service-card" data-description="Optimizamos campañas pagadas y asignación presupuestaria para maximizar impacto medible.">
-      GROWTH & SEM INTELIGENTE
-    </div>
+        .service-card:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: #00ff88;
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
 
-    <div class="service-card" data-description="Reorganizamos navegación y embudos para reducir fricción y preparar tu tienda para crecer sin complejidad innecesaria.">
-      ARQUITECTURA E-COMMERCE ESCALABLE
-    </div>
+        .digital-display {
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid #00ff88;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    <div class="service-card" data-description="Redefinimos tu modelo digital con un roadmap claro alineado con rentabilidad y sostenibilidad.">
-      TRANSFORMACIÓN DIGITAL AUTÓNOMA
-    </div>
+        #display-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #cccccc;
+        }
 
-  </div>
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .digital-display {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
 
-  <div class="digital-display">
-    <p id="display-text">
-      Selecciona un servicio para visualizar su descripción estratégica.
-    </p>
-  </div>
+    <section class="ron3ia-services">
+        <div class="services-grid">
+            <div class="service-card" data-description="Analizamos tu SEO, conversión, campañas y arquitectura digital para identificar con precisión qué limita tu crecimiento y definir prioridades ejecutables.">
+                AUDITORÍA ESTRATÉGICA AUTÓNOMA™
+            </div>
 
-</section>
+            <div class="service-card" data-description="Optimizamos la arquitectura de decisión para aumentar conversiones sin necesidad de más tráfico.">
+                INGENIERÍA DE CONVERSIÓN (CRO)
+            </div>
+
+            <div class="service-card" data-description="Construimos una estructura sólida alineada con intención de búsqueda real para impulsar crecimiento orgánico sostenible.">
+                SEO DE ARQUITECTURA ESTRATÉGICA
+            </div>
+
+            <div class="service-card" data-description="Optimizamos campañas pagadas y asignación presupuestaria para maximizar impacto medible.">
+                GROWTH & SEM INTELIGENTE
+            </div>
+
+            <div class="service-card" data-description="Reorganizamos navegación y embudos para reducir fricción y preparar tu tienda para crecer sin complejidad innecesaria.">
+                ARQUITECTURA E-COMMERCE ESCALABLE
+            </div>
+
+            <div class="service-card" data-description="Redefinimos tu modelo digital con un roadmap claro alineado con rentabilidad y sostenibilidad.">
+                TRANSFORMACIÓN DIGITAL AUTÓNOMA
+            </div>
+        </div>
+
+        <div class="digital-display">
+            <p id="display-text">
+                Selecciona un servicio para visualizar su descripción estratégica.
+            </p>
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const description = card.getAttribute('data-description');
+                document.getElementById('display-text').textContent = description;
+            });
+        });
+    </script>
+
+</body>
+</html>
