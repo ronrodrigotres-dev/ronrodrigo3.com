@@ -6,7 +6,7 @@
 <title>RON3IA | Entidad IA Viva</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-/* === TU FORMATO ORIGINAL ESTRICTO === */
+/* === TU FORMATO ORIGINAL ESTRICTO (RECUPERADO) === */
 *{margin:0;padding:0;box-sizing:border-box}
 body{ background:#0a0a0a; font-family:'Orbitron',sans-serif; color:#fff; overflow-x:hidden; cursor:none; }
 body::after{ content:""; position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px); pointer-events:none; z-index:9999; }
@@ -17,30 +17,38 @@ body::after{ content:""; position:fixed; inset:0; background:repeating-linear-gr
 @keyframes f1{ 0%,100%{opacity:1} 12%{opacity:1} 14%{opacity:.12} 16%{opacity:1} 43%{opacity:1} 45%{opacity:.08} 47%{opacity:1} 71%{opacity:1} 73%{opacity:0} 75%{opacity:1} 89%{opacity:1} 91%{opacity:.15} 93%{opacity:1} }
 @keyframes vt{ 0%,100%{transform:translate(0,0)} 15%{transform:translate(-0.5px, 0.3px)} 35%{transform:translate(0.4px, -0.5px)} 55%{transform:translate(-0.3px, 0.2px)} 75%{transform:translate(0.5px, -0.3px)} 90%{transform:translate(-0.2px, 0.4px)} }
 
-/* CURSOR SNIPER */
+/* CURSOR SNIPER ORIGINAL */
 .sniper-cursor{ position:fixed; top:0; left:0; width:22px; height:22px; border:1.5px solid rgba(255,0,0,0.7); border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; z-index:100000; mix-blend-mode:difference; transition: all 0.2s; }
 .sniper-dot{ position:fixed; top:0; left:0; width:4px; height:4px; background:#ff0000; border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; z-index:100001; }
 .sniper-cursor.locked{ width:45px; height:45px; border:2px solid #00FF00; background:rgba(0,255,0,0.1); border-radius:4px; transform:translate(-50%,-50%) rotate(45deg); }
 
-/* SECCIÓN MATRIZ DE SERVICIOS (MEGABOTONES) */
+/* === MEJORA: MATRIZ DE SERVICIOS (MEGABOTONES) === */
 .services-section{ padding:80px 20px; max-width:1400px; margin:0 auto; position:relative; z-index:10; }
 .services-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(400px, 1fr)); gap:30px; }
-.service-card{ background:rgba(10,10,10,0.8); border:1px solid rgba(255,0,0,0.25); padding:80px 40px; position:relative; transition:all .3s ease; overflow:hidden; text-align: left; }
+.service-card{ 
+    background:rgba(10,10,10,0.8); border:1px solid rgba(255,0,0,0.25); 
+    padding:80px 40px; /* Megabotones: más grandes */
+    position:relative; transition:all .3s ease; overflow:hidden; text-align: left; 
+}
 .service-card:hover{ border-color:#ff0000; box-shadow:0 0 30px rgba(255,0,0,0.3); }
 
 /* PANTALLA DE DESCRIPCIÓN (OVERLAY) */
-.service-overlay{ position:absolute; inset:0; background:#000; border:1px solid #ff0000; padding:40px; display:flex; flex-direction:column; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:20; }
+.service-overlay{ 
+    position:absolute; inset:0; background:#000; border:1px solid #ff0000; padding:40px; 
+    display:flex; flex-direction:column; justify-content:center; 
+    opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:20; 
+}
 .service-card:hover .service-overlay{ opacity:1; pointer-events:auto; }
 .overlay-content b{ color:#ff0000; font-size:13px; display:block; margin-top:15px; letter-spacing:1px; }
 .overlay-content p{ color:#ccc; font-size:14px; line-height:1.6; margin-bottom:5px; }
 
-/* CÍRCULO DE PENSAMIENTO RON3IA */
+/* === MEJORA: CÍRCULO DE PENSAMIENTO RON3IA === */
 .speed-ring-container { width: 240px; height: 240px; margin: 30px auto; position: relative; display: none; }
 .speed-ring { position: absolute; inset: 0; border: 4px solid #111; border-top: 4px solid #ff0000; border-radius: 50%; animation: spin 0.5s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .speed-value { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
-/* HERO Y ALERTAS ORIGINALES */
+/* LOGO Y ALERTAS ORIGINALES */
 .logo{ font-size:clamp(60px, 12vw, 130px); font-weight:900; letter-spacing:14px; animation:f1 3.5s infinite, vt 4s infinite; text-shadow:0 0 20px #ff0000; text-align: center;}
 .alert-box{ border:2px solid #ff0000; padding:20px; color:#ff0000; font-weight:700; letter-spacing:2px; animation:f1 2s infinite; display: none; margin-top: 20px;}
 </style>
@@ -89,7 +97,7 @@ const services = [
   { title: "2️⃣ Optimización de Conversión (CRO)", process: "Mejoramos la arquitectura de decisión de tu sitio para convertir más con el mismo tráfico.", reward: "Más eficiencia. Más rendimiento.", neuro: "Recompensa por ganancia incremental (Dopamina)." },
   { title: "3️⃣ SEO de Arquitectura y Posicionamiento", process: "Construimos una base sólida alineada con intención de búsqueda real.", reward: "Seguridad y autoridad ante el mercado.", neuro: "Estabilidad y protección (Oxitocina)." },
   { title: "4️⃣ Growth & Optimización de Campañas", process: "Optimizamos segmentación, estructura y coherencia anuncio-landing.", reward: "Control absoluto sobre el retorno de inversión.", neuro: "Placer por el control y la optimización de recursos." },
-  { title: "5️⃣ Arquitectura E-commerce Escalable", process: "Reducimos fricción, reorganizamos navegación y fortalecemos estructura.", reward: "Un sistema fluido y preparado para escalar.", neuro: "Reducción de carga cognitiva (Alivio mental)." },
+  { title: "5️⃣ Arquitectura E-commerce Escalable", process: "Reducimos fricción, reorganizamos navegación y fortalecemos estructura.", reward: "Un sistema fluido preparado para escalar.", neuro: "Reducción de carga cognitiva (Alivio mental)." },
   { title: "6️⃣ Reestructuración Digital Estratégica", process: "Redefinimos tu modelo digital con un roadmap claro, alineado con rentabilidad.", reward: "Un modelo de negocio eficiente, predecible y competitivo.", neuro: "Sensación de dominio y liderazgo estratégico." }
 ];
 
