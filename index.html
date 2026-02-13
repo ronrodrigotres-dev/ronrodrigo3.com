@@ -6,7 +6,7 @@
 <title>RON3IA</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-/* === FORMATO ORIGINAL ABSOLUTO === */
+/* === TU FORMATO ORIGINAL (SIN CAMBIOS) === */
 *{margin:0;padding:0;box-sizing:border-box}
 body{ background:#0a0a0a; font-family:'Orbitron',sans-serif; color:#fff; overflow-x:hidden; cursor:none; }
 body::after{ content:""; position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.12) 2px,rgba(0,0,0,0.12) 4px); pointer-events:none; z-index:9999; }
@@ -16,34 +16,25 @@ body::after{ content:""; position:fixed; inset:0; background:repeating-linear-gr
 @keyframes f1{ 0%,100%{opacity:1} 12%{opacity:1} 14%{opacity:.12} 16%{opacity:1} 43%{opacity:1} 45%{opacity:.08} 47%{opacity:1} 71%{opacity:1} 73%{opacity:0} 75%{opacity:1} 89%{opacity:1} 91%{opacity:.15} 93%{opacity:1} }
 @keyframes vt{ 0%,100%{transform:translate(0,0)} 15%{transform:translate(-0.5px, 0.3px)} 35%{transform:translate(0.4px, -0.5px)} 55%{transform:translate(-0.3px, 0.2px)} 75%{transform:translate(0.5px, -0.3px)} 90%{transform:translate(-0.2px, 0.4px)} }
 
-/* CURSOR ORIGINAL */
+/* CURSOR SNIPER ORIGINAL */
 .sniper-cursor{ position:fixed; top:0; left:0; width:22px; height:22px; border:1.5px solid rgba(255,0,0,0.7); border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; z-index:100000; mix-blend-mode:difference; }
 .sniper-dot{ position:fixed; top:0; left:0; width:4px; height:4px; background:#ff0000; border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; z-index:100001; }
 
-/* MATRIZ DE SERVICIOS - PANTALLA DIGITAL NEÓN */
+/* PETICIÓN 1: MEGABOTONES Y PANTALLAS DIGITALES */
 .services-section{ padding:80px 20px; max-width:1400px; margin:0 auto; position:relative; z-index:10; }
 .services-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(400px, 1fr)); gap:30px; }
-.service-card{ 
-    background:rgba(10,10,10,0.8); border:1px solid rgba(255,0,0,0.2); 
-    padding:90px 40px; position:relative; transition:all .3s ease; overflow:hidden;
-}
-/* PANTALLA DIGITAL QUE SE ABRE */
-.service-overlay{
-    position:absolute; inset:0; background:#000; 
-    border:2px solid #ff0000; box-shadow: inset 0 0 15px rgba(255,0,0,0.5);
-    padding:30px; display:flex; flex-direction:column; justify-content:center;
-    opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:20;
-}
+.service-card{ background:rgba(10,10,10,0.8); border:1px solid rgba(255,0,0,0.25); padding:80px 40px; position:relative; transition:all .3s ease; overflow:hidden; }
+.service-overlay{ position:absolute; inset:0; background:#000; border:2px solid #ff0000; padding:30px; display:flex; flex-direction:column; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:20; box-shadow: inset 0 0 20px rgba(255,0,0,0.3); }
 .service-card:hover .service-overlay{ opacity:1; pointer-events:auto; }
-.overlay-content p{ color:#fff; font-size:14px; line-height:1.6; margin-bottom:10px; text-shadow: 0 0 5px #ff0000; }
+.overlay-content p{ color:#fff; font-size:14px; line-height:1.6; text-shadow: 0 0 5px #ff0000; }
 
-/* CÍRCULO DE VELOCIDAD */
+/* PETICIÓN 2: CÍRCULO DE VELOCIDAD */
 .speed-ring-container { width: 220px; height: 220px; margin: 30px auto; position: relative; display: none; }
 .speed-ring { position: absolute; inset: 0; border: 4px solid #111; border-top: 4px solid #ff0000; border-radius: 50%; animation: spin 0.6s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .speed-value { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
-/* ESTILOS DE CIERRE */
+/* CIERRE ORIGINAL */
 .dashboard{ display:none; margin-top:40px; text-align:center; }
 .alert-box{ border:2px solid #ff0000; padding:15px; color:#ff0000; font-weight:700; animation:f1 2s infinite; }
 </style>
@@ -55,7 +46,7 @@ body::after{ content:""; position:fixed; inset:0; background:repeating-linear-gr
 <div class="sniper-dot"></div>
 
 <section style="min-height:100vh; display:flex; flex-direction:column; justify-content:center; text-align:center; position:relative; z-index:1;">
-  <h1 style="font-size:clamp(60px, 12vw, 130px); font-weight:900; letter-spacing:14px; animation:f1 3s infinite, vt 4s infinite; text-shadow:0 0-15px #ff0000;">RON3IA</h1>
+  <h1 style="font-size:clamp(60px, 12vw, 130px); font-weight:900; letter-spacing:14px; animation:f1 3s infinite, vt 4s infinite; text-shadow:0 0 15px #ff0000;">RON3IA</h1>
   <h2 style="color:#ff1a1a; margin-top:20px; letter-spacing:4px; font-size: 1.2rem;">AUDITORÍA SEO, CRO Y ESTRATEGIAS DE CRECIMIENTO DIGITAL</h2>
   <a href="#consola" style="display:inline-block; margin:40px auto; padding:20px 70px; border:2px solid #ff0000; color:#fff; text-decoration:none; box-shadow:0 0 15px #ff0000; background: #000; font-weight: 900;">EJECUTAR AUDITORÍA</a>
 </section>
@@ -88,11 +79,11 @@ body::after{ content:""; position:fixed; inset:0; background:repeating-linear-gr
 
 <script>
 const services = [
-  { title: "1️⃣ Auditoría Digital Estratégica", desc: "Identificamos fricciones, dependencias y oportunidades críticas en tu ecosistema digital. Obtienes claridad estructural y dirección inmediata. Alivio de la incertidumbre." },
-  { title: "2️⃣ Optimización de Conversión (CRO)", desc: "Mejoramos la arquitectura de decisión de tu sitio para convertir más con el mismo tráfico. Más eficiencia. Más rendimiento. Recompensa por ganancia incremental." },
-  { title: "3️⃣ SEO de Arquitectura y Posicionamiento", desc: "Construimos una base sólida alineada con intención de búsqueda real para crecer orgánicamente de forma sostenible. Seguridad y autoridad ante el mercado. Estabilidad y protección." },
-  { title: "4️⃣ Growth & Optimización de Campañas", desc: "Optimizamos segmentación, estructura y coherencia anuncio-landing para que cada inversión tenga impacto medible. Control absoluto sobre el retorno de inversión. Placer por el control." },
-  { title: "5️⃣ Arquitectura E-commerce Escalable", desc: "Reducimos fricción, reorganizamos navegación y fortalecemos estructura para facilitar crecimiento sin caos operativo. Un sistema fluido y preparado para escalar. Reducción de carga cognitiva." },
+  { title: "1️⃣ Auditoría Digital Estratégica", desc: "Identificamos fricciones, dependencias y oportunidades críticas en tu ecosistema digital. Obtienes claridad estructural y dirección inmediata. Alivio de la incertidumbre (Reducción de Cortisol)." },
+  { title: "2️⃣ Optimización de Conversión (CRO)", desc: "Mejoramos la arquitectura de decisión de tu sitio para convertir más con el mismo tráfico. Más eficiencia. Más rendimiento. Recompensa por ganancia incremental (Dopamina por eficiencia)." },
+  { title: "3️⃣ SEO de Arquitectura y Posicionamiento", desc: "Construimos una base sólida alineada con intención de búsqueda real para crecer orgánicamente de forma sostenible. Seguridad y autoridad ante el mercado. Estabilidad y protección (Oxitocina)." },
+  { title: "4️⃣ Growth & Optimización de Campañas", desc: "Optimizamos segmentación, estructura y coherencia anuncio-landing para que cada inversión tenga impacto medible. Control absoluto sobre el retorno de inversión. Placer por el control y la optimización de recursos." },
+  { title: "5️⃣ Arquitectura E-commerce Escalable", desc: "Reducimos fricción, reorganizamos navegación y fortalecemos estructura para facilitar crecimiento sin caos operativo. Un sistema fluido y preparado para escalar. Reducción de carga cognitiva (Alivio mental)." },
   { title: "6️⃣ Reestructuración Digital Estratégica", desc: "Redefinimos tu modelo digital con un roadmap claro, alineado con rentabilidad y sostenibilidad. Un modelo de negocio eficiente, predecible y competitivo. Sensación de dominio y liderazgo estratégico." }
 ];
 
@@ -100,7 +91,7 @@ const grid = document.getElementById('serviceGrid');
 services.forEach(s => {
   grid.innerHTML += `
     <div class="service-card">
-      <div style="color:#ff0000; font-weight:900; font-size:16px;">${s.title}</div>
+      <div style="color:#ff0000; font-weight:900; font-size:16px; letter-spacing:1px;">${s.title}</div>
       <div class="service-overlay">
         <div class="overlay-content">
           <p>${s.desc}</p>
@@ -132,7 +123,7 @@ document.getElementById('btnDiagnostico').onclick = function() {
             document.getElementById('dashboard').style.display = 'block';
             document.getElementById('livePct').innerText = "64%";
         }
-    }, 85);
+    }, 90);
 };
 </script>
 </body>
