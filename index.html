@@ -16,6 +16,20 @@ function activateSound() {
 
 document.addEventListener("click", activateSound);
 </script>
+<audio id="logoPulseSound">
+    <source src="pulse.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const logo = document.querySelector(".logo");
+const pulseSound = document.getElementById("logoPulseSound");
+
+logo.addEventListener("mouseenter", () => {
+    pulseSound.currentTime = 0;
+    pulseSound.volume = 0.4;
+    pulseSound.play();
+});
+</script>
 
 <body>
 
