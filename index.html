@@ -10,21 +10,32 @@
         :root { --neon-red: #ff0000; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #000; color: #fff; font-family: 'Orbitron', sans-serif; overflow-x: hidden; }
-        .video-background { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1; opacity: 0.5; }
-        .content { position: relative; z-index: 1; padding: 20px; max-width: 1400px; margin: 0 auto; }
+        .video-background { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 1; opacity: 0.6; }
+        .content { position: relative; z-index: 2; padding: 20px; max-width: 1400px; margin: 0 auto; }
         .logo-wrapper { text-align: center; padding: 40px 20px; }
         .logo-container { position: relative; display: inline-block; }
         .logo-container::before { content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150%; height: 150%; background: radial-gradient(circle, rgba(255, 0, 0, 0.6) 0%, transparent 70%); filter: blur(60px); z-index: 0; animation: pulse-glow 3s ease-in-out infinite; }
         @keyframes pulse-glow { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
         @keyframes flicker { 0%, 19.9%, 22%, 62.9%, 64%, 64.9%, 70%, 100% { opacity: 1; } 20%, 21.9%, 63%, 63.9%, 65%, 69.9% { opacity: 0.5; } }
         .logo-text { font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 900; letter-spacing: 18px; margin: 0; position: relative; z-index: 1; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000; animation: flicker 5s infinite; }
-        .main-subtitle { color: #ff0000; font-size: 0.85rem; letter-spacing: 3px; text-align: center; margin-bottom: 20px; }
+        .main-subtitle { color: #ff0000; font-size: 0.85rem; letter-spacing: 3px; text-align: center; margin-bottom: 20px; text-shadow: 0 0 10px #ff0000; }
+        .description { text-align: center; font-size: 0.75rem; color: #ccc; max-width: 800px; margin: 0 auto 30px; line-height: 1.6; }
         .main-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; margin: 40px 0; }
-        .score-box { background: rgba(0,0,0,0.85); border: 2px solid #ff0000; border-radius: 15px; padding: 30px; text-align: center; }
-        .console-box { background: rgba(0,0,0,0.85); border: 2px solid #ff0000; border-radius: 15px; padding: 30px; }
-        .console-textarea { width: 100%; background: #000; border: 1px solid #333; color: #fff; font-family: 'Courier New', monospace; padding: 20px; border-radius: 8px; resize: none; height: 150px; margin-bottom: 20px; }
-        .console-btn { width: 100%; background: #ff0000; border: none; color: #fff; padding: 15px; font-family: 'Orbitron', sans-serif; font-weight: 900; cursor: pointer; text-transform: uppercase; border-radius: 8px; }
-        @media (max-width: 1024px) { .main-grid { grid-template-columns: 1fr; } }
+        .score-box { background: rgba(0,0,0,0.9); border: 2px solid #ff0000; border-radius: 15px; padding: 30px; text-align: center; box-shadow: 0 0 20px rgba(255,0,0,0.3); }
+        .score-title { color: #ff0000; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 30px; }
+        .console-box { background: rgba(0,0,0,0.9); border: 2px solid #ff0000; border-radius: 15px; padding: 30px; box-shadow: 0 0 20px rgba(255,0,0,0.3); }
+        .console-title { color: #ff0000; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 20px; }
+        .console-textarea { width: 100%; background: #000; border: 1px solid #333; color: #fff; font-family: 'Courier New', monospace; padding: 20px; border-radius: 8px; resize: none; height: 150px; margin-bottom: 20px; font-size: 0.85rem; }
+        .console-btn { width: 100%; background: #ff0000; border: none; color: #fff; padding: 15px; font-family: 'Orbitron', sans-serif; font-weight: 900; cursor: pointer; text-transform: uppercase; border-radius: 8px; box-shadow: 0 0 15px rgba(255,0,0,0.5); }
+        .console-btn:hover { box-shadow: 0 0 25px rgba(255,0,0,0.8); }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 40px; }
+        .service-card { background: rgba(0,0,0,0.9); border: 1.5px solid #ff0000; border-radius: 10px; padding: 20px; text-decoration: none; display: block; transition: 0.3s; }
+        .service-card:hover { background: rgba(255,0,0,0.1); box-shadow: 0 0 15px rgba(255,0,0,0.4); }
+        .service-card strong { display: block; color: #ff0000; font-size: 0.85rem; margin-bottom: 5px; }
+        .service-card span { color: #888; font-size: 0.65rem; }
+        footer { text-align: center; font-size: 0.6rem; color: #666; padding: 20px; background: rgba(0,0,0,0.9); border-radius: 10px; }
+        footer .highlight { color: #ff0000; }
+        @media (max-width: 1024px) { .main-grid { grid-template-columns: 1fr; } .services-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
@@ -38,17 +49,28 @@
             </div>
         </div>
         <div class="main-subtitle">SISTEMA AUTÓNOMO DE OPTIMIZACIÓN FINANCIERA DIGITAL</div>
+        <p class="description">Desde la mejora de conversión hasta la optimización del margen empresarial, RON3IA detecta ineficiencias en tu ecosistema digital y genera decisiones estratégicas accionables en minutos.</p>
         <div class="main-grid">
             <div class="score-box">
-                <h3 style="color:#ff0000;margin-bottom:20px;">SCORE DIGITAL</h3>
-                <div style="font-size:3rem;font-weight:900;">--/100</div>
+                <div class="score-title">SCORE DE SALUD DIGITAL</div>
+                <div style="font-size:3rem;font-weight:900;margin:30px 0;">--/100</div>
+                <div style="text-align:left;font-size:0.7rem;color:#666;line-height:2;">■ SEO ESTRUCTURAL<br>■ PERFORMANCE TÉCNICA<br>■ CONVERSIÓN / FRICCIÓN<br>■ EFICIENCIA ADS</div>
             </div>
             <div class="console-box">
-                <h3 style="color:#ff0000;margin-bottom:20px;">⚡ CONSOLA ESTRATÉGICA</h3>
-                <textarea class="console-textarea" placeholder="Describe tu desafío de negocio o pega la URL del sitio..."></textarea>
+                <div class="console-title">⚡ CONSOLA DE COMANDO ESTRATÉGICO</div>
+                <textarea class="console-textarea" placeholder="Describe tu desafío de negocio o pega la URL del sitio para iniciar diagnóstico autónomo..."></textarea>
                 <button class="console-btn">INICIAR AUDITORÍA</button>
             </div>
         </div>
+        <div class="services-grid">
+            <a href="#" class="service-card"><strong>AUDITORÍA ESTRATÉGICA AUTÓNOMA™</strong><span>DETECCIÓN DE FUGAS DE MARGEN Y REDUCCIÓN DE RIESGO.</span></a>
+            <a href="#" class="service-card"><strong>INGENIERÍA DE CONVERSIÓN (CRO)</strong><span>INCREMENTO DIRECTO EN RENTABILIDAD POR CLIENTE.</span></a>
+            <a href="#" class="service-card"><strong>SEO DE ARQUITECTURA ESTRATÉGICA</strong><span>REDUCCIÓN DE DEPENDENCIA PUBLICITARIA.</span></a>
+            <a href="#" class="service-card"><strong>GROWTH & SEM INTELIGENTE</strong><span>MEJOR ASIGNACIÓN DE CAPITAL DIGITAL.</span></a>
+            <a href="#" class="service-card"><strong>ARQUITECTURA E-COMMERCE ESCALABLE</strong><span>REDUCCIÓN DE RIESGO OPERATIVO EN ESCALADO.</span></a>
+            <a href="#" class="service-card"><strong>TRANSFORMACIÓN DIGITAL AUTÓNOMA</strong><span>ESCALABILIDAD SIN AUMENTAR ESTRUCTURA DE COSTOS.</span></a>
+        </div>
+        <footer>RON3IA OPERA BAJO PROTOCOLOS DE ANÁLISIS AUTÓNOMO Y VALIDACIÓN ESTRATÉGICA.<br><span class="highlight">LA EFICIENCIA DIGITAL NO ES OPCIONAL. ES ESTRUCTURAL.</span></footer>
     </div>
 </body>
 </html>
