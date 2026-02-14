@@ -1,166 +1,263 @@
+@'
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RON3IA | WAR ROOM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --neon: #ff3131;
-            --bg: #050505;
+            --neon-red: #ff0000;
+            --bg-dark: #050505;
         }
-
         body {
-            background-color: var(--bg);
-            color: #fff;
-            font-family: 'Courier New', Courier, monospace;
             margin: 0;
+            overflow-x: hidden;
+            background: #050505;
+        }
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 40px 20px;
-            text-align: center;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
-
-        /* --- VIDEO DE FONDO --- */
-        #bg-video {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: -2;
-            opacity: 0.3;
-        }
-
-        /* --- OVERLAY DE LÍNEAS DE MONITOR --- */
-        .scanlines {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
-            background-size: 100% 4px;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* --- ANIMACIONES: VIBRACIÓN Y PARPADEO --- */
-        @keyframes v-tremble {
-            0%, 100% { transform: translate(0,0); }
-            20% { transform: translate(-1.5px, 1.5px); }
-            40% { transform: translate(-1.5px, -1.5px); }
-            60% { transform: translate(1.5px, 1.5px); }
-            80% { transform: translate(1.5px, -1.5px); }
-        }
-
-        @keyframes flicker-bin {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-            20%, 22%, 24%, 55% { opacity: 0.2; }
-        }
-
-        /* --- LOGO R3.PNG (Barras blancas + Glow rojo) --- */
-        .title {
-            font-size: 5rem;
+        .logo-text {
+            font-size: clamp(3rem, 10vw, 6.5rem);
             font-weight: 900;
             letter-spacing: 12px;
+            text-shadow: 0 0 20px var(--neon-red);
             margin: 0;
-            position: relative;
-            /* Efecto de líneas blancas horizontales en las letras */
-            background: linear-gradient(to bottom, #fff 50%, #bbb 50%);
-            background-size: 100% 4px;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            /* El resplandor rojo de fondo */
-            filter: drop-shadow(0 0 10px var(--neon)) drop-shadow(0 0 20px var(--neon));
-            /* Vibración y parpadeo real */
-            animation: v-tremble 0.1s infinite, flicker-bin 4s infinite steps(1);
         }
-
-        .subtitle {
-            color: var(--neon);
-            font-size: 1rem;
-            letter-spacing: 2px;
-            margin: 20px 0;
-            font-weight: bold;
+        .main-subtitle {
+            color: var(--neon-red);
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
         }
-
-        /* --- SCORE CIRCLE --- */
-        .score-circle {
-            width: 180px; height: 180px;
-            border-radius: 50%;
-            border: 4px solid #222;
-            border-top: 4px solid var(--neon);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2.5rem; font-weight: bold;
-            margin: 20px auto;
-            box-shadow: 0 0 20px rgba(255, 49, 49, 0.2);
-            animation: v-tremble 0.2s infinite;
-        }
-
-        /* --- CONSOLA --- */
         .console-box {
-            width: 100%; max-width: 400px;
-            background: rgba(0,0,0,0.8);
-            border: 1px solid #333;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: left;
-            box-shadow: 0 0 30px rgba(255, 49, 49, 0.1);
+            width: 100%;
+            max-width: 950px;
+            height: 280px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 3px solid var(--neon-red);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3), inset 0 0 30px rgba(255, 0, 0, 0.05);
+            margin-bottom: 50px;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            box-sizing: border-box;
         }
-
-        .console-header { color: var(--neon); font-size: 0.8rem; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
-        .dot { width: 8px; height: 8px; background: var(--neon); border-radius: 50%; box-shadow: 0 0 10px var(--neon); }
-
-        textarea {
-            width: 100%; height: 120px;
-            background: #0a0a0a; border: 1px solid #222;
-            color: #666; padding: 15px; font-family: inherit;
-            resize: none; box-sizing: border-box; border-radius: 5px;
+        .input-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-
-        .btn-init {
-            width: 100%; background: #400; color: white; border: none;
-            padding: 15px; margin-top: 15px; font-weight: bold; cursor: pointer;
+        input {
+            width: 100%;
+            background: rgba(0,0,0,0.9);
+            border: 1px solid #444;
+            padding: 15px 20px;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+        }
+        .btn-analyze {
+            width: 100%;
+            background: var(--neon-red);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            cursor: pointer;
+            border-radius: 8px;
+            text-transform: uppercase;
+            font-size: 1rem;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+        .btn-analyze:hover {
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+            transform: scale(1.01);
+        }
+        .clock-section {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .circle-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+        }
+        svg {
+            transform: rotate(-90deg);
+            width: 180px;
+            height: 180px;
+        }
+        circle { fill: none; }
+        .track { 
+            stroke: #1a0000;
+            stroke-width: 6;
+        }
+        .progress {
+            stroke: var(--neon-red);
+            stroke-width: 8;
+            stroke-dasharray: 503;
+            stroke-dashoffset: 503;
+            transition: stroke-dashoffset 2.5s ease-out;
+            stroke-linecap: round;
+        }
+        .score-number {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 15px var(--neon-red);
+        }
+        .score-label {
+            font-size: 0.7rem;
             letter-spacing: 2px;
+            color: #888;
+            margin-top: 10px;
+            text-transform: uppercase;
         }
-        .btn-init:hover { background: var(--neon); }
-
-        /* --- DIFERENCIAL --- */
-        .diff-box {
-            margin-top: 60px; text-align: left; width: 100%; max-width: 400px;
-            border: 1px solid #222; padding: 20px; border-radius: 10px;
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 950px;
+            width: 100%;
         }
-        .diff-box h3 { color: var(--neon); font-size: 0.9rem; letter-spacing: 3px; }
-        .diff-list { list-style: none; padding: 0; font-size: 0.75rem; color: #aaa; }
-        .diff-list li { margin-bottom: 15px; display: flex; align-items: flex-start; gap: 10px; }
-        .diff-list li::before { content: "●"; color: var(--neon); font-size: 1rem; }
-
+        .btn-service {
+            background: rgba(0, 0, 0, 0.85);
+            border: 1.5px solid var(--neon-red);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: left;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-service:hover {
+            background: rgba(255, 0, 0, 0.15);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+        .btn-service strong {
+            display: block;
+            color: var(--neon-red);
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        .btn-service span {
+            color: #888;
+            font-size: 0.75rem;
+            font-family: 'Courier New', monospace;
+        }
+        @media (max-width: 768px) {
+            .console-box {
+                flex-direction: column;
+                height: auto;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <video autoplay muted loop playsinline id="bg-video">
-        <source src="vecteezy_dark-red-neon-steel-reverse-tunnel-with-shadows-vj-loop_74116401.mp4" type="video/mp4">
+    <video class="video-background" autoplay muted loop playsinline>
+        <source src="fondo.mp4" type="video/mp4">
     </video>
-    
-    <div class="scanlines"></div>
-
-    <h1 class="title">RON3IA</h1>
-    <div class="subtitle">SISTEMA AUTÓNOMO DE OPTIMIZACIÓN FINANCIERA DIGITAL</div>
-
-    <div class="score-circle">--/100</div>
-
-    <div class="console-box">
-        <div class="console-header"><div class="dot"></div> CONSOLA DE COMANDO ESTRATÉGICO</div>
-        <textarea placeholder="Describe tu desafío..."></textarea>
-        <button class="btn-init">INICIAR AUDITORÍA</button>
+    <div class="content">
+        <h1 class="logo-text">RON3IA</h1>
+        <div class="main-subtitle">SISTEMA AUTÓNOMO DE OPTIMIZACIÓN FINANCIERA DIGITAL</div>
+        <div class="console-box">
+            <div class="input-section">
+                <input type="text" id="url" placeholder="URL DEL PROYECTO PARA DIAGNÓSTICO...">
+                <button class="btn-analyze" onclick="startScan()">ANALIZAR AHORA</button>
+            </div>
+            <div class="clock-section">
+                <div class="circle-container">
+                    <svg>
+                        <circle class="track" cx="90" cy="90" r="80"></circle>
+                        <circle id="bar" class="progress" cx="90" cy="90" r="80"></circle>
+                    </svg>
+                    <div class="score-number"><span id="scoreVal">--</span></div>
+                </div>
+                <div class="score-label">Score de Salud Digital</div>
+            </div>
+        </div>
+        <div class="services-grid">
+            <a href="#" class="btn-service">
+                <strong>AUDITORÍA ESTRATÉGICA AUTÓNOMA™</strong>
+                <span>DETECCIÓN DE FUGAS DE MARGEN Y REDUCCIÓN DE RIESGO.</span>
+            </a>
+            <a href="#" class="btn-service">
+                <strong>INGENIERÍA DE CONVERSIÓN (CRO)</strong>
+                <span>INCREMENTO DIRECTO EN RENTABILIDAD POR CLIENTE.</span>
+            </a>
+            <a href="#" class="btn-service">
+                <strong>SEO DE ARQUITECTURA ESTRATÉGICA</strong>
+                <span>REDUCCIÓN DE DEPENDENCIA PUBLICITARIA.</span>
+            </a>
+            <a href="#" class="btn-service">
+                <strong>GROWTH & SEM INTELIGENTE</strong>
+                <span>MEJOR ASIGNACIÓN DE CAPITAL DIGITAL.</span>
+            </a>
+            <a href="#" class="btn-service">
+                <strong>ARQUITECTURA E-COMMERCE ESCALABLE</strong>
+                <span>REDUCCIÓN DE RIESGO OPERATIVO EN ESCALADO.</span>
+            </a>
+            <a href="#" class="btn-service">
+                <strong>TRANSFORMACIÓN DIGITAL AUTÓNOMA</strong>
+                <span>ESCALABILIDAD SIN AUMENTAR ESTRUCTURA DE COSTOS.</span>
+            </a>
+        </div>
     </div>
-
-    <div class="diff-box">
-        <h3>DIFERENCIAL PURO</h3>
-        <ul class="diff-list">
-            <li>DIAGNÓSTICO AUTÓNOMO MULTI-IA</li>
-            <li>SISTEMA EVOLUTIVO CON MEMORIA</li>
-        </ul>
-    </div>
-
+    <script>
+        function startScan() {
+            const bar = document.getElementById('bar');
+            const scoreVal = document.getElementById('scoreVal');
+            bar.style.strokeDashoffset = 503;
+            scoreVal.innerText = "00";
+            setTimeout(() => {
+                const targetScore = Math.floor(Math.random() * 15) + 32;
+                const offset = 503 - (503 * targetScore / 100);
+                bar.style.strokeDashoffset = offset;
+                let count = 0;
+                let interval = setInterval(() => {
+                    count++;
+                    scoreVal.innerText = count.toString().padStart(2, '0');
+                    if(count >= targetScore) clearInterval(interval);
+                }, 40);
+            }, 300);
+        }
+    </script>
 </body>
 </html>
+'@ | Out-File -FilePath index.html -Encoding UTF8
