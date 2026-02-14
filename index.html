@@ -2,75 +2,161 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RON3IA | WAR ROOM</title>
     <style>
-        :root { --neon: #ff3131; --bg: #050505; }
-        
-        body { 
-            background: var(--bg); color: white; 
-            font-family: 'Courier New', monospace; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            height: 100vh; margin: 0; overflow: hidden; text-align: center;
-            /* El fondo de puntos original */
-            background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
-            background-size: 25px 25px;
+        :root {
+            --neon: #ff3131;
+            --bg: #050505;
         }
 
-        /* --- ANIMACIONES BINARIAS (EL ALMA DEL PROYECTO) --- */
-        @keyframes v-tremble {
-            0%, 100% { transform: translate(0,0); }
-            50% { transform: translate(-0.5px, 0.5px); }
+        body {
+            background-color: var(--bg);
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+            overflow-x: hidden;
         }
 
-        @keyframes flicker-main {
-            0%, 19.9%, 20.1%, 20.3%, 20.5%, 70%, 100% { 
-                opacity: 1; 
-                text-shadow: 0 0 10px #fff, 0 0 20px var(--neon), 0 0 40px var(--neon); 
-            }
-            20%, 20.2%, 20.4% { opacity: 0; text-shadow: none; }
+        /* --- VIDEO DE FONDO --- */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.3; /* Ajustado para que se vean bien los textos */
         }
 
-        .title { 
-            font-size: 6rem; letter-spacing: 15px; font-weight: 900;
-            animation: flicker-main 3.7s infinite steps(1), v-tremble 0.1s infinite; 
+        /* --- OVERLAY DE LÍNEAS DE MONITOR --- */
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+            background-size: 100% 4px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- ANIMACIÓN DE PARPADEO BINARIO --- */
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; text-shadow: 0 0 10px var(--neon); }
+            20%, 22%, 24%, 55% { opacity: 0; text-shadow: none; }
+        }
+
+        /* --- HEADER --- */
+        .title {
+            font-size: 4rem;
+            letter-spacing: 10px;
+            margin: 0;
+            animation: flicker 4s infinite steps(1);
         }
 
         .subtitle {
-            color: var(--neon); font-size: 1.4rem; letter-spacing: 4px; margin: 20px 0; font-weight: bold;
+            color: var(--neon);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            margin: 20px 0;
+            font-weight: bold;
         }
 
-        .description { max-width: 800px; color: #888; margin-bottom: 50px; line-height: 1.6; }
-
-        .grid { display: flex; gap: 40px; border-top: 1px solid #222; padding-top: 30px; }
-        
-        .link {
-            color: #666; text-decoration: none; font-size: 0.9rem; letter-spacing: 2px;
-            border-bottom: 1px solid var(--neon); padding-bottom: 5px; transition: 0.3s;
+        /* --- SCORE CIRCLE (Imagen IMG_8808) --- */
+        .score-container { margin: 50px 0; }
+        .score-circle {
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            border: 4px solid #222;
+            border-top: 4px solid var(--neon); /* El arco rojo de la foto */
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; font-weight: bold;
+            margin: 20px auto;
+            box-shadow: 0 0 20px rgba(255, 49, 49, 0.2);
         }
-        .link:hover { color: #fff; text-shadow: 0 0 10px var(--neon); }
 
-        /* Filtro de monitor antiguo overlay */
-        body::after {
-            content: " "; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-            background-size: 100% 4px; z-index: 100; pointer-events: none;
+        /* --- CONSOLA (Imagen IMG_8809) --- */
+        .console-box {
+            width: 100%; max-width: 400px;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 0 30px rgba(255, 49, 49, 0.1);
         }
+
+        .console-header { color: var(--neon); font-size: 0.8rem; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .dot { width: 8px; height: 8px; background: var(--neon); border-radius: 50%; box-shadow: 0 0 10px var(--neon); }
+
+        textarea {
+            width: 100%; height: 150px;
+            background: #0a0a0a; border: 1px solid #222;
+            color: #666; padding: 15px; font-family: inherit;
+            resize: none; box-sizing: border-box; border-radius: 5px;
+        }
+
+        .btn-init {
+            width: 100%; background: #400; color: white; border: none;
+            padding: 15px; margin-top: 15px; font-weight: bold; cursor: pointer;
+            letter-spacing: 2px; transition: 0.3s;
+        }
+        .btn-init:hover { background: var(--neon); }
+
+        /* --- DIFERENCIAL (Imagen IMG_8810) --- */
+        .diff-box {
+            margin-top: 60px; text-align: left; width: 100%; max-width: 400px;
+            border: 1px solid #222; padding: 20px; border-radius: 10px;
+        }
+        .diff-box h3 { color: var(--neon); font-size: 0.9rem; letter-spacing: 3px; }
+        .diff-list { list-style: none; padding: 0; font-size: 0.75rem; color: #aaa; }
+        .diff-list li { margin-bottom: 15px; display: flex; align-items: flex-start; gap: 10px; }
+        .diff-list li::before { content: "●"; color: var(--neon); font-size: 1rem; }
+
     </style>
 </head>
 <body>
+
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="vecteezy_dark-red-neon-steel-reverse-tunnel-with-shadows-vj-loop_74116401.mp4" type="video/mp4">
+    </video>
+    
+    <div class="scanlines"></div>
+
     <h1 class="title">RON3IA</h1>
     <div class="subtitle">SISTEMA AUTÓNOMO DE OPTIMIZACIÓN FINANCIERA DIGITAL</div>
-    
-    <p class="description">
-        Desde la mejora de conversión hasta la optimización del margen empresarial, 
-        RON3IA detecta ineficiencias en tu ecosistema digital y genera decisiones 
-        estratégicas accionables en minutos.
+
+    <div class="score-container">
+        <div style="font-size: 0.8rem; letter-spacing: 3px; color: var(--neon);">SCORE DE SALUD DIGITAL</div>
+        <div class="score-circle">--/100</div>
+        <div style="font-size: 0.7rem; color: #444;">ESPERANDO DIAGNÓSTICO</div>
+    </div>
+
+    <div class="console-box">
+        <div class="console-header"><div class="dot"></div> CONSOLA DE COMANDO ESTRATÉGICO</div>
+        <textarea placeholder="Describe tu desafío de negocio o pega la URL del sitio..."></textarea>
+        <button class="btn-init">INICIAR AUDITORÍA</button>
+    </div>
+
+    <div class="diff-box">
+        <h3>DIFERENCIAL PURO</h3>
+        <ul class="diff-list">
+            <li>DIAGNÓSTICO AUTÓNOMO MULTI-IA EN TIEMPO REAL</li>
+            <li>PRIORIZACIÓN POR IMPACTO FINANCIERO Y ESFUERZO</li>
+            <li>OPTIMIZACIÓN POR COSTO Y COMPLEJIDAD</li>
+            <li>SISTEMA EVOLUTIVO CON MEMORIA</li>
+        </ul>
+    </div>
+
+    <p style="margin-top: 50px; font-size: 0.7rem; color: #444; max-width: 300px;">
+        RON3IA OPERA BAJO PROTOCOLOS DE ANÁLISIS AUTÓNOMO. 
+        <span style="color: var(--neon);">LA EFICIENCIA DIGITAL NO ES OPCIONAL.</span>
     </p>
 
-    <div class="grid">
-        <a href="#" class="link">DIAGNÓSTICO AUTÓNOMO</a>
-        <a href="#" class="link">PRIORIZACIÓN FINANCIERA</a>
-        <a href="#" class="link">EJECUCIÓN INTELIGENTE</a>
-    </div>
 </body>
 </html>
