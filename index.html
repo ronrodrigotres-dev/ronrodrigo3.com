@@ -1,18 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>RON3IA</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RON3IA | WAR ROOM</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+background:#000;
+color:#ff0000;
+font-family:Orbitron;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.container{
+text-align:center;
+}
+
+.service-card{
+border:1px solid red;
+padding:20px;
+margin:10px;
+display:inline-block;
+cursor:pointer;
+box-shadow:0 0 10px red;
+}
+
+button{
+background:red;
+color:black;
+padding:15px;
+border:none;
+cursor:pointer;
+font-weight:bold;
+}
+
+</style>
+
 </head>
+
 <body>
-    <div class="services-grid">
-        <a href="#" class="service-card info-card">AUDITORIA</a>
-        <a href="#" class="service-card info-card">CRO</a>
-        <a href="#" class="service-card info-card">SEO</a>
-        <a href="#" class="service-card info-card">SEM</a>
-        <a href="#" class="service-card info-card">ECOMMERCE</a>
-        <a href="#" class="service-card info-card">TRANSFORMACION</a>
-    </div>
+
+<div class="container">
+
+<h1>RON3IA WAR ROOM</h1>
+
+<button onclick="alert('SCAN INICIADO')">
+INICIAR DIAGNOSTICO
+</button>
+
+<div>
+
+<div class="service-card">AUDITORIA</div>
+<div class="service-card">CRO</div>
+<div class="service-card">SEO</div>
+<div class="service-card">SEM</div>
+<div class="service-card">ECOMMERCE</div>
+<div class="service-card">TRANSFORMACION</div>
+
+</div>
+
+</div>
+
 </body>
 </html>
