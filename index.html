@@ -496,6 +496,28 @@ async function iniciarAuditoria(moduleName){
 
     const entrada = validarEntrada();
     if(!entrada) return;
+try {
+
+const response = await fetch(
+"https://ron3ia-api-819648047297.southamerica-west1.run.app/run-production",
+{
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+dominio: entrada,
+modulos: module
+})
+});
+
+const result = await response.json();
+
+console.log("RON3IA RESPONSE:", result);
+
+} catch(e){
+console.log("ERROR API:", e);
+}
 
     const module = moduleName || "AUDITORIA";
     const bias = MODULE_BIAS[module] || MODULE_BIAS["AUDITORIA"];
