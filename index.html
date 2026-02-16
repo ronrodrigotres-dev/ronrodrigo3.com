@@ -185,9 +185,46 @@
         footer { text-align: center; font-size: 0.6rem; color: #555; padding: 20px; background: rgba(10, 0, 0, 0.5); border-radius: 10px; border: 1px solid #222; }
         footer .highlight { color: var(--neon-red); }
         @media (max-width: 1024px) { .main-grid { grid-template-columns: 1fr; } .services-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .scan-overlay{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.85);
+            display:none;
+            z-index:9999;
+            pointer-events:none;
+        }
+        .scan-line{
+            position:absolute;
+            width:100%;
+            height:2px;
+            background:#ff0000;
+            box-shadow:0 0 15px #ff0000;
+            animation: scanMove 1.5s linear infinite;
+        }
+        @keyframes scanMove{
+            0%{ top:0%; }
+            100%{ top:100%; }
+        }
+        .scan-text{
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            color:#ff0000;
+            font-family:monospace;
+            letter-spacing:2px;
+        }
     </style>
 </head>
 <body>
+    <div id="scanOverlay" class="scan-overlay">
+        <div class="scan-line"></div>
+        <div class="scan-text">ANALIZANDO...</div>
+    </div>
     <div class="heartbeat-core"></div>
     <div class="radar-line radar-line-1" id="radar1"></div>
     <div class="radar-line radar-line-2" id="radar2"></div>
@@ -282,6 +319,13 @@ document.addEventListener("DOMContentLoaded", function() {
         radar1.style.animationDuration = ""; radar2.style.animationDuration = "";
     }
 
+    function showScan(){
+        document.getElementById("scanOverlay").style.display = "block";
+    }
+    function hideScan(){
+        document.getElementById("scanOverlay").style.display = "none";
+    }
+
     function radarIntensity(score) {
         var s = Math.max(1.1, 4 - (score / 100) * 2.5);
         var t = Math.max(1.3, 5 - (score / 100) * 2.8);
@@ -365,6 +409,12 @@ document.addEventListener("DOMContentLoaded", function() {
         consoleOut.innerHTML = "";
         scoreDisplay.textContent = "0/100";
         activarRadar();
+
+        // Scan Overlay integration
+        showScan();
+        await sleep(2500);
+        hideScan();
+        await consoleLine("> SCAN COMPLETADO", "line-green");
 
         await consoleLine("> RON3IA SINGULARITY v4.2 FINAL", "line-red");
         await consoleLine("> MODO: " + mod + " — PROTOCOLO AUTÓNOMO", "line-red");
