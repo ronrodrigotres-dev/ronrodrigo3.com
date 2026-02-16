@@ -4,6 +4,7 @@ import "../styles/warroom.css";
 declare global {
   interface Window {
     __warroomInitialized?: boolean;
+    __planStarted?: boolean;
   }
 }
 
@@ -75,6 +76,7 @@ export default function WarRoom() {
     log("> SCORE ESTRATÉGICO: " + final);
     log("> PLAN ACCIONABLE DISPONIBLE");
     log("> EJECUTAR PROTOCOLO PARA OPTIMIZACIÓN");
+    log("> PROTOCOLO LISTO PARA EJECUCIÓN");
 
     funnelReady = true;
     btn.textContent = "ACTIVAR PLAN";
@@ -93,7 +95,19 @@ export default function WarRoom() {
     btn.onclick = () => {
 
        if(funnelReady){
+          if(funnelReady && window.__planStarted) return;
+
+          window.__planStarted = true;
+
           log("> ACTIVANDO PROTOCOLO AVANZADO...");
+          log("> INICIANDO MOTOR DE OPTIMIZACIÓN...");
+
+          setTimeout(()=> log("> GENERANDO PLAN ACCIONABLE..."), 800);
+
+          setTimeout(()=> log("> PREPARANDO ENTREGA ESTRATÉGICA..."), 1600);
+
+          window.dispatchEvent(new Event("ron3ia:funnelActivated"));
+
           return;
        }
 
