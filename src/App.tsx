@@ -121,6 +121,48 @@ function App() {
     };
   }, [isLoading]);
 
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const protocol = (e as CustomEvent).detail?.protocol;
+
+      console.log("RON3IA ejecutando servicio:", protocol);
+
+      switch(protocol){
+
+         case "SEO":
+            window.location.href = "/analizar-ahora.html?service=seo";
+            break;
+
+         case "CRO":
+            window.location.href = "/analizar-ahora.html?service=cro";
+            break;
+
+         case "SEM":
+            window.location.href = "/analizar-ahora.html?service=sem";
+            break;
+
+         case "ECOMMERCE":
+            window.location.href = "/analizar-ahora.html?service=ecommerce";
+            break;
+
+         case "TRANSFORMACION":
+            window.location.href = "/analizar-ahora.html?service=transformacion";
+            break;
+
+         default:
+            window.location.href = "/analizar-ahora.html?service=auditoria";
+      }
+
+    };
+
+    window.addEventListener("ron3ia:executeService", handler);
+
+    return () => {
+      window.removeEventListener("ron3ia:executeService", handler);
+    };
+
+  }, []);
+
   const handleLoadingComplete = () => {
     setIsLoading(false);
     setTimeout(() => setShowContent(true), 100);
