@@ -5,6 +5,7 @@ declare global {
   interface Window {
     __warroomInitialized?: boolean;
     __planStarted?: boolean;
+    __selectedProtocol?: string;
   }
 }
 
@@ -66,6 +67,29 @@ export default function WarRoom() {
     data.scores.cro+
     data.scores.ads)/4
     );
+
+    function decideProtocol(data:any){
+
+       if(data.seo < 60) return "SEO_OPTIMIZATION";
+       if(data.cro < 60) return "CONVERSION_PROTOCOL";
+       if(data.perf < 60) return "PERFORMANCE_BOOST";
+       if(data.ads < 50) return "ADS_RECOVERY";
+
+       return "FULL_STRATEGIC_PROTOCOL";
+    }
+
+    const result = {
+      seo: data.scores.seo,
+      cro: data.scores.cro,
+      perf: data.scores.perf,
+      ads: data.scores.ads,
+    };
+
+    const protocol = decideProtocol(result);
+
+    log(`> PROTOCOLO RECOMENDADO: ${protocol}`);
+
+    window.__selectedProtocol = protocol;
 
     score.textContent=final;
 
