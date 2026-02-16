@@ -23,6 +23,8 @@ export default function WarRoom() {
     // pegar aquí EXACTAMENTE la lógica actual
     // (btn.onclick, run(), log(), querySelectorAll)
 
+    let funnelReady = false;
+
     const API="https://ron3ia-api-819648047297.southamerica-west1.run.app";
 
     const btn:any=document.getElementById("btn");
@@ -37,7 +39,12 @@ export default function WarRoom() {
 
     async function run(mod:any){
 
-    log("> PROTOCOLO "+mod+" INICIADO — ANALIZANDO SEÑALES CLAVE");
+    log("> PROTOCOLO RON3IA INICIADO");
+    log("> ACCEDIENDO A CAPAS ESTRATÉGICAS");
+    log("> MODELOS SINCRONIZADOS");
+    log("> ANALIZANDO ARQUITECTURA SEO");
+    log("> EVALUANDO PERFORMANCE");
+    log("> DETECTANDO FRICCIÓN DE CONVERSIÓN");
 
     try{
 
@@ -61,7 +68,16 @@ export default function WarRoom() {
 
     score.textContent=final;
 
-    log("> RESULTADO GENERADO — SALUD DIGITAL POSITIVA — SCORE ESTRATÉGICO: "+final);
+    log("> INEFICIENCIAS DETECTADAS");
+    log("> POTENCIAL DE CRECIMIENTO NO CAPTURADO");
+    log("> RESULTADO GENERADO");
+    log("> SALUD DIGITAL POSITIVA");
+    log("> SCORE ESTRATÉGICO: " + final);
+    log("> PLAN ACCIONABLE DISPONIBLE");
+    log("> EJECUTAR PROTOCOLO PARA OPTIMIZACIÓN");
+
+    funnelReady = true;
+    btn.textContent = "ACTIVAR PLAN";
 
     }catch(e){
 
@@ -74,7 +90,15 @@ export default function WarRoom() {
 
     }
 
-    btn.onclick=()=>run("AUDITORIA");
+    btn.onclick = () => {
+
+       if(funnelReady){
+          log("> ACTIVANDO PROTOCOLO AVANZADO...");
+          return;
+       }
+
+       run("AUDITORIA");
+    }
 
     document.querySelectorAll(".service").forEach((el:any)=>{
     el.onclick=()=>run(el.dataset.module);
