@@ -116,6 +116,13 @@
         .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 40px; }
         .service-card { background: rgba(10, 0, 0, 0.8); border: 1.5px solid var(--neon-red); border-radius: 10px; padding: 20px; text-decoration: none; display: block; transition: 0.3s; cursor: pointer; }
         .service-card:hover { background: rgba(255, 0, 0, 0.1); box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); transform: translateY(-3px); }
+        .service-card.active {
+            background: rgba(255,0,0,0.15);
+            box-shadow:
+                0 0 20px rgba(255,0,0,0.8),
+                inset 0 0 20px rgba(255,0,0,0.2);
+            transform: translateY(-2px) scale(1.02);
+        }
         .service-card strong { display: block; color: var(--neon-red); font-size: 0.85rem; margin-bottom: 5px; }
         .service-card span { color: #888; font-size: 0.65rem; }
         .metrics-bar { display: flex; justify-content: center; gap: 40px; padding: 30px 20px; margin: 30px 0; border-top: 1px solid rgba(255, 0, 0, 0.15); border-bottom: 1px solid rgba(255, 0, 0, 0.15); }
@@ -439,10 +446,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Event Listeners
     btnAudit.addEventListener("click", () => iniciarAuditoria());
-    document.querySelectorAll(".service-card").forEach(card => {
-        card.addEventListener("click", (e) => {
+    
+    var selectedModule = null;
+    document.querySelectorAll(".service-card").forEach(function(card){
+        card.addEventListener("click", function(e){
             e.preventDefault();
-            iniciarAuditoria(card.getAttribute("data-module"));
+            if(isScanning) return;
+    
+            // remover estado activo previo
+            document.querySelectorAll(".service-card").forEach(function(c){
+                c.classList.remove("active");
+            });
+    
+            // activar estado visual
+            card.classList.add("active");
+    
+            selectedModule = card.getAttribute("data-module");
+    
+            // feedback consola
+            consoleLine("> MÓDULO ACTIVADO: " + selectedModule, "line-green");
+    
+            // iniciar auditoría directa
+            iniciarAuditoria(selectedModule);
         });
     });
 });
