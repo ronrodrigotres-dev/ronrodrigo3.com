@@ -234,9 +234,9 @@ body::after{
             <textarea id="input"></textarea>
 
             <div className="console-output" id="console">
-> SISTEMA RON3IA ACTIVO
+              {`> SISTEMA RON3IA ACTIVO
 > CONEXIÓN ESTABLECIDA
-> ENTORNO DIGITAL LISTO PARA ANÁLISIS
+> ENTORNO DIGITAL LISTO PARA ANÁLISIS`}
             </div>
 
             <button id="btn">EJECUTAR</button>
