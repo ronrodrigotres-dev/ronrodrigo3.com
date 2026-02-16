@@ -7,7 +7,6 @@ declare global {
     __warroomInitialized?: boolean;
     __planStarted?: boolean;
     __selectedProtocol?: string;
-    __selectedService?: string;
   }
 }
 
@@ -103,34 +102,7 @@ export default function WarRoom() {
 
     log("> ANALIZANDO MATRIZ DE DECISIÓN...");
     log("> IDENTIFICANDO PRIORIDAD ESTRATÉGICA...");
-
-    const scores = data?.scores || {};
-
-    const seo = scores.seo ?? 50;
-    const perf = scores.perf ?? 50;
-    const cro = scores.cro ?? 50;
-    const ads = scores.ads ?? 50;
-
-    const lowest = Math.min(seo, perf, cro, ads);
-
-    let servicio = "AUDITORIA";
-
-    if(final < 40){
-       servicio = "TRANSFORMACION";
-    }
-    else if(final > 70){
-       servicio = "GEO";
-    }
-    else{
-       if(lowest === seo) servicio = "SEO";
-       if(lowest === perf) servicio = "PERFORMANCE";
-       if(lowest === cro) servicio = "CRO";
-       if(lowest === ads) servicio = "SEM";
-    }
-
-    window.__selectedService = servicio;
-
-    log(`> VEREDICTO RON3IA: ACTIVAR PROTOCOLO ${servicio}`);
+    log(`> VEREDICTO RON3IA: ACTIVAR PROTOCOLO ${protocol}`);
     log("> PROTOCOLO LISTO PARA EJECUCIÓN");
 
     funnelReady = true;
@@ -154,7 +126,7 @@ export default function WarRoom() {
 
           window.__planStarted = true;
 
-          log(`> EJECUTANDO SERVICIO PRIORITARIO: ${window.__selectedService}`);
+          log(`> EJECUTANDO SERVICIO PRIORITARIO: ${window.__selectedProtocol}`);
           log("> ACTIVANDO PROTOCOLO AVANZADO...");
           log("> INICIANDO MOTOR DE OPTIMIZACIÓN...");
 
@@ -177,7 +149,7 @@ export default function WarRoom() {
           return;
        }
 
-       run("AUDITORIA");
+       run(PROTOCOLS.AUDITORIA);
     }
 
     document.querySelectorAll(".service").forEach((el:any)=>{

@@ -123,8 +123,8 @@ function App() {
   }, [isLoading]);
 
   useEffect(() => {
-    const handler = (e: Event) => {
-      const protocol = (e as CustomEvent).detail?.protocol;
+    const handler = (e: any) => {
+      const protocol = e.detail.protocol;
 
       console.log("RON3IA ejecutando servicio:", protocol);
 
