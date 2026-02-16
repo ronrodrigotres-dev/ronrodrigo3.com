@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
@@ -27,7 +28,7 @@ font-family:'Orbitron',sans-serif;
 overflow-x:hidden;
 }
 
-/* HUD GRID */
+/* GRID HUD */
 
 body::before{
 content:"";
@@ -58,6 +59,7 @@ opacity:.3;
 0%{transform:translateY(-100%);}
 100%{transform:translateY(100%);}
 }
+
 @keyframes scan2{
 0%{transform:translateY(100%);}
 100%{transform:translateY(-100%);}
@@ -91,7 +93,14 @@ grid-template-columns:1fr 1.4fr;
 gap:20px;
 }
 
-/* SCORE CIRCLE */
+/* SCORE */
+
+.score-box{
+border:2px solid red;
+padding:20px;
+text-align:center;
+box-shadow:0 0 20px red;
+}
 
 .score-circle{
 width:200px;
@@ -101,7 +110,7 @@ border:3px solid red;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:2rem;
+font-size:3rem;
 margin:auto;
 box-shadow:0 0 25px red;
 }
@@ -124,12 +133,29 @@ padding:10px;
 margin-bottom:10px;
 }
 
-.console textarea{
+textarea{
 width:100%;
 background:black;
 border:1px solid #333;
 color:white;
 margin-bottom:10px;
+padding:10px;
+}
+
+/* BUTTON */
+
+button{
+width:100%;
+background:red;
+border:none;
+padding:12px;
+color:white;
+cursor:pointer;
+font-family:Orbitron;
+}
+
+button:hover{
+box-shadow:0 0 15px red;
 }
 
 /* SERVICES */
@@ -137,7 +163,7 @@ margin-bottom:10px;
 .services{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:10px;
+gap:15px;
 margin-top:30px;
 }
 
@@ -146,10 +172,11 @@ border:1px solid red;
 padding:15px;
 cursor:pointer;
 transition:.2s;
+text-align:center;
 }
 
 .service:hover{
-box-shadow:0 0 10px red;
+box-shadow:0 0 15px red;
 }
 
 </style>
@@ -168,17 +195,19 @@ box-shadow:0 0 10px red;
 
 <div class="grid">
 
+<div class="score-box">
 <div class="score-circle" id="scoreDisplay">0</div>
+</div>
 
 <div class="console">
 
-<textarea id="input"></textarea>
+<textarea id="input" placeholder="Describe desafío o pega URL..."></textarea>
 
 <div class="console-output" id="console">
 RON3IA ONLINE...
 </div>
 
-<button id="btn">INICIAR</button>
+<button id="btn">INICIAR AUDITORIA</button>
 
 </div>
 
@@ -186,12 +215,12 @@ RON3IA ONLINE...
 
 <div class="services">
 
-<div class="service" data-module="AUDITORIA">AUDITORIA</div>
-<div class="service" data-module="CRO">CRO</div>
-<div class="service" data-module="SEO">SEO</div>
-<div class="service" data-module="SEM">SEM</div>
-<div class="service" data-module="ECOMMERCE">ECOMMERCE</div>
-<div class="service" data-module="TRANSFORMACION">TRANSFORMACION</div>
+<div class="service" data-module="AUDITORIA">AUDITORIA ESTRATÉGICA</div>
+<div class="service" data-module="CRO">INGENIERIA CRO</div>
+<div class="service" data-module="SEO">SEO ARQUITECTURA</div>
+<div class="service" data-module="SEM">GROWTH SEM</div>
+<div class="service" data-module="ECOMMERCE">E-COMMERCE</div>
+<div class="service" data-module="TRANSFORMACION">TRANSFORMACIÓN DIGITAL</div>
 
 </div>
 
@@ -260,4 +289,3 @@ el.onclick=()=>run(el.dataset.module);
 
 </body>
 </html>
-
