@@ -241,28 +241,11 @@
     </div>
 
 <script>
-/* ============================================================
-   RON3IA ENGINE v4.2 — PRODUCTION HARDENED (FINAL)
-   ============================================================
-   - DOMContentLoaded + "use strict" encapsulation
-   - Null safety guardrails for 10 critical DOM elements
-   - safeParseScore() — no NaN, no crashes
-   - AbortController 8s timeout on fetch + local fallback
-   - IIFE closure pattern for service card listeners
-   - Zero inline onclick — addEventListener only
-   - GitHub Pages compatible (self-contained, static)
-   ============================================================ */
 document.addEventListener("DOMContentLoaded", function() {
     "use strict";
-
-    /* === API CONFIG === */
     var API_URL = "https://ron3ia-api-819648047297.southamerica-west1.run.app";
-
-    /* === STATE === */
     var systemScore = 0;
     var isScanning = false;
-
-    /* === DOM REFERENCES === */
     var radar1       = document.getElementById("radar1");
     var radar2       = document.getElementById("radar2");
     var consoleOut   = document.getElementById("consoleOutput");
@@ -273,56 +256,27 @@ document.addEventListener("DOMContentLoaded", function() {
     var barPerf      = document.getElementById("barPerf");
     var barCro       = document.getElementById("barCro");
     var barAds       = document.getElementById("barAds");
-
-    /* === GUARDRAIL: abort engine if any critical element is missing === */
     var critical = [radar1, radar2, consoleOut, inputConsola, btnAudit, scoreDisplay, barSeo, barPerf, barCro, barAds];
     for (var c = 0; c < critical.length; c++) {
-        if (!critical[c]) {
-            console.error("RON3IA ENGINE: elemento DOM critico no encontrado. Engine abortado.");
-            return;
-        }
+        if (!critical[c]) { console.error("RON3IA: elemento DOM faltante. Engine abortado."); return; }
     }
-
-    /* === SAFE SCORE INIT === */
     scoreDisplay.textContent = "0/100";
-
-    /* === UTILITIES === */
     function sleep(ms) { return new Promise(function(r) { setTimeout(r, ms); }); }
     function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
-
-    function safeParseScore() {
-        var raw = parseInt(scoreDisplay.textContent, 10);
-        return isNaN(raw) ? 0 : raw;
-    }
-
-    /* === RADAR === */
-    function activarRadar() {
-        radar1.classList.add("active");
-        radar2.classList.add("active");
-    }
-    function desactivarRadar() {
-        radar1.classList.remove("active");
-        radar2.classList.remove("active");
-        radar1.style.animationDuration = "";
-        radar2.style.animationDuration = "";
-    }
+    function safeParseScore() { var raw = parseInt(scoreDisplay.textContent, 10); return isNaN(raw) ? 0 : raw; }
+    function activarRadar() { radar1.classList.add("active"); radar2.classList.add("active"); }
+    function desactivarRadar() { radar1.classList.remove("active"); radar2.classList.remove("active"); radar1.style.animationDuration = ""; radar2.style.animationDuration = ""; }
     function radarIntensity(score) {
         var s = Math.max(1.2, 4 - (score / 100) * 2.2);
         var t = Math.max(1.4, 5 - (score / 100) * 2.4);
         radar1.style.animationDuration = s + "s";
         radar2.style.animationDuration = t + "s";
     }
-
-    /* === DYNAMIC GLOW === */
     function dynamicGlow(score) {
         var glow = Math.min(score / 100, 1);
-        scoreDisplay.style.textShadow =
-            "0 0 " + (10 + 40 * glow) + "px rgba(255,0,0," + (0.35 + 0.65 * glow) + ")";
+        scoreDisplay.style.textShadow = "0 0 " + (10 + 40 * glow) + "px rgba(255,0,0," + (0.35 + 0.65 * glow) + ")";
     }
-
-    /* === CONSOLE TERMINAL === */
     function consoleClear() { consoleOut.innerHTML = ""; }
-
     function consoleLine(text, cssClass) {
         cssClass = cssClass || "";
         return new Promise(function(resolve) {
@@ -333,8 +287,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var speed = Math.max(8, Math.min(22, 520 / Math.max(8, text.length)));
             function typeChar() {
                 if (i < text.length) {
-                    span.textContent += text.charAt(i);
-                    i++;
+                    span.textContent += text.charAt(i); i++;
                     consoleOut.scrollTop = consoleOut.scrollHeight;
                     setTimeout(typeChar, speed);
                 } else {
@@ -346,8 +299,6 @@ document.addEventListener("DOMContentLoaded", function() {
             typeChar();
         });
     }
-
-    /* === HUD EFFECTS === */
     function consoleShake() {
         consoleOut.style.transform = "translateX(2px)";
         setTimeout(function() { consoleOut.style.transform = "translateX(-2px)"; }, 60);
@@ -357,13 +308,10 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.style.filter = "brightness(1.25)";
         setTimeout(function() { document.body.style.filter = "brightness(1)"; }, 150);
     }
-
-    /* === AUDIO (WebAudio API — wrapped in try/catch) === */
     function playScanSound() {
         try {
             var ctx = new (window.AudioContext || window.webkitAudioContext)();
-            var osc = ctx.createOscillator();
-            var gain = ctx.createGain();
+            var osc = ctx.createOscillator(); var gain = ctx.createGain();
             osc.connect(gain); gain.connect(ctx.destination);
             osc.type = "sawtooth";
             osc.frequency.setValueAtTime(90, ctx.currentTime);
@@ -371,30 +319,23 @@ document.addEventListener("DOMContentLoaded", function() {
             osc.frequency.exponentialRampToValueAtTime(240, ctx.currentTime + 0.45);
             gain.gain.setValueAtTime(0.10, ctx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
-            osc.start(ctx.currentTime);
-            osc.stop(ctx.currentTime + 0.56);
-        } catch (e) { /* AudioContext unavailable — safe silence */ }
+            osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.56);
+        } catch (e) {}
     }
-
     function playVerdict() {
         try {
             var ctx = new (window.AudioContext || window.webkitAudioContext)();
             var freqs = [420, 540, 660];
             for (var f = 0; f < freqs.length; f++) {
-                var osc = ctx.createOscillator();
-                var gain = ctx.createGain();
+                var osc = ctx.createOscillator(); var gain = ctx.createGain();
                 osc.connect(gain); gain.connect(ctx.destination);
-                osc.type = "sine";
-                osc.frequency.value = freqs[f];
+                osc.type = "sine"; osc.frequency.value = freqs[f];
                 gain.gain.setValueAtTime(0.07, ctx.currentTime + f * 0.11);
                 gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + f * 0.11 + 0.28);
-                osc.start(ctx.currentTime + f * 0.11);
-                osc.stop(ctx.currentTime + f * 0.11 + 0.29);
+                osc.start(ctx.currentTime + f * 0.11); osc.stop(ctx.currentTime + f * 0.11 + 0.29);
             }
-        } catch (e) { /* safe silence */ }
+        } catch (e) {}
     }
-
-    /* === SCORE BARS === */
     function actualizarBarras(seo, perf, cro, ads) {
         var maxWidth = 80;
         barSeo.style.width  = Math.round(seo  / 100 * maxWidth) + "px";
@@ -402,8 +343,6 @@ document.addEventListener("DOMContentLoaded", function() {
         barCro.style.width  = Math.round(cro  / 100 * maxWidth) + "px";
         barAds.style.width  = Math.round(ads  / 100 * maxWidth) + "px";
     }
-
-    /* === INPUT VALIDATION === */
     function validarEntrada() {
         var val = inputConsola.value.trim();
         if (!val) {
@@ -420,8 +359,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         return val;
     }
-
-    /* === ANIMATED SCORE (requestAnimationFrame + cubic easing) === */
     function animarScore(targetScore, duration) {
         duration = duration || 1200;
         return new Promise(function(resolve) {
@@ -436,54 +373,31 @@ document.addEventListener("DOMContentLoaded", function() {
                 scoreDisplay.textContent = current + "/100";
                 dynamicGlow(current);
                 radarIntensity(current);
-                if (progress < 1) {
-                    requestAnimationFrame(step);
-                } else {
-                    scoreDisplay.textContent = targetScore + "/100";
-                    dynamicGlow(targetScore);
-                    resolve();
-                }
+                if (progress < 1) { requestAnimationFrame(step); }
+                else { scoreDisplay.textContent = targetScore + "/100"; dynamicGlow(targetScore); resolve(); }
             }
             requestAnimationFrame(step);
         });
     }
-
-    /* === MODULE BIAS MAP === */
     var MODULE_BIAS = {
-        "AUDITORIA":      { seo: 6, perf: 4, cro: 4, ads: 4  },
-        "CRO":            { seo: 2, perf: 3, cro:10, ads: 2  },
-        "SEO":            { seo:12, perf: 3, cro: 2, ads: 1  },
-        "SEM":            { seo: 1, perf: 2, cro: 4, ads:12  },
-        "ECOMMERCE":      { seo: 4, perf:10, cro: 6, ads: 3  },
-        "TRANSFORMACION": { seo: 5, perf: 6, cro: 5, ads: 5  }
+        "AUDITORIA":      { seo:6,  perf:4,  cro:4,  ads:4  },
+        "CRO":            { seo:2,  perf:3,  cro:10, ads:2  },
+        "SEO":            { seo:12, perf:3,  cro:2,  ads:1  },
+        "SEM":            { seo:1,  perf:2,  cro:4,  ads:12 },
+        "ECOMMERCE":      { seo:4,  perf:10, cro:6,  ads:3  },
+        "TRANSFORMACION": { seo:5,  perf:6,  cro:5,  ads:5  }
     };
-
-    /* === RESET UI STATE (cleanup helper) === */
-    function resetUI() {
-        isScanning = false;
-        btnAudit.disabled = false;
-        btnAudit.classList.remove("scanning");
-        btnAudit.textContent = "INICIAR AUDITORÍA";
-        inputConsola.readOnly = false;
-        desactivarRadar();
-    }
-
-    /* === MAIN AUDIT PIPELINE === */
     async function iniciarAuditoria(moduleName) {
         if (isScanning) return;
         var entrada = validarEntrada();
         if (!entrada) return;
-
         var mod = moduleName || "AUDITORIA";
         var bias = MODULE_BIAS[mod] || MODULE_BIAS["AUDITORIA"];
-
         isScanning = true;
         btnAudit.disabled = true;
         btnAudit.classList.add("scanning");
         btnAudit.textContent = "ESCANEANDO...";
         inputConsola.readOnly = true;
-
-        /* Reset UI */
         consoleClear();
         scoreDisplay.textContent = "0/100";
         dynamicGlow(0);
@@ -491,127 +405,91 @@ document.addEventListener("DOMContentLoaded", function() {
         activarRadar();
         playScanSound();
         consoleShake();
-
+        await consoleLine("> RON3IA SINGULARITY ONLINE", "line-red");
+        await consoleLine("> MODO: " + mod + " — PROTOCOLO AUTÓNOMO", "line-red");
+        await consoleLine("  Target: " + entrada.substring(0, 60) + (entrada.length > 60 ? "..." : ""), "line-white");
+        await sleep(250);
+        await consoleLine("[FASE 1/4] INICIALIZACIÓN DE MÓDULOS", "line-red");
+        await consoleLine("  ├─ Boot kernel....................... OK", "line-dim");
+        await consoleLine("  ├─ Sync radar........................ OK", "line-dim");
+        await consoleLine("  └─ Consola estratégica............... OK", "line-dim");
+        await animarScore(14, 700);
+        await sleep(150);
+        await consoleLine("[FASE 2/4] ESCANEO PROFUNDO EN CURSO", "line-red");
+        playScanSound();
+        var seoScore, perfScore, croScore, adsScore;
+        var apiUsed = false;
         try {
-            await consoleLine("> RON3IA SINGULARITY ONLINE", "line-red");
-            await consoleLine("> MODO: " + mod + " — PROTOCOLO AUTÓNOMO", "line-red");
-            await consoleLine("  Target: " + entrada.substring(0, 60) + (entrada.length > 60 ? "..." : ""), "line-white");
-            await sleep(250);
-
-            /* FASE 1/4 */
-            await consoleLine("[FASE 1/4] INICIALIZACIÓN DE MÓDULOS", "line-red");
-            await consoleLine("  ├─ Boot kernel....................... OK", "line-dim");
-            await consoleLine("  ├─ Sync radar........................ OK", "line-dim");
-            await consoleLine("  └─ Consola estratégica............... OK", "line-dim");
-            await animarScore(14, 700);
-            await sleep(150);
-
-            /* FASE 2/4 — API + fallback */
-            await consoleLine("[FASE 2/4] ESCANEO PROFUNDO EN CURSO", "line-red");
-            playScanSound();
-
-            var seoScore, perfScore, croScore, adsScore;
-            var apiUsed = false;
-
-            try {
-                var controller = new AbortController();
-                var timeoutId = setTimeout(function() { controller.abort(); }, 8000);
-
-                var response = await fetch(API_URL + "/analizar-sitio", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ descripcion: entrada, modulo: mod }),
-                    signal: controller.signal
-                });
-                clearTimeout(timeoutId);
-
-                if (response.ok) {
-                    var result = await response.json();
-                    if (result && result.scores) {
-                        seoScore  = clamp(result.scores.seo  || 50, 15, 98);
-                        perfScore = clamp(result.scores.perf || 50, 15, 98);
-                        croScore  = clamp(result.scores.cro  || 50, 15, 98);
-                        adsScore  = clamp(result.scores.ads  || 50, 15, 98);
-                        apiUsed = true;
-                    }
+            var controller = new AbortController();
+            var timeoutId = setTimeout(function() { controller.abort(); }, 8000);
+            var response = await fetch(API_URL + "/analizar-sitio", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ descripcion: entrada, modulo: mod }),
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+            if (response.ok) {
+                var result = await response.json();
+                if (result && result.scores) {
+                    seoScore  = clamp(result.scores.seo  || 50, 15, 98);
+                    perfScore = clamp(result.scores.perf || 50, 15, 98);
+                    croScore  = clamp(result.scores.cro  || 50, 15, 98);
+                    adsScore  = clamp(result.scores.ads  || 50, 15, 98);
+                    apiUsed = true;
                 }
-            } catch (e) {
-                /* API unavailable — silent fallback to local engine */
             }
-
-            /* Local fallback engine */
-            if (!apiUsed) {
-                seoScore  = clamp(55 + Math.floor(Math.random() * 35) + bias.seo,  15, 98);
-                perfScore = clamp(50 + Math.floor(Math.random() * 40) + bias.perf, 15, 98);
-                croScore  = clamp(40 + Math.floor(Math.random() * 45) + bias.cro,  15, 98);
-                adsScore  = clamp(45 + Math.floor(Math.random() * 40) + bias.ads,  15, 98);
-            }
-
-            await consoleLine("  ├─ Analizando arquitectura SEO........", "line-dim");
-            actualizarBarras(seoScore, 0, 0, 0);
-            await animarScore(28, 520);
-            await consoleLine("     → Score: " + seoScore, "line-green");
-
-            await consoleLine("  ├─ Evaluando performance técnica......", "line-dim");
-            actualizarBarras(seoScore, perfScore, 0, 0);
-            await animarScore(42, 520);
-            await consoleLine("     → Score: " + perfScore, "line-green");
-
-            await consoleLine("  ├─ Mapeando fricción CRO..............", "line-dim");
-            actualizarBarras(seoScore, perfScore, croScore, 0);
-            await animarScore(56, 520);
-            await consoleLine("     → Score: " + croScore, "line-green");
-
-            await consoleLine("  └─ Auditando eficiencia ADS...........", "line-dim");
-            actualizarBarras(seoScore, perfScore, croScore, adsScore);
-            await animarScore(68, 520);
-            await consoleLine("     → Score: " + adsScore, "line-green");
-
-            /* FASE 3/4 */
-            await consoleLine("[FASE 3/4] PROCESAMIENTO ESTRATÉGICO", "line-red");
-            await consoleLine("  ├─ Cruzando señales multi-canal.......", "line-dim");
-            await consoleLine("  ├─ Estimando impacto financiero.......", "line-dim");
-            await consoleLine("  └─ Priorizando acciones...............", "line-dim");
-            await animarScore(78, 760);
-
-            /* FASE 4/4 — VEREDICTO */
-            var finalScore = Math.round((seoScore + perfScore + croScore + adsScore) / 4);
-            if (systemScore === 0) {
-                systemScore = finalScore;
-            } else {
-                systemScore = Math.round((systemScore + finalScore) / 2);
-            }
-
-            await consoleLine("[FASE 4/4] VEREDICTO FINAL", "line-red");
-            playVerdict();
-            await animarScore(systemScore, 980);
-
-            var nivel = systemScore >= 80 ? "ÓPTIMO" : systemScore >= 60 ? "MEJORABLE" : systemScore >= 40 ? "EN RIESGO" : "CRÍTICO";
-            await consoleLine("", "");
-            await consoleLine("  ══════════════════════════════════════", "line-red");
-            await consoleLine("  SCORE FINAL: " + systemScore + "/100 — ESTADO: " + nivel, "line-red");
-            await consoleLine("  SEO: " + seoScore + " | PERF: " + perfScore + " | CRO: " + croScore + " | ADS: " + adsScore, "line-white");
-            await consoleLine("  ══════════════════════════════════════", "line-red");
-            await consoleLine("", "");
-            await consoleLine("  " + (apiUsed ? "⚡ Datos desde API producción" : "⚙ Motor local activo") + " — systemScore: " + systemScore, "line-dim");
-
-            hudFlash();
-
-        } catch (engineError) {
-            /* Catch-all: any unexpected error during pipeline — reset UI cleanly */
-            consoleLine("  [ERROR] Motor interrumpido. Reintente.", "line-red");
+        } catch (e) {}
+        if (!apiUsed) {
+            seoScore  = clamp(55 + Math.floor(Math.random() * 35) + bias.seo,  15, 98);
+            perfScore = clamp(50 + Math.floor(Math.random() * 40) + bias.perf, 15, 98);
+            croScore  = clamp(40 + Math.floor(Math.random() * 45) + bias.cro,  15, 98);
+            adsScore  = clamp(45 + Math.floor(Math.random() * 40) + bias.ads,  15, 98);
         }
-
-        /* Always reset UI — even if pipeline threw */
-        resetUI();
+        await consoleLine("  ├─ Analizando arquitectura SEO........", "line-dim");
+        actualizarBarras(seoScore, 0, 0, 0);
+        await animarScore(28, 520);
+        await consoleLine("     → Score: " + seoScore, "line-green");
+        await consoleLine("  ├─ Evaluando performance técnica......", "line-dim");
+        actualizarBarras(seoScore, perfScore, 0, 0);
+        await animarScore(42, 520);
+        await consoleLine("     → Score: " + perfScore, "line-green");
+        await consoleLine("  ├─ Mapeando fricción CRO..............", "line-dim");
+        actualizarBarras(seoScore, perfScore, croScore, 0);
+        await animarScore(56, 520);
+        await consoleLine("     → Score: " + croScore, "line-green");
+        await consoleLine("  └─ Auditando eficiencia ADS...........", "line-dim");
+        actualizarBarras(seoScore, perfScore, croScore, adsScore);
+        await animarScore(68, 520);
+        await consoleLine("     → Score: " + adsScore, "line-green");
+        await consoleLine("[FASE 3/4] PROCESAMIENTO ESTRATÉGICO", "line-red");
+        await consoleLine("  ├─ Cruzando señales multi-canal.......", "line-dim");
+        await consoleLine("  ├─ Estimando impacto financiero.......", "line-dim");
+        await consoleLine("  └─ Priorizando acciones...............", "line-dim");
+        await animarScore(78, 760);
+        var finalScore = Math.round((seoScore + perfScore + croScore + adsScore) / 4);
+        if (systemScore === 0) { systemScore = finalScore; }
+        else { systemScore = Math.round((systemScore + finalScore) / 2); }
+        await consoleLine("[FASE 4/4] VEREDICTO FINAL", "line-red");
+        playVerdict();
+        await animarScore(systemScore, 980);
+        var nivel = systemScore >= 80 ? "ÓPTIMO" : systemScore >= 60 ? "MEJORABLE" : systemScore >= 40 ? "EN RIESGO" : "CRÍTICO";
+        await consoleLine("", "");
+        await consoleLine("  ══════════════════════════════════════", "line-red");
+        await consoleLine("  SCORE FINAL: " + systemScore + "/100 — ESTADO: " + nivel, "line-red");
+        await consoleLine("  SEO: " + seoScore + " | PERF: " + perfScore + " | CRO: " + croScore + " | ADS: " + adsScore, "line-white");
+        await consoleLine("  ══════════════════════════════════════", "line-red");
+        await consoleLine("", "");
+        await consoleLine("  " + (apiUsed ? "⚡ Datos desde API producción" : "⚙ Motor local activo") + " — systemScore: " + systemScore, "line-dim");
+        hudFlash();
+        desactivarRadar();
+        isScanning = false;
+        btnAudit.disabled = false;
+        btnAudit.classList.remove("scanning");
+        btnAudit.textContent = "INICIAR AUDITORÍA";
+        inputConsola.readOnly = false;
     }
-
-    /* === EVENT: AUDIT BUTTON === */
-    btnAudit.addEventListener("click", function() {
-        iniciarAuditoria();
-    });
-
-    /* === EVENT: SERVICE CARDS (IIFE closure) === */
+    btnAudit.addEventListener("click", function() { iniciarAuditoria(); });
     var cards = document.querySelectorAll(".service-card");
     for (var i = 0; i < cards.length; i++) {
         (function(card) {
@@ -627,8 +505,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         })(cards[i]);
     }
-
-}); /* fin DOMContentLoaded */
+});
 </script>
 </body>
 </html>
