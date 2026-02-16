@@ -17,6 +17,8 @@ import {
   Footer 
 } from '@/sections';
 import { Loader2 } from 'lucide-react';
+import WarRoom from "./sections/WarRoom";
+import { PROTOCOLS } from "./lib/protocols";
 
 // Loading Screen Component
 function LoadingScreen({ onComplete }: { onComplete: () => void }) {
@@ -120,6 +122,48 @@ function App() {
     };
   }, [isLoading]);
 
+  useEffect(() => {
+    const handler = (e: any) => {
+      const protocol = e.detail.protocol;
+
+      console.log("RON3IA ejecutando servicio:", protocol);
+
+      switch(protocol){
+
+         case PROTOCOLS.SEO_OPTIMIZATION:
+            location.href="/analizar-ahora.html?service=seo";
+            break;
+
+         case PROTOCOLS.CRO_OPTIMIZATION:
+            location.href="/analizar-ahora.html?service=cro";
+            break;
+
+         case PROTOCOLS.SEM_AUTOMATION:
+            location.href="/analizar-ahora.html?service=sem";
+            break;
+
+         case PROTOCOLS.ECOMMERCE_GROWTH:
+            location.href="/analizar-ahora.html?service=ecommerce";
+            break;
+
+         case PROTOCOLS.DIGITAL_TRANSFORMATION:
+            location.href="/analizar-ahora.html?service=transformacion";
+            break;
+
+         default:
+            location.href="/analizar-ahora.html?service=auditoria";
+      }
+
+    };
+
+    window.addEventListener("ron3ia:executeService", handler);
+
+    return () => {
+      window.removeEventListener("ron3ia:executeService", handler);
+    };
+
+  }, []);
+
   const handleLoadingComplete = () => {
     setIsLoading(false);
     setTimeout(() => setShowContent(true), 100);
@@ -152,6 +196,7 @@ function App() {
             
             <main>
               <Hero />
+              <WarRoom />
               <Dashboard />
               <Services />
               <Process />
