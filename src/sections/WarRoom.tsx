@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import "../styles/warroom.css";
+import { PROTOCOLS } from "../lib/protocols";
 
 declare global {
   interface Window {
@@ -71,12 +72,12 @@ export default function WarRoom() {
 
     function decideProtocol(data:any){
 
-       if(data.seo < 60) return "SEO_OPTIMIZATION";
-       if(data.cro < 60) return "CONVERSION_PROTOCOL";
-       if(data.perf < 60) return "PERFORMANCE_BOOST";
-       if(data.ads < 50) return "ADS_RECOVERY";
+       if(data.seo < 60) return PROTOCOLS.SEO_OPTIMIZATION;
+       if(data.cro < 60) return PROTOCOLS.CRO_OPTIMIZATION;
+       if(data.perf < 60) return PROTOCOLS.AUDITORIA;
+       if(data.ads < 50) return PROTOCOLS.SEM_AUTOMATION;
 
-       return "FULL_STRATEGIC_PROTOCOL";
+       return PROTOCOLS.AUDITORIA;
     }
 
     const result = {
@@ -163,7 +164,7 @@ export default function WarRoom() {
 
           window.dispatchEvent(new Event("ron3ia:funnelActivated"));
 
-          const protocol = window.__selectedProtocol || "AUDITORIA";
+          const protocol = window.__selectedProtocol || PROTOCOLS.AUDITORIA;
 
           log(`> INICIANDO FLUJO AUTÓNOMO: ${protocol}`);
 

@@ -18,6 +18,7 @@ import {
 } from '@/sections';
 import { Loader2 } from 'lucide-react';
 import WarRoom from "./sections/WarRoom";
+import { PROTOCOLS } from "./lib/protocols";
 
 // Loading Screen Component
 function LoadingScreen({ onComplete }: { onComplete: () => void }) {
@@ -129,28 +130,28 @@ function App() {
 
       switch(protocol){
 
-         case "SEO":
-            window.location.href = "/analizar-ahora.html?service=seo";
+         case PROTOCOLS.SEO_OPTIMIZATION:
+            location.href="/analizar-ahora.html?service=seo";
             break;
 
-         case "CRO":
-            window.location.href = "/analizar-ahora.html?service=cro";
+         case PROTOCOLS.CRO_OPTIMIZATION:
+            location.href="/analizar-ahora.html?service=cro";
             break;
 
-         case "SEM":
-            window.location.href = "/analizar-ahora.html?service=sem";
+         case PROTOCOLS.SEM_AUTOMATION:
+            location.href="/analizar-ahora.html?service=sem";
             break;
 
-         case "ECOMMERCE":
-            window.location.href = "/analizar-ahora.html?service=ecommerce";
+         case PROTOCOLS.ECOMMERCE_GROWTH:
+            location.href="/analizar-ahora.html?service=ecommerce";
             break;
 
-         case "TRANSFORMACION":
-            window.location.href = "/analizar-ahora.html?service=transformacion";
+         case PROTOCOLS.DIGITAL_TRANSFORMATION:
+            location.href="/analizar-ahora.html?service=transformacion";
             break;
 
          default:
-            window.location.href = "/analizar-ahora.html?service=auditoria";
+            location.href="/analizar-ahora.html?service=auditoria";
       }
 
     };
