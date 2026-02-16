@@ -163,6 +163,16 @@ export default function WarRoom() {
 
           window.dispatchEvent(new Event("ron3ia:funnelActivated"));
 
+          const protocol = window.__selectedProtocol || "AUDITORIA";
+
+          log(`> INICIANDO FLUJO AUTÓNOMO: ${protocol}`);
+
+          window.dispatchEvent(
+             new CustomEvent("ron3ia:executeService", {
+                detail: { protocol }
+             })
+          );
+
           return;
        }
 
