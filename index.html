@@ -256,7 +256,7 @@ background-size:40px 40px;
 pointer-events:none;
 }
 
-/* RADAR LINE */
+/* RADAR */
 
 .radar{
 position:fixed;
@@ -325,19 +325,6 @@ white-space:pre-wrap;
 margin-bottom:15px;
 }
 
-/* GLITCH */
-
-.glitch{
-animation:glitch .12s;
-}
-@keyframes glitch{
-0%{transform:translateX(0)}
-25%{transform:translateX(-3px)}
-50%{transform:translateX(3px)}
-75%{transform:translateX(-2px)}
-100%{transform:translateX(0)}
-}
-
 .console-btn{
 width:100%;
 background:red;
@@ -351,6 +338,7 @@ font-weight:bold;
 .console-btn.scanning{
 animation:pulse 1s infinite;
 }
+
 @keyframes pulse{
 0%{box-shadow:0 0 5px red;}
 50%{box-shadow:0 0 25px red;}
@@ -370,9 +358,11 @@ padding:20px;
 cursor:pointer;
 transition:.3s;
 }
+
 .service-card:hover{
 box-shadow:0 0 15px red;
 }
+
 .service-card strong{
 display:block;
 color:red;
@@ -733,6 +723,10 @@ INICIAR AUDITORÍA
 
 <script>
 
+/* ===== CONFIG API ===== */
+const RON3IA_API="https://TU-ENDPOINT.run.app/analyze"; // cambiar
+
+/* ===== DOM ===== */
 const scoreDisplay=document.getElementById("scoreDisplay");
 const consoleOut=document.getElementById("consoleOutput");
 const btn=document.getElementById("btnAudit");
@@ -740,29 +734,23 @@ const cards=document.querySelectorAll(".service-card");
 
 let scanning=false;
 
+/* ===== HELPERS ===== */
+
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 
-function glitch(){
-consoleOut.classList.add("glitch");
-setTimeout(()=>consoleOut.classList.remove("glitch"),120);
+function activateCard(active){
+cards.forEach(c=>c.style.boxShadow="");
+active.style.boxShadow="0 0 25px red";
 }
 
 async function consoleLine(text){
-
 let line=document.createElement("div");
 consoleOut.appendChild(line);
-
-for(let i=0;i<text.length;i++){
-
-line.textContent+=text[i];
+line.textContent=text;
 consoleOut.scrollTop=consoleOut.scrollHeight;
-
-if(Math.random()<0.04) glitch();
-
-await sleep(6);
 }
 
-}
+/* ===== CORE WAR ROOM ===== */
 
 async function runScan(module="GENERAL"){
 
@@ -772,47 +760,80 @@ scanning=true;
 btn.classList.add("scanning");
 
 consoleOut.innerHTML="";
+scoreDisplay.textContent="0/100";
 
-await consoleLine("> BOOT RON3IA...");
-await consoleLine("> COMMAND PROTOCOL ACTIVE");
-await consoleLine("> MODE: "+module);
-
-const fases=[
-"[SYNC] Inicializando módulos...",
-"[SCAN] Analizando arquitectura...",
-"[AI] Evaluando patrones...",
-"[DATA] Cruzando señales...",
-"[ENGINE] Calculando score..."
+const STATES=[
+"> BOOT RON3IA CORE...",
+"> CARGANDO MÓDULOS...",
+"> ACTIVANDO IA ENGINE...",
+"> CONECTANDO CLOUD RUN...",
+"> EJECUTANDO "+module+"..."
 ];
 
-for(const f of fases){
+for(const s of STATES){
+await consoleLine(s);
+}
 
-await consoleLine(f);
+/* ===== API STREAMING ===== */
 
-for(let i=0;i<20;i++){
+try{
 
-let current=parseInt(scoreDisplay.textContent)||0;
-scoreDisplay.textContent=(current+1)+"/100";
-await sleep(15);
+const response=await fetch(RON3IA_API,{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({module})
+});
 
+const reader=response.body.getReader();
+const decoder=new TextDecoder();
+
+let buffer="";
+
+while(true){
+
+const {done,value}=await reader.read();
+if(done)break;
+
+buffer+=decoder.decode(value,{stream:true});
+
+await consoleLine(buffer);
+
+/* detectar score dinámico */
+
+let match=buffer.match(/"score"\s*:\s*(\d+)/);
+
+if(match){
+scoreDisplay.textContent=match[1]+"/100";
 }
 
 }
 
-await consoleLine("[OK] Diagnóstico completado.");
-await consoleLine("[RON3IA] LISTO.");
+}catch(e){
+
+await consoleLine("[ERROR] API NO DISPONIBLE");
+await consoleLine("[FALLBACK LOCAL]");
+
+for(let i=0;i<=85;i++){
+scoreDisplay.textContent=i+"/100";
+await sleep(10);
+}
+
+}
+
+await consoleLine("> WAR ROOM READY");
 
 btn.classList.remove("scanning");
 scanning=false;
 
 }
 
+/* ===== EVENTOS ===== */
+
 btn.addEventListener("click",()=>runScan("GENERAL"));
 
 cards.forEach(card=>{
 card.addEventListener("click",()=>{
-cards.forEach(c=>c.style.boxShadow="");
-card.style.boxShadow="0 0 25px red";
+activateCard(card);
 runScan(card.dataset.module);
 >>>>>>> ff866b2 (WAR ROOM COMMAND MODE ACTIVADO)
 });
