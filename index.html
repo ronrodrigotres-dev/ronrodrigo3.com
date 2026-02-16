@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<<<<<<< HEAD
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RON3IA | Consola de Inteligencia Estratégica</title>
@@ -219,8 +220,170 @@
             letter-spacing:2px;
         }
     </style>
+=======
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RON3IA | WAR ROOM COMMAND</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+:root{ --neon-red:#ff0000; }
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+background:black;
+color:white;
+font-family:'Orbitron',sans-serif;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* HUD GRID */
+
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:
+linear-gradient(rgba(255,0,0,.04) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,0,0,.04) 1px, transparent 1px);
+background-size:40px 40px;
+pointer-events:none;
+}
+
+/* RADAR LINE */
+
+.radar{
+position:fixed;
+width:2px;
+height:100%;
+background:linear-gradient(transparent,red,transparent);
+left:30%;
+animation:scan 3s linear infinite;
+opacity:.4;
+}
+
+@keyframes scan{
+0%{transform:translateY(-100%);}
+100%{transform:translateY(100%);}
+}
+
+.content{
+max-width:1200px;
+margin:auto;
+padding:30px;
+}
+
+.logo-text{
+font-size:6rem;
+text-align:center;
+letter-spacing:15px;
+text-shadow:0 0 25px red;
+}
+
+.main-subtitle{
+text-align:center;
+color:red;
+margin-bottom:25px;
+}
+
+.main-grid{
+display:grid;
+grid-template-columns:1fr 1.4fr;
+gap:20px;
+margin-top:30px;
+}
+
+.score-box,.console-box{
+background:#050000;
+border:2px solid red;
+border-radius:12px;
+padding:25px;
+}
+
+#scoreDisplay{
+font-size:3rem;
+text-align:center;
+margin:25px 0;
+text-shadow:0 0 15px red;
+}
+
+.console-output{
+background:black;
+border:1px solid #222;
+height:260px;
+overflow:auto;
+font-family:monospace;
+padding:12px;
+color:#00ff41;
+white-space:pre-wrap;
+margin-bottom:15px;
+}
+
+/* GLITCH */
+
+.glitch{
+animation:glitch .12s;
+}
+@keyframes glitch{
+0%{transform:translateX(0)}
+25%{transform:translateX(-3px)}
+50%{transform:translateX(3px)}
+75%{transform:translateX(-2px)}
+100%{transform:translateX(0)}
+}
+
+.console-btn{
+width:100%;
+background:red;
+border:none;
+padding:14px;
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+.console-btn.scanning{
+animation:pulse 1s infinite;
+}
+@keyframes pulse{
+0%{box-shadow:0 0 5px red;}
+50%{box-shadow:0 0 25px red;}
+100%{box-shadow:0 0 5px red;}
+}
+
+.services-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-top:40px;
+}
+
+.service-card{
+border:1px solid red;
+padding:20px;
+cursor:pointer;
+transition:.3s;
+}
+.service-card:hover{
+box-shadow:0 0 15px red;
+}
+.service-card strong{
+display:block;
+color:red;
+}
+
+</style>
+>>>>>>> ff866b2 (WAR ROOM COMMAND MODE ACTIVADO)
 </head>
+
 <body>
+<<<<<<< HEAD
     <div id="scanOverlay" class="scan-overlay">
         <div class="scan-line"></div>
         <div class="scan-text">ANALIZANDO...</div>
@@ -521,7 +684,141 @@ document.addEventListener("DOMContentLoaded", function() {
             iniciarAuditoria(selectedModule);
         });
     });
+=======
+
+<div class="radar"></div>
+
+<div class="content">
+
+<h1 class="logo-text">RON3IA</h1>
+
+<div class="main-subtitle">
+WAR ROOM — COMMAND MODE ACTIVE
+</div>
+
+<div class="main-grid">
+
+<div class="score-box">
+<div>SCORE DE SALUD DIGITAL</div>
+<div id="scoreDisplay">0/100</div>
+</div>
+
+<div class="console-box">
+
+<div id="consoleOutput" class="console-output">
+RON3IA COMMAND ONLINE...
+Esperando órdenes...
+</div>
+
+<button id="btnAudit" class="console-btn">
+INICIAR AUDITORÍA
+</button>
+
+</div>
+
+</div>
+
+<div class="services-grid">
+
+<div class="service-card" data-module="AUDITORIA"><strong>DIAGNÓSTICO AUTÓNOMO IA</strong></div>
+<div class="service-card" data-module="CRO"><strong>INGENIERÍA CRO</strong></div>
+<div class="service-card" data-module="SEO"><strong>ARQUITECTURA SEO</strong></div>
+<div class="service-card" data-module="SEM"><strong>OPTIMIZACIÓN ADS</strong></div>
+<div class="service-card" data-module="ECOMMERCE"><strong>ESCALADO ECOMMERCE</strong></div>
+<div class="service-card" data-module="TRANSFORMACION"><strong>AUTOMATIZACIÓN IA</strong></div>
+
+</div>
+
+</div>
+
+<script>
+
+const scoreDisplay=document.getElementById("scoreDisplay");
+const consoleOut=document.getElementById("consoleOutput");
+const btn=document.getElementById("btnAudit");
+const cards=document.querySelectorAll(".service-card");
+
+let scanning=false;
+
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+function glitch(){
+consoleOut.classList.add("glitch");
+setTimeout(()=>consoleOut.classList.remove("glitch"),120);
+}
+
+async function consoleLine(text){
+
+let line=document.createElement("div");
+consoleOut.appendChild(line);
+
+for(let i=0;i<text.length;i++){
+
+line.textContent+=text[i];
+consoleOut.scrollTop=consoleOut.scrollHeight;
+
+if(Math.random()<0.04) glitch();
+
+await sleep(6);
+}
+
+}
+
+async function runScan(module="GENERAL"){
+
+if(scanning)return;
+scanning=true;
+
+btn.classList.add("scanning");
+
+consoleOut.innerHTML="";
+
+await consoleLine("> BOOT RON3IA...");
+await consoleLine("> COMMAND PROTOCOL ACTIVE");
+await consoleLine("> MODE: "+module);
+
+const fases=[
+"[SYNC] Inicializando módulos...",
+"[SCAN] Analizando arquitectura...",
+"[AI] Evaluando patrones...",
+"[DATA] Cruzando señales...",
+"[ENGINE] Calculando score..."
+];
+
+for(const f of fases){
+
+await consoleLine(f);
+
+for(let i=0;i<20;i++){
+
+let current=parseInt(scoreDisplay.textContent)||0;
+scoreDisplay.textContent=(current+1)+"/100";
+await sleep(15);
+
+}
+
+}
+
+await consoleLine("[OK] Diagnóstico completado.");
+await consoleLine("[RON3IA] LISTO.");
+
+btn.classList.remove("scanning");
+scanning=false;
+
+}
+
+btn.addEventListener("click",()=>runScan("GENERAL"));
+
+cards.forEach(card=>{
+card.addEventListener("click",()=>{
+cards.forEach(c=>c.style.boxShadow="");
+card.style.boxShadow="0 0 25px red";
+runScan(card.dataset.module);
+>>>>>>> ff866b2 (WAR ROOM COMMAND MODE ACTIVADO)
 });
+});
+
 </script>
+
 </body>
 </html>
