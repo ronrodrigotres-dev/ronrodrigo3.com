@@ -154,6 +154,66 @@ box-shadow:0 0 10px red;
 
 </style>
 
+
+<!-- REACTOR CORE CINEMATIC SAFE PATCH -->
+<style>
+
+.logo-text{
+    position:relative !important;
+    text-shadow:
+        0 0 10px #ffffff,
+        0 0 30px #ff0000,
+        0 0 60px #ff0000,
+        0 0 120px #ff0000,
+        0 0 220px #ff0000 !important;
+}
+
+.logo-text::before{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:160%;
+    height:160%;
+    background:radial-gradient(circle, rgba(255,0,0,0.35) 0%, transparent 70%);
+    filter:blur(90px);
+    z-index:-1;
+    animation: reactorHalo 1.6s ease-in-out infinite;
+}
+
+@keyframes reactorHalo{
+    0%,100%{ transform:translate(-50%,-50%) scale(1); opacity:.6;}
+    50%{ transform:translate(-50%,-50%) scale(1.2); opacity:1;}
+}
+
+</style>
+
+
+<style>
+
+/* ===== RON3IA FINAL LOCK ===== */
+
+.logo-text{
+    color:#ffffff !important;
+    text-shadow:
+        0 0 10px #ffffff,
+        0 0 30px #ff0000,
+        0 0 60px #ff0000,
+        0 0 120px #ff0000,
+        0 0 200px #ff0000 !important;
+}
+
+.logo-text::before{
+    display:none !important;
+}
+
+body::after{
+    display:none !important;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -260,5 +320,7 @@ el.onclick=()=>run(el.dataset.module);
 
 </body>
 </html>
+
+
 
 
