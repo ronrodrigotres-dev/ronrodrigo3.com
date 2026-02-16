@@ -8,9 +8,10 @@ declare global {
     __planStarted?: boolean;
     __selectedProtocol?: string;
     __diagnosticResult?: {
-      protocol: string;
+      protocol: any;
       score: number;
-      raw: any;
+      timestamp?: number;
+      raw?: any;
     };
   }
 }
@@ -99,6 +100,15 @@ export default function WarRoom() {
 
     window.__selectedProtocol = protocol;
 
+    window.dispatchEvent(
+       new CustomEvent("ron3ia:salePipeline",{
+          detail:{
+             protocol: window.__selectedProtocol,
+             score: final
+          }
+       })
+    );
+
     window.__diagnosticResult = {
        protocol,
        score: final,
@@ -162,11 +172,27 @@ export default function WarRoom() {
              detail:{ protocol }
           }));
 
+          const final = Number(score?.textContent || 0);
+
+          // Persistencia de diagnóstico
+          window.__diagnosticResult = {
+             protocol: window.__selectedProtocol,
+             score: final,
+             timestamp: Date.now()
+          };
+
+          sessionStorage.setItem(
+             "ron3ia_diagnostic",
+             JSON.stringify(window.__diagnosticResult)
+          );
+
           window.dispatchEvent(
              new CustomEvent("ron3ia:executeService", {
                 detail: { protocol }
              })
           );
+
+          window.location.href = `/analizar-ahora.html?service=${protocol}`;
 
           return;
        }
