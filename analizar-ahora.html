@@ -127,13 +127,21 @@
     <script>
         window.onload = async () => {
             const brand = "RON3IA";
+
+            const result = window.__diagnosticResult || (() => {
+                try {
+                    return JSON.parse(sessionStorage.getItem("ron3ia:diagnosticResult") || "null");
+                } catch (e) {
+                    return null;
+                }
+            })();
             
             setTimeout(() => {
                 document.getElementById('loading-screen').style.display = 'none';
                 document.getElementById('resultado').style.display = 'block';
-                document.getElementById('final-brand').textContent = brand;
-                document.getElementById('final-score').textContent = '87%';
-                document.getElementById('final-grade').textContent = 'GEO Readiness: ALTA';
+                document.getElementById('final-brand').textContent = result?.protocol ? `${brand} — ${result.protocol}` : brand;
+                document.getElementById('final-score').textContent = `${(result?.score ?? 87)}%`;
+                document.getElementById('final-grade').textContent = result ? 'Diagnóstico recibido: LISTO PARA EJECUCIÓN' : 'GEO Readiness: ALTA';
                 
                 const roadmap = [
                     "✓ Mejorar Schema Markup para entidades",

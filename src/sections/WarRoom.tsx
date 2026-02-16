@@ -7,6 +7,11 @@ declare global {
     __warroomInitialized?: boolean;
     __planStarted?: boolean;
     __selectedProtocol?: string;
+    __diagnosticResult?: {
+      protocol: string;
+      score: number;
+      raw: any;
+    };
   }
 }
 
@@ -25,6 +30,8 @@ export default function WarRoom() {
 
     // pegar aquí EXACTAMENTE la lógica actual
     // (btn.onclick, run(), log(), querySelectorAll)
+
+    if(!window.__planStarted) window.__planStarted=false;
 
     let funnelReady = false;
 
@@ -92,6 +99,16 @@ export default function WarRoom() {
 
     window.__selectedProtocol = protocol;
 
+    window.__diagnosticResult = {
+       protocol,
+       score: final,
+       raw: data
+    };
+
+    try{
+       sessionStorage.setItem("ron3ia:diagnosticResult", JSON.stringify(window.__diagnosticResult));
+    }catch(e){}
+
     score.textContent=final;
 
     log("> INEFICIENCIAS DETECTADAS");
@@ -107,6 +124,7 @@ export default function WarRoom() {
 
     funnelReady = true;
     btn.textContent = "ACTIVAR PLAN";
+    btn.classList.add("funnel-active");
 
     }catch(e){
 
@@ -139,6 +157,10 @@ export default function WarRoom() {
           const protocol = window.__selectedProtocol || PROTOCOLS.AUDITORIA;
 
           log(`> INICIANDO FLUJO AUTÓNOMO: ${protocol}`);
+
+          window.dispatchEvent(new CustomEvent("ron3ia:conversionIntent",{
+             detail:{ protocol }
+          }));
 
           window.dispatchEvent(
              new CustomEvent("ron3ia:executeService", {
