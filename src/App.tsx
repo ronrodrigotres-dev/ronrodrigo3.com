@@ -17,6 +17,7 @@ import {
   Footer 
 } from '@/sections';
 import { Loader2 } from 'lucide-react';
+import WarRoom from "./sections/WarRoom";
 
 // Loading Screen Component
 function LoadingScreen({ onComplete }: { onComplete: () => void }) {
@@ -152,6 +153,7 @@ function App() {
             
             <main>
               <Hero />
+              <WarRoom />
               <Dashboard />
               <Services />
               <Process />
