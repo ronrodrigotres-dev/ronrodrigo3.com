@@ -26,10 +26,10 @@ function App() {
     isRunning: false,
     progress: 0,
     modules: [
-      { name: 'Arquitectura SEO escaneada', status: 'pending' },
-      { name: 'Performance audit ejecutado', status: 'pending' },
-      { name: 'Analizando funnels CRO', status: 'pending' },
-      { name: 'Generando veredicto estratégico', status: 'pending' },
+      { name: 'Infraestructura digital mapeada', status: 'pending' },
+      { name: 'Fugas de capital identificadas', status: 'pending' },
+      { name: 'Estructura de conversión modelada', status: 'pending' },
+      { name: 'Escenario de expansión simulado', status: 'pending' },
     ],
     dataNodes: 0,
     errorsDetected: 0,
@@ -39,16 +39,17 @@ function App() {
   const [showAnalysis, setShowAnalysis] = useState(false);
   const analysisRef = useRef<HTMLDivElement>(null);
   const [isPremium, setIsPremium] = useState(false);
+  const [showScanMsg, setShowScanMsg] = useState(false);
 
   // Módulos disponibles
   const modules = [
-    { id: 'auditoria', name: 'AUDITORÍA ESTRATÉGICA' },
-    { id: 'cro', name: 'INGENIERÍA DE CONVERSIÓN (CRO)' },
-    { id: 'seo', name: 'ARQUITECTURA SEO' },
-    { id: 'growth', name: 'GROWTH & SEM INTELIGENTE' },
-    { id: 'ecommerce', name: 'E-COMMERCE PERFORMANCE' },
-    { id: 'transformacion', name: 'TRANSFORMACIÓN DIGITAL' },
-    { id: 'geo', name: 'GEO', description: 'Generative Engine Optimization' },
+    { id: 'auditoria', name: 'Subproceso Intelligence' },
+    { id: 'cro', name: 'Subproceso Conversion Engine' },
+    { id: 'seo', name: 'Subproceso SEO Engine' },
+    { id: 'growth', name: 'Subproceso Growth Engine' },
+    { id: 'ecommerce', name: 'Subproceso Commerce Engine' },
+    { id: 'transformacion', name: 'Subproceso Expansion Engine' },
+    { id: 'geo', name: 'Subproceso GEO Engine', description: 'Generative Engine Optimization' },
   ];
 
   // Scroll suave al análisis
@@ -92,10 +93,14 @@ function App() {
   }, [analysis.isRunning]);
 
   const handleStartDiagnostic = () => {
-    const warRoom = document.getElementById('war-room');
-    if (warRoom) {
-      warRoom.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    setShowScanMsg(true);
+    setTimeout(() => {
+      setShowScanMsg(false);
+      const warRoom = document.getElementById('war-room');
+      if (warRoom) {
+        warRoom.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 800);
   };
 
   const handleExecuteAnalysis = () => {
@@ -164,12 +169,12 @@ function App() {
 
           {/* H1 Principal */}
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-light tracking-wide mb-6 text-white/90">
-            Sistema Autónomo de Diagnóstico Digital
+            Motor Autónomo de Decisión Estratégica
           </h2>
 
           {/* Subtexto */}
           <p className="text-base sm:text-lg text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Detecta pérdidas, optimiza conversiones y ejecuta decisiones estratégicas.
+            Ejecuta diagnóstico. Emite veredicto. Reasigna capital.
           </p>
 
           {/* Botón Principal Industrial */}
@@ -177,10 +182,20 @@ function App() {
             onClick={handleStartDiagnostic}
             className="group relative px-12 py-5 bg-white text-black font-mono text-sm tracking-widest uppercase transition-all duration-200 hover:bg-white/90 active:scale-[0.98]"
           >
-            <span className="relative z-10">[ INICIAR DIAGNÓSTICO ]</span>
+            <span className="relative z-10">[ ACTIVAR SISTEMA ]</span>
             {/* Borde decorativo */}
             <div className="absolute -inset-[1px] border border-white/20 pointer-events-none" />
           </button>
+          {showScanMsg && (
+            <p className="mt-4 text-xs font-mono text-white/60">
+              Autorización de escaneo remoto…
+            </p>
+          )}
+          {!showScanMsg && (
+            <p className="mt-4 text-xs font-mono text-white/40">
+              RON3IA opera sin intervención humana.
+            </p>
+          )}
         </div>
 
         {/* Indicador de scroll */}
@@ -211,7 +226,7 @@ function App() {
               {/* Título */}
               <div className="mb-10">
                 <h2 className="text-xl sm:text-2xl font-mono text-white mb-2">
-                  Configuración de Análisis
+                  Protocolo de Activación
                 </h2>
                 <div className="w-24 h-px bg-white/30" />
               </div>
@@ -260,7 +275,7 @@ function App() {
               <div className="flex items-center gap-4 mb-8">
                 <div className="flex-1 h-px bg-white/10" />
                 <span className="text-[10px] tracking-widest text-white/40 uppercase">
-                  Selecciona un módulo estratégico
+                  Detección autónoma de subsistemas
                 </span>
                 <div className="flex-1 h-px bg-white/10" />
               </div>
@@ -315,7 +330,7 @@ function App() {
                   }
                 `}
               >
-                [ EJECUTAR ANÁLISIS RON3IA ]
+                [ EMITIR VEREDICTO ]
               </button>
             </div>
           </div>
@@ -419,13 +434,13 @@ function App() {
                       <>
                         <div className="flex items-center gap-4 mb-4">
                           <span className="text-emerald-400 text-xl">✔</span>
-                          <span className="text-white font-mono">ANÁLISIS COMPLETADO</span>
+                          <span className="text-white font-mono">DIAGNÓSTICO CONCLUIDO</span>
                         </div>
                         <p className="text-white/60 text-sm mb-6">
-                          El diagnóstico ha finalizado. Los resultados detallados están listos para su revisión.
+                          Decisión estratégica disponible. Operación ejecutada sin sesgo humano.
                         </p>
                         <button className="px-8 py-4 border border-white text-white font-mono text-xs tracking-widest uppercase hover:bg-white hover:text-black transition-all duration-200">
-                          [ VER RESULTADOS COMPLETOS ]
+                          [ ACCEDER AL VEREDICTO ]
                         </button>
                       </>
                     ) : (
