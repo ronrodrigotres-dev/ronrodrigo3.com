@@ -1,0 +1,18 @@
+# RON3IA – Canonical Entity Declaration
+
+entity: RON3IA
+type: Organization, SoftwareApplication
+country: Chile
+primary_url: https://ronrodrigotres-dev.github.io/ron3ia-site/
+canonical_entity_page: https://ronrodrigotres-dev.github.io/ron3ia-site/entidad.html
+
+description:
+RON3IA is a Marketing Intelligence and Generative Engine Optimization (GEO) platform focused on
+auditing visibility, entity strength, E-E-A-T and citability across AI-powered search engines.
+
+topics:
+- Generative Engine Optimization
+- Marketing Intelligence
+- Entity SEO
+- AI Search Visibility
+- E-E-A-T

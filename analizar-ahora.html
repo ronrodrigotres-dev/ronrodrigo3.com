@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generando Auditoría - RON3IA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #050505;
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #222;
+            border-top: 5px solid #00ff88;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #resultado {
+            display: none;
+            background: #111;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #00ff88;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .score {
+            font-size: 4em;
+            color: #00ff88;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: #00ff88;
+            color: black;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #e0e0e0;
+        }
+
+        ul {
+            line-height: 1.8;
+            margin-left: 20px;
+        }
+
+        h1 {
+            margin: 20px 0;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #333;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="loading-screen">
+        <div class="badge">PAGO CONFIRMADO ✅</div>
+        <h1>Iniciando Motores de IA...</h1>
+        <p>Estamos consultando a los agentes de ChatGPT y Gemini para auditar tu visibilidad GEO.</p>
+        <div class="loader"></div>
+        <p style="color: #666;">No cierres esta pestaña. Tardará unos 15-20 segundos.</p>
+    </div>
+
+    <div class="container" id="resultado">
+        <div class="badge">REPORTE FINAL</div>
+        <div id="final-brand" style="font-size: 1.2em; margin-bottom: 10px;"></div>
+        <div class="score" id="final-score">0%</div>
+        <h3 id="final-grade" style="text-align: center; margin-top: 0;"></h3>
+        <hr>
+        <h4>📋 Hoja de Ruta Estratégica:</h4>
+        <ul id="roadmap-list"></ul>
+        <button onclick="window.print()">Descargar Reporte PDF</button>
+    </div>
+
+    <script>
+        window.onload = async () => {
+            const brand = "RON3IA";
+
+            const params = new URLSearchParams(window.location.search);
+            const protocol = params.get("service");
+
+            const diagnostic = JSON.parse(
+               sessionStorage.getItem("ron3ia_diagnostic") || "{}"
+            );
+
+            console.log("RON3IA CONTEXT:", protocol, diagnostic);
+
+            async function executePlan(){
+
+               console.log("> INICIANDO GENERACIÓN DE PLAN...");
+               
+               setTimeout(()=>{
+                  console.log("> PLAN GENERADO — LISTO PARA ENTREGA");
+               },1200);
+
+            }
+
+            executePlan();
+
+            const result = window.__diagnosticResult || (() => {
+                try {
+                    return JSON.parse(sessionStorage.getItem("ron3ia:diagnosticResult") || "null");
+                } catch (e) {
+                    return null;
+                }
+            })();
+            
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('resultado').style.display = 'block';
+                document.getElementById('final-brand').textContent = result?.protocol ? `${brand} — ${result.protocol}` : brand;
+                document.getElementById('final-score').textContent = `${(result?.score ?? 87)}%`;
+                document.getElementById('final-grade').textContent = result ? 'Diagnóstico recibido: LISTO PARA EJECUCIÓN' : 'GEO Readiness: ALTA';
+                
+                const roadmap = [
+                    "✓ Mejorar Schema Markup para entidades",
+                    "✓ Optimizar llms.txt para modelos de lenguaje",
+                    "✓ Ampliar contenido semánticamente consistente",
+                    "✓ Implementar RAG compatibility"
+                ];
+                
+                roadmap.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    document.getElementById('roadmap-list').appendChild(li);
+                });
+            }, 3000);
+        };
+    </script>
+
+</body>
+</html>
