@@ -1,71 +1,275 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- SEO Técnico B2B SaaS -->
-    <title>RON3IA — Sistema Autónomo de Diagnóstico Digital y Optimización Estratégica</title>
-    <meta name="description" content="RON3IA analiza tu ecosistema digital, detecta pérdidas ocultas y entrega planes accionables basados en inteligencia estratégica." />
-    <meta name="keywords" content="auditoría digital automatizada, análisis SEO profesional, optimización CRO, diagnóstico digital empresas, inteligencia estratégica digital" />
-    <meta name="author" content="RON3IA" />
-    <meta name="robots" content="index, follow" />
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="RON3IA — Sistema Autónomo de Diagnóstico Digital" />
-    <meta property="og:description" content="Detecta pérdidas, optimiza conversiones y ejecuta decisiones estratégicas." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ron3ia.com" />
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="RON3IA — Sistema Autónomo de Diagnóstico Digital" />
-    <meta name="twitter:description" content="Detecta pérdidas, optimiza conversiones y ejecuta decisiones estratégicas." />
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◼</text></svg>" />
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Schema JSON-LD -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "name": "RON3IA",
-          "url": "https://ron3ia.com",
-          "logo": "https://ron3ia.com/logo.svg",
-          "description": "Sistema Autónomo de Diagnóstico Digital y Optimización Estratégica",
-          "sameAs": []
-        },
-        {
-          "@type": "SoftwareApplication",
-          "name": "RON3IA",
-          "applicationCategory": "BusinessApplication",
-          "operatingSystem": "Web",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-          },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "ratingCount": "127"
-          },
-          "description": "Sistema autónomo que analiza ecosistemas digitales, detecta pérdidas ocultas y entrega planes accionables basados en inteligencia estratégica."
-        }
-      ]
-    }
-    </script>
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RON3IA | Consola Privada</title>
+    <!-- Frameworks vía CDN para evitar errores de compilación en Netlify -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ffffff; color: #1e293b; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Bloqueo visual del dashboard */
+        .bloqueado { filter: grayscale(100%) opacity(0.3); pointer-events: none; user-select: none; transition: all 1s ease; }
+    </style>
+</head>
+<body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // --- CLAVES DE SEGURIDAD ---
+        const CLAVE_ACCESO = "admin123"; 
+        const CLAVE_ACTIVACION = "privado99"; 
+        const API_KEY = ""; // El entorno inyecta la clave automáticamente
+        const MODELO_IA = "gemini-2.5-flash-preview-09-2025";
+
+        const App = () => {
+            const [isLogged, setIsLogged] = useState(false);
+            const [isActivated, setIsActivated] = useState(false);
+            const [pass1, setPass1] = useState('');
+            const [pass2, setPass2] = useState('');
+            const [loginError, setLoginError] = useState(false);
+
+            const [tab, setTab] = useState('DASHBOARD');
+            const [agente, setAgente] = useState('ESTRATEGA');
+            const [contenido, setContenido] = useState('');
+            const [cargando, setCargando] = useState(false);
+            const [resultado, setResultado] = useState(null);
+
+            const agentes = {
+                ESTRATEGA: { n: "Estratega ROI", p: "Enfoque en rentabilidad y captación de clientes." },
+                TECNICO: { n: "Auditor Técnico", p: "Análisis de seguridad y scripts PowerShell." },
+                SOCIAL: { n: "Generador Social", p: "Guiones para HeyGen y campañas virales." },
+                OUTREACH: { n: "Agente Outreach", p: "Flujos de WhatsApp y voz clonada." }
+            };
+
+            const entrarPaso1 = (e) => {
+                e.preventDefault();
+                if (pass1 === CLAVE_ACCESO) { setIsLogged(true); setLoginError(false); }
+                else { setLoginError(true); setPass1(''); }
+            };
+
+            const activarPaso2 = (e) => {
+                e.preventDefault();
+                if (pass2 === CLAVE_ACTIVACION) { setIsActivated(true); setPass2(''); }
+                else { setPass2(''); }
+            };
+
+            const procesarIA = async () => {
+                if (!contenido.trim() || !isActivated) return;
+                setCargando(true);
+                const promptFinal = `${agentes[agente].p} Responde en español de forma técnica. JSON con campos: resumen, riesgos, mejoras.`;
+
+                try {
+                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODELO_IA}:generateContent?key=${API_KEY}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: contenido }] }],
+                            systemInstruction: { parts: [{ text: promptFinal }] },
+                            generationConfig: { responseMimeType: "application/json" }
+                        })
+                    });
+                    const data = await res.json();
+                    setResultado(JSON.parse(data.candidates[0].content.parts[0].text));
+                } catch (err) {
+                    setResultado({ resumen: "Error de conexión.", riesgos: "Nodo offline.", mejoras: "Reintentar." });
+                } finally { setCargando(false); }
+            };
+
+            // PANTALLA 1: ACCESO INICIAL
+            if (!isLogged) {
+                return (
+                    <div className="min-h-screen flex items-center justify-center bg-white p-6">
+                        <form onSubmit={entrarPaso1} className="w-full max-w-sm space-y-8 text-center fade-in">
+                            <h1 className="text-2xl font-black uppercase italic tracking-tighter">RON3IA / ENTRADA</h1>
+                            <input 
+                                type="password" 
+                                placeholder="PASS_NODO_01" 
+                                value={pass1} 
+                                onChange={e => setPass1(e.target.value)}
+                                className={`w-full p-4 text-center border-b-2 outline-none font-mono ${loginError ? 'border-red-500' : 'border-slate-100 focus:border-black'}`} 
+                            />
+                            <button className="w-full bg-black text-white py-4 text-[10px] font-black uppercase tracking-widest rounded shadow-xl hover:bg-slate-800 transition-all">Autenticar</button>
+                        </form>
+                    </div>
+                );
+            }
+
+            // PANTALLA 2: CONSOLA PRINCIPAL
+            return (
+                <div className="min-h-screen bg-white p-4 md:p-8 flex flex-col items-center">
+                    
+                    {/* CONTENIDO BLOQUEABLE */}
+                    <div className={`w-full max-w-6xl space-y-10 transition-all duration-1000 ${!isActivated ? 'bloqueado' : ''}`}>
+                        
+                        {/* Estado Superior */}
+                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                            {['IA_NUCLEO', 'CLAY_SYNC', 'HEYGEN_API', 'WHATSAPP', 'ronrodrigo3.com'].map((n, i) => (
+                                <div key={i} className="p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                                    <div className="text-[8px] text-slate-400 font-bold uppercase mb-1 tracking-tighter">{n}</div>
+                                    <div className="flex items-center gap-2 text-[10px] font-bold">
+                                        <div className={`w-1.5 h-1.5 rounded-full ${isActivated ? 'bg-blue-600 animate-pulse' : 'bg-slate-300'}`}></div>
+                                        {isActivated ? 'ONLINE' : 'LOCK'}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Cabecera */}
+                        <header className="border-b border-slate-100 pb-6 flex flex-col md:flex-row justify-between items-end gap-6">
+                            <div className="space-y-4">
+                                <h1 className="text-xl font-black italic uppercase tracking-tighter">Consola de Mando</h1>
+                                <div className="flex flex-wrap gap-2">
+                                    {['DASHBOARD', 'CLAY', 'CLIENTES', 'FINANZAS'].map(t => (
+                                        <button 
+                                            key={t} 
+                                            onClick={() => setTab(t)} 
+                                            className={`px-4 py-1.5 text-[9px] font-bold uppercase border rounded transition-all ${tab === t ? 'bg-black text-white shadow-lg' : 'text-slate-400 border-slate-100 hover:border-slate-300'}`}
+                                        >
+                                            {t}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="bg-slate-50 p-1.5 rounded-lg flex flex-wrap gap-1">
+                                {Object.keys(agentes).map(k => (
+                                    <button 
+                                        key={k} 
+                                        onClick={() => setAgente(k)} 
+                                        className={`px-3 py-1.5 text-[8px] font-bold uppercase rounded transition-all ${agente === k ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                                    >
+                                        {agentes[k].n}
+                                    </button>
+                                ))}
+                            </div>
+                        </header>
+
+                        {/* Área Principal de Trabajo */}
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                            
+                            {/* Editor e IA */}
+                            <div className="lg:col-span-8 space-y-6">
+                                <div className="bg-white border border-slate-200 rounded-3xl shadow-sm flex flex-col min-h-[400px]">
+                                    <div className="bg-slate-50 px-6 py-3 border-b border-slate-200 text-[9px] font-mono text-slate-400 flex justify-between rounded-t-3xl">
+                                        <span>Terminal // {tab}</span>
+                                        <span>Agente: {agente}</span>
+                                    </div>
+                                    <textarea 
+                                        className="w-full flex-grow p-8 outline-none text-sm font-mono text-slate-700 resize-none bg-transparent"
+                                        placeholder="Ingresa texto, código o reportes para análisis de IA..." 
+                                        value={contenido} 
+                                        onChange={e => setContenido(e.target.value)} 
+                                    />
+                                    <div className="p-4 border-t border-slate-100 flex justify-between px-6 bg-white rounded-b-3xl">
+                                        <button onClick={() => setContenido('')} className="text-[10px] font-bold text-slate-300 hover:text-red-500 uppercase">Wipe</button>
+                                        <button 
+                                            onClick={procesarIA} 
+                                            disabled={cargando} 
+                                            className="px-10 py-3 bg-black text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-blue-600 transition-all disabled:opacity-50"
+                                        >
+                                            {cargando ? "Procesando..." : "Ejecutar Acción"}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Resultados de IA */}
+                                {resultado && (
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 fade-in">
+                                        <div className="p-5 border border-slate-100 rounded-2xl bg-slate-50">
+                                            <div className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Resumen</div>
+                                            <p className="text-xs text-slate-600 leading-relaxed font-medium">{resultado.resumen}</p>
+                                        </div>
+                                        <div className="p-5 border-l-4 border-red-500 bg-white border border-slate-100 shadow-sm rounded-2xl">
+                                            <div className="text-[9px] font-bold text-red-500 uppercase tracking-widest mb-2">Riesgos</div>
+                                            <p className="text-xs text-slate-600 leading-relaxed font-medium">{resultado.riesgos}</p>
+                                        </div>
+                                        <div className="p-5 border-l-4 border-blue-500 bg-white border border-slate-100 shadow-sm rounded-2xl">
+                                            <div className="text-[9px] font-bold text-blue-500 uppercase tracking-widest mb-2">Optimizaciones</div>
+                                            <p className="text-xs text-slate-600 leading-relaxed font-medium">{resultado.mejoras}</p>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Panel Lateral Sidebar */}
+                            <div className="lg:col-span-4 space-y-6">
+                                <div className="bg-black p-8 rounded-3xl text-white shadow-xl">
+                                    <h3 className="text-[10px] font-black uppercase tracking-widest mb-6 text-blue-400">Automatización</h3>
+                                    <div className="space-y-5 opacity-80">
+                                        {[
+                                            { lbl: 'Scraping', p: 100 },
+                                            { lbl: 'Claygent Data', p: 45 },
+                                            { lbl: 'IA Video', p: 0 }
+                                        ].map((item, i) => (
+                                            <div key={i} className="space-y-2">
+                                                <div className="flex justify-between text-[9px] font-bold uppercase tracking-tighter">
+                                                    <span>{item.lbl}</span>
+                                                    <span>{item.p}%</span>
+                                                </div>
+                                                <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+                                                    <div className="h-full bg-blue-500" style={{ width: `${item.p}%` }}></div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="border border-slate-100 p-8 rounded-3xl text-center bg-white">
+                                    <div className="text-[9px] font-bold text-slate-300 uppercase tracking-widest mb-2">ROI Agencia</div>
+                                    <div className="text-2xl font-black text-slate-900 tracking-tighter">$2,400 <span className="text-xs font-normal text-slate-400">USD</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* CONTROLES INFERIORES (SIEMPRE ACTIVOS) */}
+                    <div className="w-full max-w-6xl mt-auto pt-10 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div className="text-center md:text-left">
+                            <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">ronrodrigo3.com // Sistema Privado</span>
+                        </div>
+
+                        {/* Puerta 2 (Activación) o Botón de Salida */}
+                        {!isActivated ? (
+                            <form onSubmit={activarPaso2} className="flex gap-2">
+                                <input 
+                                    type="password" 
+                                    placeholder="AUTORIZAR_NODO" 
+                                    value={pass2} 
+                                    onChange={e => setPass2(e.target.value)}
+                                    className="bg-slate-50 border border-slate-100 px-6 py-2.5 text-[10px] font-mono outline-none rounded-lg focus:border-slate-300" 
+                                />
+                                <button type="submit" className="bg-black text-white px-6 py-2.5 text-[10px] font-black uppercase rounded-lg hover:bg-slate-800 transition-all">Activar</button>
+                            </form>
+                        ) : (
+                            <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-2 text-blue-600">
+                                    <div className="w-2 h-2 bg-blue-600 rounded-full animate-ping"></div>
+                                    <span className="text-[10px] font-black uppercase tracking-widest">Nodo Operativo</span>
+                                </div>
+                                <button 
+                                    onClick={() => { setIsActivated(false); setIsLogged(false); setContenido(''); setResultado(null); }} 
+                                    className="ml-4 text-[10px] font-bold text-slate-400 hover:text-red-500 uppercase border-l border-slate-200 pl-4 transition-colors"
+                                >
+                                    Cerrar Sesión
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                    
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
 </html>
